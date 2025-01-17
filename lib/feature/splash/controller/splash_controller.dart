@@ -19,7 +19,6 @@ class SplashController extends GetxController {
 
   void checkUser() async {
     User? currentUser = _auth.currentUser;
-
     if (currentUser != null) {
       Get.offAllNamed(Approute.subcription);
     } else {
