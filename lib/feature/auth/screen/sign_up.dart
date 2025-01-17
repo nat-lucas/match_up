@@ -10,11 +10,14 @@ import 'package:match_up/core/route/route.dart';
 import 'package:match_up/core/utils/color.dart';
 import 'package:match_up/core/validator/validator.dart';
 
+import '../controller/auth_controller.dart';
+
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final authcontroller = Get.find<AuthController>();
     final fromkey = GlobalKey<FormState>();
     return Scaffold(
       body: Form(
@@ -60,31 +63,44 @@ class SignUp extends StatelessWidget {
                       SizedBox(
                         height: 15.h,
                       ),
-                      CustomTextFeild(
+                      Obx(() => CustomTextFeild(
                           suffix: IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.visibility_off_sharp,
-                                color: AppColor.greyWhite,
-                              )),
-                          obsecure: true,
+                              onPressed: () {
+                                authcontroller.changeVisible();
+                              },
+                              icon: authcontroller.visible.value
+                                  ? Icon(
+                                      Icons.visibility_off_sharp,
+                                      color: AppColor.greyWhite,
+                                    )
+                                  : Icon(
+                                      Icons.visibility_rounded,
+                                      color: AppColor.greyWhite,
+                                    )),
+                          obsecure: authcontroller.visible.value,
                           validator: validatePassword,
                           hint: "Enter your password",
-                          tittle: "Password"),
+                          tittle: "Password")),
                       SizedBox(
                         height: 10.r,
                       ),
-                      CustomTextFeild(
-                          obsecure: true,
-                          validator: validatePassword,
+                      Obx(() => CustomTextFeild(
+                          obsecure: authcontroller.visible.value,
                           hint: "Enter your password",
                           suffix: IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.visibility_off_sharp,
-                                color: AppColor.greyWhite,
-                              )),
-                          tittle: "Confirm Password"),
+                              onPressed: () {
+                                authcontroller.changeVisible();
+                              },
+                              icon: authcontroller.visible.value
+                                  ? Icon(
+                                      Icons.visibility_off_sharp,
+                                      color: AppColor.greyWhite,
+                                    )
+                                  : Icon(
+                                      Icons.visibility_rounded,
+                                      color: AppColor.greyWhite,
+                                    )),
+                          tittle: "Confirm Password")),
                       SizedBox(
                         height: 20.h,
                       ),
@@ -118,7 +134,7 @@ class SignUp extends StatelessWidget {
                             color: AppColor.primaryColor),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Get.offNamed(Approute.singup);
+                            Get.offNamed(Approute.login);
                           },
                       )
                     ])),
