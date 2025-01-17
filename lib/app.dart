@@ -20,7 +20,10 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               useMaterial3: true,
-              scaffoldBackgroundColor: AppColor.white
+              scaffoldBackgroundColor: AppColor.white,
+              appBarTheme: AppBarTheme(
+                backgroundColor: Colors.white
+              )
             ),
             initialRoute: Approute.splash,
             getPages: Approute.page,

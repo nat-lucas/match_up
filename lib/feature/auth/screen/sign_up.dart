@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:match_up/core/global/custom_button.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
 import 'package:match_up/core/global/custom_textfeild.dart';
+import 'package:match_up/core/global/loading.dart';
 import 'package:match_up/core/route/route.dart';
 import 'package:match_up/core/utils/color.dart';
 import 'package:match_up/core/validator/validator.dart';
@@ -55,6 +56,7 @@ class SignUp extends StatelessWidget {
                   Column(
                     children: [
                       CustomTextFeild(
+                          controller: authcontroller.semail,
                           validator: validateEmail,
                           hint: "Enter your email address",
                           tittle: "Email Address"),
@@ -77,12 +79,14 @@ class SignUp extends StatelessWidget {
                                     )),
                           obsecure: authcontroller.visible.value,
                           validator: validatePassword,
+                          controller: authcontroller.spassword,
                           hint: "Enter your password",
                           tittle: "Password")),
                       SizedBox(
                         height: 10.r,
                       ),
                       Obx(() => CustomTextFeild(
+                          controller: authcontroller.cofirmpassword,
                           validator: (value) {
                             if (value != authcontroller.spassword.text) {
                               return 'Passwords do not match';
@@ -108,12 +112,18 @@ class SignUp extends StatelessWidget {
                       SizedBox(
                         height: 20.h,
                       ),
-                      CustomButton(
-                        text: "Sign Up",
-                        ontap: () {
-                          if (fromkey.currentState!.validate()) {}
-                        },
-                      )
+                      Obx(() => authcontroller.isLoading.value
+                          ? LoadingWidget(
+                              color: AppColor.primaryColor,
+                            )
+                          : CustomButton(
+                              text: "Sign Up",
+                              ontap: () {
+                                if (fromkey.currentState!.validate()) {
+                                  authcontroller.signUpWithEmailAndPassword();
+                                }
+                              },
+                            ))
                     ],
                   ),
                   SizedBox(),

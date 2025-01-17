@@ -84,22 +84,29 @@ class Login extends StatelessWidget {
                       ),
                       Align(
                         alignment: Alignment.centerRight,
-                        child: CustomTextPopins(
-                          text: "Forgot Password",
-                          fontWeight: FontWeight.w400,
-                          size: 14.sp,
-                          color: AppColor.primaryColor,
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.toNamed(Approute.forgot);
+                          },
+                          child: CustomTextPopins(
+                            text: "Forgot Password",
+                            fontWeight: FontWeight.w400,
+                            size: 14.sp,
+                            color: AppColor.primaryColor,
+                          ),
                         ),
                       ),
                       SizedBox(
                         height: 20.h,
                       ),
-                      CustomButton(
-                        text: "Sign in",
-                        ontap: () {
-                          if (fromkey.currentState!.validate()) {}
-                        },
-                      )
+                      Obx(() => CustomButton(
+                            text: "Sign in",
+                            ontap: () {
+                              if (fromkey.currentState!.validate()) {
+                                authcontroller.login();
+                              }
+                            },
+                          ))
                     ],
                   ),
                   SizedBox(),
