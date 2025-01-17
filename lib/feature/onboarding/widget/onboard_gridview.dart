@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:match_up/core/utils/image.dart';
-import 'package:match_up/feature/onboarding/widget/image_card.dart';
 
 class OnboardGridview extends StatelessWidget {
   const OnboardGridview({super.key});
@@ -20,13 +20,18 @@ class OnboardGridview extends StatelessWidget {
       crossAxisSpacing: 10,
       mainAxisSpacing: 10,
       primary: false,
-      
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
       ),
       itemBuilder: (context, index) {
-        return ImageCard(image: image[index]);
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5.r, vertical: 5.r),
+          child: Image.asset(
+            image[index],
+            fit: BoxFit.contain,
+          ),
+        );
       },
     );
   }
