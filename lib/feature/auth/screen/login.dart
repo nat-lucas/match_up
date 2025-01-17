@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:match_up/core/global/custom_button.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
 import 'package:match_up/core/global/custom_textfeild.dart';
+import 'package:match_up/core/global/loading.dart';
 import 'package:match_up/core/route/route.dart';
 import 'package:match_up/core/utils/color.dart';
 import 'package:match_up/core/validator/validator.dart';
@@ -55,6 +56,7 @@ class Login extends StatelessWidget {
                   Column(
                     children: [
                       CustomTextFeild(
+                          controller: authcontroller.lemail,
                           validator: validateEmail,
                           hint: "Enter your email address",
                           tittle: "Email Address"),
@@ -62,6 +64,7 @@ class Login extends StatelessWidget {
                         height: 15.h,
                       ),
                       Obx(() => CustomTextFeild(
+                          controller: authcontroller.lpassword,
                           suffix: IconButton(
                               onPressed: () {
                                 authcontroller.changeVisible();
@@ -99,14 +102,18 @@ class Login extends StatelessWidget {
                       SizedBox(
                         height: 20.h,
                       ),
-                      Obx(() => CustomButton(
-                            text: "Sign in",
-                            ontap: () {
-                              if (fromkey.currentState!.validate()) {
-                                authcontroller.login();
-                              }
-                            },
-                          ))
+                      Obx(() => authcontroller.isLoading.value
+                          ? LoadingWidget(
+                              color: AppColor.primaryColor,
+                            )
+                          : CustomButton(
+                              text: "Sign in",
+                              ontap: () {
+                                if (fromkey.currentState!.validate()) {
+                                  authcontroller.login();
+                                }
+                              },
+                            ))
                     ],
                   ),
                   SizedBox(),

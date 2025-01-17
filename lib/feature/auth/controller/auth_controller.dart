@@ -27,15 +27,14 @@ class AuthController extends GetxController {
         email: semail.text,
         password: spassword.text,
       );
-      await _firestore.collection('user').doc(userCredential.user!.uid).set({
+      await _firestore.collection('user').doc(userCredential.user?.uid).set({
         "email": semail.text,
         "password": cofirmpassword.text,
         "member": false
       });
-
+      Get.offNamed(Approute.subcription);
       Get.snackbar("Success", "Account created successfully!",
           snackPosition: SnackPosition.BOTTOM);
-      Get.offNamed(Approute.login);
     } catch (e) {
       isLoading.value = false;
       debugPrint("===========>>$e");
