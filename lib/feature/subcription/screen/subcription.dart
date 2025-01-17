@@ -13,7 +13,7 @@ class Subcription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SubscriptionController controller =
+    final SubscriptionController subcriptionController =
         Get.find<SubscriptionController>();
 
     return Scaffold(
@@ -46,20 +46,28 @@ class Subcription extends StatelessWidget {
                   ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: controller.plan.length,
+                    itemCount: subcriptionController.plan.length,
                     itemBuilder: (context, index) {
                       return PlanCard(
-                        title: controller.plan[index]['name'],
-                        subtitle: controller.plan[index]['sub'],
-                        isvale: controller.selectedPlan == index,
-                        ontap: () => controller.selectPlan(index),
+                        title: subcriptionController.plan[index]['name'],
+                        subtitle: subcriptionController.plan[index]['sub'],
+                        isvale: subcriptionController.selectedPlan == index,
+                        ontap: () => subcriptionController.selectPlan(index),
                       );
                     },
                   ),
                   SizedBox(
                     height: MediaQuery.sizeOf(context).height * 0.32,
                   ),
-                  CustomButton(text: controller.buttonText.value)
+                  CustomButton(
+                    text: subcriptionController.buttonText.value,
+                    ontap: () {
+                      debugPrint("===========>>>${subcriptionController.selectedPlan}");
+                      if (subcriptionController.selectedPlan == 1) {
+                        subcriptionController.makePayment(0.99);
+                      }
+                    },
+                  )
                 ],
               ),
             ),
