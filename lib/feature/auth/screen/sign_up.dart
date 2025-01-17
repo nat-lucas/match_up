@@ -9,12 +9,10 @@ import 'package:match_up/core/global/custom_textfeild.dart';
 import 'package:match_up/core/route/route.dart';
 import 'package:match_up/core/utils/color.dart';
 import 'package:match_up/core/validator/validator.dart';
-
 import '../controller/auth_controller.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
-
   @override
   Widget build(BuildContext context) {
     final authcontroller = Get.find<AuthController>();
@@ -85,6 +83,12 @@ class SignUp extends StatelessWidget {
                         height: 10.r,
                       ),
                       Obx(() => CustomTextFeild(
+                          validator: (value) {
+                            if (value != authcontroller.spassword.text) {
+                              return 'Passwords do not match';
+                            }
+                            return null;
+                          },
                           obsecure: authcontroller.visible.value,
                           hint: "Enter your password",
                           suffix: IconButton(
