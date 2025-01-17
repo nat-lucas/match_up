@@ -10,8 +10,8 @@ import 'package:match_up/core/route/route.dart';
 import 'package:match_up/core/utils/color.dart';
 import 'package:match_up/core/validator/validator.dart';
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+class SignUp extends StatelessWidget {
+  const SignUp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class Login extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomTextPopins(
-                        text: "Sign in",
+                        text: "Create Account",
                         fontWeight: FontWeight.w600,
                         size: 24.sp,
                         color: AppColor.blackborder,
@@ -43,7 +43,8 @@ class Login extends StatelessWidget {
                         height: 5.h,
                       ),
                       CustomTextPopins(
-                        text: "Welcome back, you’ve been missed",
+                        text:
+                            "Fill your information below or register\nwith your social account",
                         fontWeight: FontWeight.w400,
                         size: 14.sp,
                         color: AppColor.blackborder,
@@ -60,9 +61,12 @@ class Login extends StatelessWidget {
                         height: 15.h,
                       ),
                       CustomTextFeild(
-                         suffix: IconButton(onPressed: () {
-                            
-                          }, icon: Icon(Icons.visibility_off_sharp,color: AppColor.greyWhite,)),
+                          suffix: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.visibility_off_sharp,
+                                color: AppColor.greyWhite,
+                              )),
                           obsecure: true,
                           validator: validatePassword,
                           hint: "Enter your password",
@@ -70,20 +74,22 @@ class Login extends StatelessWidget {
                       SizedBox(
                         height: 10.r,
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: CustomTextPopins(
-                          text: "Forgot Password",
-                          fontWeight: FontWeight.w400,
-                          size: 14.sp,
-                          color: AppColor.primaryColor,
-                        ),
-                      ),
+                      CustomTextFeild(
+                          obsecure: true,
+                          validator: validatePassword,
+                          hint: "Enter your password",
+                          suffix: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.visibility_off_sharp,
+                                color: AppColor.greyWhite,
+                              )),
+                          tittle: "Confirm Password"),
                       SizedBox(
                         height: 20.h,
                       ),
                       CustomButton(
-                        text: "Sign in",
+                        text: "Sign Up",
                         ontap: () {
                           if (fromkey.currentState!.validate()) {}
                         },
@@ -98,14 +104,14 @@ class Login extends StatelessWidget {
                     child: RichText(
                         text: TextSpan(children: [
                       TextSpan(
-                        text: "Don’t have an account? ",
+                        text: "Already have an account? ",
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                             fontSize: 16.sp,
                             color: AppColor.blackborder),
                       ),
                       TextSpan(
-                        text: "Sing Up ",
+                        text: "Sing in",
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                             fontSize: 16.sp,

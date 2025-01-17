@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/binding/binding.dart';
 import 'package:match_up/core/route/route.dart';
+import 'package:match_up/core/utils/color.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               useMaterial3: true,
+              scaffoldBackgroundColor: AppColor.white
             ),
             initialRoute: Approute.splash,
             getPages: Approute.page,
