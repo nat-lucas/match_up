@@ -77,7 +77,9 @@ class ForgotPassword extends StatelessWidget {
                       CustomButton(
                         text: "Send",
                         ontap: () {
-                          if (fromkey.currentState!.validate()) {}
+                          if (fromkey.currentState!.validate()) {
+                            authcontroller.resetPassword();
+                          }
                         },
                       )
                     ],

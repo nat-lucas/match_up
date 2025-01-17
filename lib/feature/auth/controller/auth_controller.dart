@@ -64,4 +64,16 @@ class AuthController extends GetxController {
       isLoading.value = false;
     }
   }
+
+  Future<void> resetPassword() async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: forgot.text);
+      Get.snackbar("Succesfull", "Reset Password Email send Done");
+      Get.offNamed(Approute.login);
+
+      debugPrint("Password reset email sent.");
+    } catch (e) {
+      debugPrint("Error: $e");
+    }
+  }
 }
