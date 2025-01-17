@@ -62,10 +62,9 @@ class Subcription extends StatelessWidget {
                   CustomButton(
                     text: subcriptionController.buttonText.value,
                     ontap: () {
-                      debugPrint("===========>>>${subcriptionController.selectedPlan}");
                       if (subcriptionController.selectedPlan == 1) {
                         subcriptionController.makePayment(0.99);
-                      }
+                      } else {}
                     },
                   )
                 ],

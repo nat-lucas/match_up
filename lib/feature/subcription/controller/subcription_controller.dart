@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
+import 'package:match_up/core/global/dialog.dart';
 import 'package:match_up/feature/subcription/controller/key.dart';
 
 class SubscriptionController extends GetxController {
@@ -32,8 +33,6 @@ class SubscriptionController extends GetxController {
     },
   ].obs;
 
- 
-
   Future<void> makePayment(double price) async {
     try {
       String? clientSecret = await _createPaymentIntent(price, "usd");
@@ -47,13 +46,13 @@ class SubscriptionController extends GetxController {
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
           paymentIntentClientSecret: clientSecret,
-          merchantDisplayName: "Unforgettable Getaway",
+          merchantDisplayName: "MatchUp",
         ),
       );
 
       await _processPayment();
     } catch (e) {
-      debugPrint("====== CatchError ====== $e");
+      debugPrint("======CatchError====== $e");
     }
   }
 
@@ -61,6 +60,8 @@ class SubscriptionController extends GetxController {
     try {
       await Stripe.instance.presentPaymentSheet();
       debugPrint("Payment successful!");
+       showThanksDialog();
+
     } catch (e) {
       debugPrint("Error in payment processing: $e");
     }
@@ -92,7 +93,7 @@ class SubscriptionController extends GetxController {
       debugPrint("Response Status Code: ${response.statusCode}");
 
       if (response.statusCode == 200 && response.data != null) {
-        debugPrint("Response Data ========>>>: ${response.data}");
+        debugPrint("===\\Response Data ========>>>: ${response.data}");
         return response.data['client_secret'];
       } else {
         debugPrint("Failed to create Payment Intent: ${response.data}");

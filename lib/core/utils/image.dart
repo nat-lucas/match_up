@@ -4,4 +4,5 @@ class ImagePath {
   static const String two = "assets/images/2nd.png";
   static const String three = "assets/images/3rd.png";
   static const String four = "assets/images/4th.png";
+  static const String love = "assets/images/love.png";
 }

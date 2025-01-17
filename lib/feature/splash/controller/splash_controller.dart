@@ -12,14 +12,13 @@ class SplashController extends GetxController {
     Timer(
       Duration(seconds: 3),
       () {
-        Get.offAllNamed(Approute.subcription);
+        Get.offAllNamed(Approute.onboarding);
       },
     );
   }
 
   void checkUser() async {
     User? currentUser = _auth.currentUser;
-    
 
     if (currentUser != null) {
       Get.offAllNamed(Approute.subcription);
