@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/global/custom_button.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
+import 'package:match_up/core/route/route.dart';
 import 'package:match_up/core/utils/color.dart';
 import 'package:match_up/feature/subcription/widget/plan_card.dart';
 
@@ -64,7 +65,9 @@ class Subcription extends StatelessWidget {
                     ontap: () {
                       if (subcriptionController.selectedPlan == 1) {
                         subcriptionController.makePayment(0.99);
-                      } else {}
+                      } else {
+                        Get.toNamed(Approute.chose);
+                      }
                     },
                   )
                 ],
