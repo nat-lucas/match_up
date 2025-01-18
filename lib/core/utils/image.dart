@@ -1,3 +1,4 @@
+
 class ImagePath {
   static const String logo = "assets/images/logo.png";
   static const String one = "assets/images/1st.png";
@@ -19,4 +20,6 @@ class ImagePath {
   static const String shape = "assets/images/shape.png";
   static const String vs = "assets/icons/versus.png";
   static const String team4 = "assets/images/team4.png";
+  static const String basebol = "assets/icons/basebol.png";
+  static const String bol = "assets/icons/bol.png";
 }

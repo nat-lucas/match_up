@@ -26,10 +26,12 @@ class CustomTextPopins extends StatelessWidget {
     return Text(
       
       text,
+      
       overflow: textOverflow,
       maxLines: max,
       textAlign: textAlign,
       style: GoogleFonts.poppins(
+        
         decoration: decoration,
         decorationColor: color,
           color: color, fontSize: size, fontWeight: fontWeight),

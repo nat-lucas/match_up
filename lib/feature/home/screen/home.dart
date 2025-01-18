@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
 import 'package:match_up/core/utils/color.dart';
 import 'package:match_up/core/utils/image.dart';
 import 'package:match_up/feature/home/widget/match_card_today.dart';
 import 'package:match_up/feature/home/widget/match_card_tomorrow.dart';
-import 'package:match_up/feature/home/widget/teram_card.dart';
+import 'package:match_up/feature/home/widget/team_card.dart';
+
+import '../../../core/route/route.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -39,11 +42,16 @@ class Home extends StatelessWidget {
         actions: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.r),
-            child: Image.asset(
-              ImagePath.scoor,
-              fit: BoxFit.contain,
-              height: 32.h,
-              width: 109.w,
+            child: GestureDetector(
+              onTap: () {
+                Get.toNamed(Approute.livescore);
+              },
+              child: Image.asset(
+                ImagePath.scoor,
+                fit: BoxFit.contain,
+                height: 32.h,
+                width: 109.w,
+              ),
             ),
           )
         ],
