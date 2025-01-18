@@ -5,6 +5,8 @@ import 'package:match_up/core/utils/image.dart';
 class SportController extends GetxController {
   var selectedSport = "".obs;
   var selectedimage = "".obs;
+  var allowMultipleSelection = false.obs;
+  var selectedTeamIndices = <int>[].obs;
 
   final List sport = [
     {
@@ -36,7 +38,21 @@ class SportController extends GetxController {
       selectedSport.value = sport[index]["name"];
       selectedimage.value = sport[index]["image"];
     }
-    debugPrint("===========>>>${selectedSport.value}");
-    debugPrint("===========>>>${selectedimage.value}");
+  }
+
+  void toggleTeamSelection(int index) {
+    if (allowMultipleSelection.value) {
+      if (selectedTeamIndices.contains(index)) {
+        selectedTeamIndices.remove(index);
+      } else {
+        selectedTeamIndices.add(index);
+      }
+    } else {
+      if (selectedTeamIndices.contains(index)) {
+        selectedTeamIndices.remove(index);
+      } else if (selectedTeamIndices.length < 2) {
+        selectedTeamIndices.add(index);
+      }
+    }
   }
 }
