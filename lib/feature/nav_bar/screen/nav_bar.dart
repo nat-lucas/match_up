@@ -5,6 +5,7 @@ import 'package:match_up/core/utils/color.dart';
 import 'package:match_up/core/utils/image.dart';
 import 'package:match_up/feature/home/screen/home.dart';
 import 'package:match_up/feature/nav_bar/controller/navcontroller.dart';
+import 'package:match_up/feature/setting/screen/setting.dart';
 import 'package:match_up/feature/spread/screen/spread.dart';
 
 class NavBar extends StatelessWidget {
@@ -22,7 +23,7 @@ class NavBar extends StatelessWidget {
           case 1:
             return Spread();
           case 2:
-            return Center(child: Text("Settings"));
+            return Setting();
           default:
             return Center(child: Text("Home"));
         }
