@@ -9,6 +9,8 @@ class CustomTextFeild extends StatelessWidget {
   final String tittle;
   final Color? fillColor;
   final Widget? suffix;
+  final int? max;
+  final int? min;
   final bool? obsecure;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
@@ -19,7 +21,11 @@ class CustomTextFeild extends StatelessWidget {
       required this.tittle,
       this.obsecure,
       this.validator,
-      this.controller,  this.suffix, this.fillColor});
+      this.controller,
+      this.suffix,
+      this.fillColor,
+      this.max,
+      this.min});
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +50,9 @@ class CustomTextFeild extends StatelessWidget {
           validator: validator,
           obscureText: obsecure ?? false,
           cursorHeight: 20.h,
-          
+          minLines: min,
+          maxLines: max,
           cursorColor: AppColor.blackborder,
-          
           style: GoogleFonts.inter(
               color: AppColor.blackborder,
               fontSize: 16.sp,
@@ -54,7 +60,7 @@ class CustomTextFeild extends StatelessWidget {
           decoration: InputDecoration(
             contentPadding: EdgeInsets.all(12.r),
             filled: true,
-            fillColor: fillColor ??  AppColor.white,
+            fillColor: fillColor ?? AppColor.white,
             hintText: hint,
             errorStyle: GoogleFonts.inter(
                 color: Colors.red[700],
@@ -64,24 +70,27 @@ class CustomTextFeild extends StatelessWidget {
                 color: AppColor.blackborder,
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w400),
-                suffixIcon: suffix,
-                
-
+            suffixIcon: suffix,
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.r),
-                borderSide: const BorderSide(color: AppColor.greyWhite, width: 1)),
+                borderSide:
+                    const BorderSide(color: AppColor.greyWhite, width: 1)),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.r),
-                borderSide: const BorderSide(color: AppColor.greyWhite, width: 1)),
+                borderSide:
+                    const BorderSide(color: AppColor.greyWhite, width: 1)),
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.r),
-                borderSide: const BorderSide(color: AppColor.greyWhite, width: 1)),
+                borderSide:
+                    const BorderSide(color: AppColor.greyWhite, width: 1)),
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.r),
-                borderSide: const BorderSide(color: AppColor.greyWhite, width: 1)),
+                borderSide:
+                    const BorderSide(color: AppColor.greyWhite, width: 1)),
             focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.r),
-                borderSide: const BorderSide(color: AppColor.greyWhite, width: 1)),
+                borderSide:
+                    const BorderSide(color: AppColor.greyWhite, width: 1)),
           ),
         )
       ],

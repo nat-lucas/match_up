@@ -102,14 +102,21 @@ class Setting extends StatelessWidget {
                     tittle: "Legat & Policy",
                     trailing: false),
                 CustomListTile(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(Approute.help);
+                    },
                     image: ImagePath.help,
                     tittle: "Help and Support",
                     trailing: false),
                 SizedBox(
                   height: 20.h,
                 ),
-                CustomButton(text: "Contact Us")
+                CustomButton(
+                  text: "Contact Us",
+                  ontap: () {
+                    Get.toNamed(Approute.contactUs);
+                  },
+                )
               ],
             ),
           ),
