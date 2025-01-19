@@ -22,7 +22,6 @@ class CustomExpansionTileText extends StatelessWidget {
 
     return Obx(() {
       bool isExpanded = controller.expandedIndex.value == index;
-
       return ExpansionTile(
         collapsedShape: const RoundedRectangleBorder(),
         shape: const RoundedRectangleBorder(),

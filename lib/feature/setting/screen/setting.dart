@@ -97,7 +97,9 @@ class Setting extends StatelessWidget {
                     tittle: "Payment",
                     trailing: false),
                 CustomListTile(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(Approute.policies);
+                    },
                     image: ImagePath.polyci,
                     tittle: "Legat & Policy",
                     trailing: false),

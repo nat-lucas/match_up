@@ -11,6 +11,7 @@ import 'package:match_up/feature/setting/screen/contact_us.dart';
 import 'package:match_up/feature/setting/screen/edit_team.dart';
 import 'package:match_up/feature/setting/screen/help_and_support.dart';
 import 'package:match_up/feature/setting/screen/personal_info.dart';
+import 'package:match_up/feature/setting/screen/polici.dart';
 import 'package:match_up/feature/splash/screen/splash.dart';
 import 'package:match_up/feature/subcription/screen/subcription.dart';
 
@@ -29,7 +30,9 @@ class Approute {
   static const String editTeam = '/editTeam';
   static const String contactUs = '/contactUs';
   static const String help = '/help';
+  static const String policies = '/policies';
   static final List<GetPage> page = [
+    GetPage(name: policies, page: () => Policies()),
     GetPage(name: help, page: () => HelpAndSupport()),
     GetPage(name: contactUs, page: () => ContactUs()),
     GetPage(name: personalinfo, page: () => PersonalInfo()),
