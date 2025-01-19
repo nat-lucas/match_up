@@ -46,14 +46,12 @@ class Setting extends StatelessWidget {
                     size: 18.sp,
                     color: AppColor.blackborder,
                   ),
-                  subtitle: Expanded(
-                    child: CustomTextPopins(
-                      textOverflow: TextOverflow.ellipsis,
-                      text: "phorent@gmail.com",
-                      fontWeight: FontWeight.w400,
-                      size: 14.sp,
-                      color: Color(0xff8E8E8E),
-                    ),
+                  subtitle: CustomTextPopins(
+                    textOverflow: TextOverflow.ellipsis,
+                    text: "phorent@gmail.com",
+                    fontWeight: FontWeight.w400,
+                    size: 14.sp,
+                    color: Color(0xff8E8E8E),
                   ),
                   trailing: IconButton(
                     onPressed: () {

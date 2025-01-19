@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/route/route.dart';
 
@@ -12,7 +13,7 @@ class SplashController extends GetxController {
     Timer(
       Duration(seconds: 3),
       () {
-        Get.offAllNamed(Approute.subcription);
+        checkUser();
       },
     );
   }
@@ -20,8 +21,13 @@ class SplashController extends GetxController {
   void checkUser() async {
     User? currentUser = _auth.currentUser;
     if (currentUser != null) {
-      Get.offAllNamed(Approute.subcription);
+      debugPrint("======User is logged in.");
+      debugPrint('User ID: ${currentUser.uid}');
+      debugPrint('User Email: ${currentUser.email}');
+      debugPrint('User Name: ${currentUser.displayName}');
+      Get.offAllNamed(Approute.navbar);
     } else {
+      debugPrint("User is not logged in.");
       Get.offAllNamed(Approute.onboarding);
     }
   }
