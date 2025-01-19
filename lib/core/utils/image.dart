@@ -21,6 +21,11 @@ class ImagePath {
   static const String team4 = "assets/images/team4.png";
   static const String basebol = "assets/icons/basebol.png";
   static const String bol = "assets/icons/bol.png";
-  static const profile = "assets/images/profile.png";
-  
+  static const String profile = "assets/images/profile.png";
+  static const String edit = "assets/images/edit.png";
+  static const String team = "assets/images/team.png";
+  static const String live = "assets/images/live.png";
+  static const String payment = "assets/images/payment.png";
+  static const String polyci = "assets/images/polyci.png";
+  static const String help = "assets/images/help.png";
 }

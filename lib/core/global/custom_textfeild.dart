@@ -7,6 +7,7 @@ import 'package:match_up/core/utils/color.dart';
 class CustomTextFeild extends StatelessWidget {
   final String hint;
   final String tittle;
+  final Color? fillColor;
   final Widget? suffix;
   final bool? obsecure;
   final TextEditingController? controller;
@@ -18,7 +19,7 @@ class CustomTextFeild extends StatelessWidget {
       required this.tittle,
       this.obsecure,
       this.validator,
-      this.controller,  this.suffix});
+      this.controller,  this.suffix, this.fillColor});
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +46,15 @@ class CustomTextFeild extends StatelessWidget {
           cursorHeight: 20.h,
           
           cursorColor: AppColor.blackborder,
+          
           style: GoogleFonts.inter(
               color: AppColor.blackborder,
               fontSize: 16.sp,
               fontWeight: FontWeight.w500),
           decoration: InputDecoration(
             contentPadding: EdgeInsets.all(12.r),
-            filled: false,
+            filled: true,
+            fillColor: fillColor ??  AppColor.white,
             hintText: hint,
             errorStyle: GoogleFonts.inter(
                 color: Colors.red[700],

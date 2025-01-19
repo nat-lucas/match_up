@@ -7,6 +7,8 @@ import 'package:match_up/feature/nav_bar/screen/nav_bar.dart';
 import 'package:match_up/feature/onboarding/screen/onboarding.dart';
 import 'package:match_up/feature/select_sport/screen/choose_sport.dart';
 import 'package:match_up/feature/select_sport/screen/select_team.dart';
+import 'package:match_up/feature/setting/screen/edit_team.dart';
+import 'package:match_up/feature/setting/screen/personal_info.dart';
 import 'package:match_up/feature/splash/screen/splash.dart';
 import 'package:match_up/feature/subcription/screen/subcription.dart';
 
@@ -21,7 +23,10 @@ class Approute {
   static const String selectTeam = '/selectTeam';
   static const String navbar = '/navbar';
   static const String livescore = '/livescore';
+  static const String personalinfo = '/personalinfo';
+  static const String editTeam = '/editTeam';
   static final List<GetPage> page = [
+    GetPage(name: personalinfo, page: () => PersonalInfo()),
     GetPage(name: navbar, page: () => NavBar()),
     GetPage(name: selectTeam, page: () => SelectTeam()),
     GetPage(name: splash, page: () => Splash()),
@@ -32,5 +37,6 @@ class Approute {
     GetPage(name: subcription, page: () => Subcription()),
     GetPage(name: chose, page: () => ChooseSport()),
     GetPage(name: livescore, page: () => LiveSport()),
+    GetPage(name: editTeam, page: () => EditTeam())
   ];
 }
