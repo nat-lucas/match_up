@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:match_up/core/route/route.dart';
 import 'package:match_up/core/utils/color.dart';
 import 'package:match_up/core/utils/image.dart';
 
@@ -40,6 +41,7 @@ void showThanksDialog() {
         ElevatedButton(
           onPressed: () {
             Get.back();
+            Get.offAllNamed(Approute.chose);
           },
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
@@ -60,6 +62,6 @@ void showThanksDialog() {
         ),
       ],
     ),
-    barrierDismissible: true,
+    barrierDismissible: false,
   );
 }

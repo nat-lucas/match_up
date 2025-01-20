@@ -28,4 +28,5 @@ class ImagePath {
   static const String payment = "assets/images/payment.png";
   static const String polyci = "assets/images/polyci.png";
   static const String help = "assets/images/help.png";
+  static const String exit = "assets/icons/exit.png";
 }

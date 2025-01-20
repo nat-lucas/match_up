@@ -45,6 +45,7 @@ dependencies:
   flutter_stripe: ^11.3.0
   dio: ^5.7.0
   http: ^1.2.2
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_test:

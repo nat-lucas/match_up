@@ -18,6 +18,10 @@ class SplashController extends GetxController {
     );
   }
 
+  logout() async {
+    await _auth.signOut();
+  }
+
   void checkUser() async {
     User? currentUser = _auth.currentUser;
     if (currentUser != null) {

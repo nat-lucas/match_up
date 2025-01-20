@@ -14,8 +14,8 @@ class Subcription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SubscriptionController subcriptionController =
-        Get.find<SubscriptionController>();
+    final Map<String, dynamic> arg = Get.arguments;
+    final subcriptionController = Get.find<SubscriptionController>();
 
     return Scaffold(
         appBar: AppBar(
@@ -60,16 +60,27 @@ class Subcription extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.sizeOf(context).height * 0.32,
                   ),
-                  CustomButton(
-                    text: subcriptionController.buttonText.value,
-                    ontap: () {
-                      if (subcriptionController.selectedPlan == 1) {
-                        subcriptionController.makePayment(0.99);
-                      } else {
-                        Get.toNamed(Approute.chose);
-                      }
-                    },
-                  )
+                  arg['inUser'] ?? false
+                      ? CustomButton(
+                          text: "Upgrade",
+                          ontap: () {
+                            if (subcriptionController.selectedPlan == 1) {
+                              subcriptionController.makePayment(0.99);
+                            } else {
+                              Get.back();
+                            }
+                          },
+                        )
+                      : CustomButton(
+                          text: subcriptionController.buttonText.value,
+                          ontap: () {
+                            if (subcriptionController.selectedPlan == 1) {
+                              subcriptionController.makePayment(0.99);
+                            } else {
+                              Get.toNamed(Approute.chose);
+                            }
+                          },
+                        )
                 ],
               ),
             ),

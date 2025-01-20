@@ -64,6 +64,7 @@ class SignUp extends StatelessWidget {
                         height: 15.h,
                       ),
                       Obx(() => CustomTextFeild(
+                          max: 1,
                           suffix: IconButton(
                               onPressed: () {
                                 authcontroller.changeVisible();
@@ -86,6 +87,7 @@ class SignUp extends StatelessWidget {
                         height: 10.r,
                       ),
                       Obx(() => CustomTextFeild(
+                          max: 1,
                           controller: authcontroller.cofirmpassword,
                           validator: (value) {
                             if (value != authcontroller.spassword.text) {

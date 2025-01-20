@@ -12,9 +12,7 @@ class Appbinding extends Bindings {
   void dependencies() {
     Get.put(SplashController());
     Get.put(AuthController());
-    Get.lazyPut(
-      () => SubscriptionController(),
-    );
+    Get.put(SubscriptionController());
     Get.put(SportController());
     Get.put(NavController());
     Get.put(SettingController());

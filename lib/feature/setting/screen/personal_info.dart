@@ -4,15 +4,18 @@ import 'package:get/get.dart';
 import 'package:match_up/core/global/custom_button.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
 import 'package:match_up/core/global/custom_textfeild.dart';
+import 'package:match_up/core/global/loading.dart';
 
 import '../../../core/utils/color.dart';
 import '../../../core/utils/image.dart';
+import '../controller/setting_controller.dart';
 
 class PersonalInfo extends StatelessWidget {
   const PersonalInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final settingcController = Get.find<SettingController>();
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -33,36 +36,50 @@ class PersonalInfo extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  CircleAvatar(
+                Obx(() =>   CircleAvatar(
                     radius: 45.h,
                     backgroundColor: AppColor.greyWhite,
-                    backgroundImage: AssetImage(ImagePath.profile),
-                  ),
+                    backgroundImage:
+                        settingcController.selectedImage.value != null
+                            ? FileImage(settingcController.selectedImage.value!)
+                            : AssetImage(ImagePath.profile),
+                  )),
                   SizedBox(height: 10.h),
-                  CustomTextPopins(
-                    decoration: TextDecoration.underline,
-                    text: "Change image",
-                    fontWeight: FontWeight.w500,
-                    size: 14.sp,
-                    color: AppColor.primaryColor,
+                  GestureDetector(
+                    onTap: () {
+                      settingcController.pickImageForIOS();
+                    },
+                    child: CustomTextPopins(
+                      decoration: TextDecoration.underline,
+                      text: "Change image",
+                      fontWeight: FontWeight.w500,
+                      size: 14.sp,
+                      color: AppColor.primaryColor,
+                    ),
                   ),
                   SizedBox(height: 20.h),
-                  CustomTextFeild(hint: "phorent", tittle: "Username"),
+                  CustomTextFeild(
+                      controller: settingcController.name,
+                      hint: "Name",
+                      tittle: "Username"),
                   SizedBox(
                     height: 20.h,
                   ),
                   CustomTextFeild(
+                      controller: settingcController.email,
                       fillColor: Color(0xffEDEEF4),
-                      hint: "phorent@gamil.com",
+                      hint: "example@gamil.com",
                       tittle: "Email"),
                 ],
               ),
-              CustomButton(
-                text: "Save Changes",
-                ontap: () {
-                  Get.back();
-                },
-              )
+              Obx(() => settingcController.isLoading.value
+                  ? LoadingWidget(color: AppColor.primaryColor)
+                  : CustomButton(
+                      text: "Save Changes",
+                      ontap: () {
+                        settingcController.updateUserData();
+                      },
+                    ))
             ],
           ),
         ),

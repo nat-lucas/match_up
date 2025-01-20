@@ -8,6 +8,7 @@ class CustomListTile extends StatelessWidget {
   final String image;
   final String tittle;
   final bool? isbool;
+  final bool? iscolor;
   final bool trailing;
   final VoidCallback? onTap;
   final ValueChanged<bool>? onSwitchChanged;
@@ -17,7 +18,10 @@ class CustomListTile extends StatelessWidget {
     required this.image,
     required this.tittle,
     required this.trailing,
-    this.onSwitchChanged, this.onTap, this.isbool,
+    this.onSwitchChanged,
+    this.onTap,
+    this.isbool,
+    this.iscolor,
   });
 
   @override
@@ -38,9 +42,11 @@ class CustomListTile extends StatelessWidget {
               text: tittle,
               fontWeight: FontWeight.w500,
               size: 14.sp,
-              color: AppColor.blackborder,
+              color: iscolor ?? false
+                  ? AppColor.primaryColor
+                  : AppColor.blackborder,
             ),
-            trailing: isbool ?? false 
+            trailing: isbool ?? false
                 ? Transform.scale(
                     scale: 0.7,
                     child: Switch(

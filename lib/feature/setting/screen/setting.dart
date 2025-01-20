@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/global/custom_button.dart';
+import 'package:match_up/core/global/custom_dialog.dart';
 import 'package:match_up/core/route/route.dart';
+import 'package:match_up/feature/auth/controller/auth_controller.dart';
 import 'package:match_up/feature/setting/widget/custom_list_tile.dart';
 import '../../../core/global/custom_text_poppins.dart';
 import '../../../core/utils/color.dart';
@@ -15,6 +17,7 @@ class Setting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settingcontroller = Get.find<SettingController>();
+    final authcontroller = Get.find<AuthController>();
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,
@@ -33,37 +36,42 @@ class Setting extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ListTile(
-                  contentPadding: EdgeInsets.all(0),
-                  leading: CircleAvatar(
-                    radius: 25.h,
-                    backgroundImage: AssetImage(ImagePath.profile),
-                    backgroundColor: AppColor.greyWhite,
-                  ),
-                  title: CustomTextPopins(
-                    text: "Phorent",
-                    fontWeight: FontWeight.w500,
-                    size: 18.sp,
-                    color: AppColor.blackborder,
-                  ),
-                  subtitle: CustomTextPopins(
-                    textOverflow: TextOverflow.ellipsis,
-                    text: "phorent@gmail.com",
-                    fontWeight: FontWeight.w400,
-                    size: 14.sp,
-                    color: Color(0xff8E8E8E),
-                  ),
-                  trailing: IconButton(
-                    onPressed: () {
-                      Get.toNamed(Approute.personalinfo);
-                    },
-                    icon: Image.asset(
-                      ImagePath.edit,
-                      height: 24.h,
-                      width: 24.w,
-                    ),
-                  ),
-                ),
+                Obx(() => ListTile(
+                      contentPadding: EdgeInsets.all(0),
+                      leading: CircleAvatar(
+                        radius: 25.h,
+                        backgroundImage: settingcontroller
+                                    .selectedImage.value !=
+                                null
+                            ? FileImage(settingcontroller.selectedImage.value!)
+                            : AssetImage(ImagePath.profile),
+                        backgroundColor: AppColor.greyWhite,
+                      ),
+                      title: CustomTextPopins(
+                        text: settingcontroller.userData['name'] ?? "Unknown",
+                        fontWeight: FontWeight.w500,
+                        size: 18.sp,
+                        color: AppColor.blackborder,
+                      ),
+                      subtitle: CustomTextPopins(
+                        textOverflow: TextOverflow.ellipsis,
+                        text:
+                            authcontroller.auth.currentUser?.email ?? "Unknown",
+                        fontWeight: FontWeight.w400,
+                        size: 14.sp,
+                        color: Color(0xff8E8E8E),
+                      ),
+                      trailing: IconButton(
+                        onPressed: () {
+                          Get.toNamed(Approute.personalinfo);
+                        },
+                        icon: Image.asset(
+                          ImagePath.edit,
+                          height: 24.h,
+                          width: 24.w,
+                        ),
+                      ),
+                    )),
                 SizedBox(height: 10.h),
                 CustomTextPopins(
                   text: "Setting",
@@ -90,9 +98,12 @@ class Setting extends StatelessWidget {
                   ),
                 ),
                 CustomListTile(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(Approute.subcription,
+                          arguments: {"inUser": true});
+                    },
                     image: ImagePath.payment,
-                    tittle: "Payment",
+                    tittle: "Subcription",
                     trailing: false),
                 CustomListTile(
                     onTap: () {
@@ -107,6 +118,22 @@ class Setting extends StatelessWidget {
                     },
                     image: ImagePath.help,
                     tittle: "Help and Support",
+                    trailing: false),
+                CustomListTile(
+                    onTap: () {
+                      CustomDialog.show(
+                        title: "Sign Out",
+                        message: "Are Your Sure ?",
+                        onYes: () {
+                          settingcontroller.logout();
+                          Get.back();
+                          Get.offAllNamed(Approute.onboarding);
+                        },
+                      );
+                    },
+                    image: ImagePath.exit,
+                    iscolor: true,
+                    tittle: "Sing Out",
                     trailing: false),
                 SizedBox(
                   height: 20.h,

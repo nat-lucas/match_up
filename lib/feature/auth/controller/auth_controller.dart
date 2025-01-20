@@ -11,7 +11,7 @@ class AuthController extends GetxController {
   TextEditingController spassword = TextEditingController();
   TextEditingController cofirmpassword = TextEditingController();
   TextEditingController forgot = TextEditingController();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   RxBool visible = true.obs;
   RxBool isLoading = false.obs;
@@ -22,17 +22,17 @@ class AuthController extends GetxController {
   Future<void> signUpWithEmailAndPassword() async {
     try {
       isLoading.value = true;
-      UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
         email: semail.text,
         password: spassword.text,
       );
       await _firestore.collection('user').doc(userCredential.user?.uid).set({
         "email": semail.text,
         "password": cofirmpassword.text,
-        "member": false
+        "member": false,
+        "name": "Unknown",
       });
-      Get.offNamed(Approute.subcription);
+      await login2(semail.text, cofirmpassword.text);
       Get.snackbar("Success", "Account created successfully!",
           snackPosition: SnackPosition.BOTTOM);
     } catch (e) {
@@ -44,14 +44,28 @@ class AuthController extends GetxController {
     }
   }
 
+  Future<void> login2(String email, String password) async {
+    debugPrint("====Login api hitted");
+    UserCredential userCredential =
+        await auth.signInWithEmailAndPassword(email: email, password: password);
+    if (userCredential.user != null) {
+      debugPrint("=======${userCredential.user?.uid}");
+      debugPrint("=======${userCredential.user?.email}");
+      Get.offAllNamed(Approute.subcription, arguments: {
+        "inUser": false,
+      });
+    }
+  }
+
   Future<void> login() async {
     try {
       isLoading.value = true;
 
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
           email: lemail.text, password: lpassword.text);
 
       if (userCredential.user != null) {
+        Get.offAllNamed(Approute.navbar);
         Get.snackbar("Success", "Login successful!",
             snackPosition: SnackPosition.BOTTOM);
       }

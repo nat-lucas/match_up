@@ -64,8 +64,10 @@ class Login extends StatelessWidget {
                         height: 15.h,
                       ),
                       Obx(() => CustomTextFeild(
+                          max: 1,
                           controller: authcontroller.lpassword,
                           suffix: IconButton(
+                            
                               onPressed: () {
                                 authcontroller.changeVisible();
                               },

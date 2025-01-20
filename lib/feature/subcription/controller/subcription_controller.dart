@@ -1,11 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/global/dialog.dart';
 import 'package:match_up/feature/subcription/controller/key.dart';
 
+import '../../auth/controller/auth_controller.dart';
+
 class SubscriptionController extends GetxController {
+  final authcontroller = Get.find<AuthController>();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   var selectedPlan = -1.obs;
 
   var buttonText = 'Continue'.obs;
@@ -33,10 +40,32 @@ class SubscriptionController extends GetxController {
     },
   ].obs;
 
+  Future<void> updateUserData() async {
+    try {
+      final currentUser = _auth.currentUser;
+
+      if (currentUser != null) {
+        await _firestore.collection('user').doc(currentUser.uid).update({
+          "member": true,
+        });
+
+        debugPrint("User data updated successfully.");
+      } else {
+        debugPrint("User is null, cannot update data.");
+        Get.snackbar("Error", "User not found. Please log in again.",
+            snackPosition: SnackPosition.BOTTOM);
+      }
+    } catch (e) {
+      debugPrint("Error updating user data: $e");
+      Get.snackbar("Error", e.toString(), snackPosition: SnackPosition.BOTTOM);
+    } finally {
+      debugPrint("Update user data process completed.");
+    }
+  }
+
   Future<void> makePayment(double price) async {
     try {
       String? clientSecret = await _createPaymentIntent(price, "usd");
-
       if (clientSecret == null) {
         debugPrint("==========+ Client Secret is null");
         return;
@@ -60,8 +89,8 @@ class SubscriptionController extends GetxController {
     try {
       await Stripe.instance.presentPaymentSheet();
       debugPrint("Payment successful!");
-       showThanksDialog();
-
+      await updateUserData();
+      showThanksDialog();
     } catch (e) {
       debugPrint("Error in payment processing: $e");
     }
