@@ -92,8 +92,7 @@ class Leagues {
       });
     }
     year = json['year'];
-    season =
-        json['season'] != null ? Season.fromJson(json['season']) : null;
+    season = json['season'] != null ? Season.fromJson(json['season']) : null;
   }
 
   Map<String, dynamic> toJson() {

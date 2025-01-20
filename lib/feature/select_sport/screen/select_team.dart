@@ -66,15 +66,17 @@ class SelectTeam extends StatelessWidget {
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: sportController.teamNames.length,
+                        itemCount: sportController.teamList.length,
                         itemBuilder: (context, index) {
                           return Obx(() {
                             final isSelected = sportController
                                 .selectedTeamIndices
                                 .contains(index);
+
+                            var data = sportController.teamList[index];
                             return ListTile(
                               title: CustomTextPopins(
-                                text: sportController.teamNames[index],
+                                text: data.team?.displayName ?? "NRA",
                                 size: 14.sp,
                                 color: AppColor.blackborder,
                               ),

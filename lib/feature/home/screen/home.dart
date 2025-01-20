@@ -7,6 +7,7 @@ import 'package:match_up/core/utils/image.dart';
 import 'package:match_up/feature/home/widget/match_card_today.dart';
 import 'package:match_up/feature/home/widget/match_card_tomorrow.dart';
 import 'package:match_up/feature/home/widget/team_card.dart';
+import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
 
 import '../../../core/route/route.dart';
 
@@ -15,20 +16,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List data = [
-      {
-        'image': ImagePath.team1,
-        'title': 'Chicago\nCubs',
-      },
-      {
-        'image': ImagePath.team2,
-        'title': 'Atlanta\nBraves',
-      },
-      {
-        'image': ImagePath.team3,
-        'title': 'Baltimore\nOrioles',
-      },
-    ];
+    final sportController = Get.find<SportController>();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -64,23 +53,23 @@ class Home extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                  height: 200.h,
+                  height: 150.h,
                   width: double.infinity,
                   child: ListView.separated(
                     separatorBuilder: (context, index) {
                       return SizedBox(width: 15.w);
                     },
-                    itemCount: data.length,
+                    itemCount: sportController.selectedTeams.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      var item = data[index];
+                      var item = sportController.selectedTeams[index];
                       return TeramCard(
-                        image: item['image'],
-                        text: item['title'],
+                        image: item['logo'] ?? "",
+                        text: item['name'] ?? "",
                       );
                     },
                   )),
-              SizedBox(height: 10.h),
+          
               CustomTextPopins(
                 text: 'Upcoming Matches',
                 fontWeight: FontWeight.w600,
