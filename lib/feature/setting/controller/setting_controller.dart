@@ -42,7 +42,7 @@ class SettingController extends GetxController {
           name.text = userData['name'];
           email.text = userData['email'];
           member.value = userData['member'];
-          debugPrint("=========${member.value}");
+          debugPrint("=========$member");
         } else {
           debugPrint("No user data found for UID: $uid");
         }

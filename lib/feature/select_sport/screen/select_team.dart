@@ -12,16 +12,6 @@ class SelectTeam extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> teamNames = [
-      "Lakers",
-      "Warriors",
-      "Celtics",
-      "Nets",
-      "Bulls",
-      "Heat",
-      "Knicks",
-      "Raptors",
-    ];
     final sportController = Get.find<SportController>();
     return Scaffold(
       backgroundColor: Color(0xffFAFAFA),
@@ -76,7 +66,7 @@ class SelectTeam extends StatelessWidget {
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: teamNames.length,
+                        itemCount: sportController.teamNames.length,
                         itemBuilder: (context, index) {
                           return Obx(() {
                             final isSelected = sportController
@@ -84,7 +74,7 @@ class SelectTeam extends StatelessWidget {
                                 .contains(index);
                             return ListTile(
                               title: CustomTextPopins(
-                                text: teamNames[index],
+                                text: sportController.teamNames[index],
                                 size: 14.sp,
                                 color: AppColor.blackborder,
                               ),
@@ -106,6 +96,9 @@ class SelectTeam extends StatelessWidget {
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 60.h,
+                )
               ],
             ),
           ),

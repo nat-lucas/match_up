@@ -5,12 +5,11 @@ import 'package:match_up/core/global/custom_button.dart';
 import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
 import 'package:match_up/feature/select_sport/widget/card.dart';
 import '../../../core/global/custom_text_poppins.dart';
-import '../../../core/route/route.dart';
+import '../../../core/global/loading.dart';
 import '../../../core/utils/color.dart';
 
 class ChooseSport extends StatelessWidget {
   const ChooseSport({super.key});
-
   @override
   Widget build(BuildContext context) {
     final sportController = Get.find<SportController>();
@@ -56,11 +55,17 @@ class ChooseSport extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20.h),
-            CustomButton(
-              text: "Next",
-              ontap: () {
-                Get.toNamed(Approute.selectTeam);
-              },
+            Obx(
+              () => sportController.isLoading.value
+                  ? LoadingWidget(
+                      color: AppColor.primaryColor,
+                    )
+                  : CustomButton(
+                      ontap: () {
+                        sportController.callApiTeam();
+                      },
+                      text: "Next",
+                    ),
             ),
           ],
         ),

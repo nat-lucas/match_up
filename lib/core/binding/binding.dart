@@ -15,7 +15,7 @@ class Appbinding extends Bindings {
     Get.put(SubscriptionController());
     Get.put(SportController());
     Get.put(NavController());
-    Get.put(SettingController());
     Get.put(EditTeamController());
+    Get.put(SettingController());
   }
 }
