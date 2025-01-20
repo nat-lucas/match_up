@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
 import 'package:match_up/core/utils/image.dart';
 
+import '../../setting/controller/setting_controller.dart';
+
 class SportController extends GetxController {
+  final settingController = Get.find<SettingController>();
   var selectedSport = "".obs;
   var selectedimage = "".obs;
   var allowMultipleSelection = false.obs;
@@ -38,7 +41,6 @@ class SportController extends GetxController {
       selectedimage.value = sport[index]["image"];
     }
   }
-
   void toggleTeamSelection(int index) {
     if (allowMultipleSelection.value) {
       if (selectedTeamIndices.contains(index)) {

@@ -16,6 +16,7 @@ class SubscriptionController extends GetxController {
   var selectedPlan = -1.obs;
 
   var buttonText = 'Continue'.obs;
+  var updgradgeText ="Upgrade".obs;
 
   void selectPlan(int index) {
     selectedPlan = index;

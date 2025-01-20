@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:match_up/core/global/custom_button.dart';
 import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
 import 'package:match_up/feature/select_sport/widget/card.dart';
-
 import '../../../core/global/custom_text_poppins.dart';
 import '../../../core/route/route.dart';
 import '../../../core/utils/color.dart';

@@ -11,6 +11,7 @@ class SettingController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
+  RxBool member = false.obs;
   RxBool isLoading = false.obs;
 
   var isSwitchOn = false.obs;
@@ -40,6 +41,8 @@ class SettingController extends GetxController {
           debugPrint("User data fetched: $userData");
           name.text = userData['name'];
           email.text = userData['email'];
+          member.value = userData['member'];
+          debugPrint("=========${member.value}");
         } else {
           debugPrint("No user data found for UID: $uid");
         }

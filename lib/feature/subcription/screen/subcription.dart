@@ -32,57 +32,59 @@ class Subcription extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(20.r),
             child: Obx(
-              () => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomTextPopins(
-                    text: "Starter Plan",
-                    fontWeight: FontWeight.w500,
-                    size: 20,
-                    color: AppColor.blackborder,
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: subcriptionController.plan.length,
-                    itemBuilder: (context, index) {
-                      return PlanCard(
-                        title: subcriptionController.plan[index]['name'],
-                        subtitle: subcriptionController.plan[index]['sub'],
-                        isvale: subcriptionController.selectedPlan == index,
-                        ontap: () => subcriptionController.selectPlan(index),
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    height: MediaQuery.sizeOf(context).height * 0.32,
-                  ),
-                  arg['inUser'] ?? false
-                      ? CustomButton(
-                          text: "Upgrade",
-                          ontap: () {
-                            if (subcriptionController.selectedPlan == 1) {
-                              subcriptionController.makePayment(0.99);
-                            } else {
-                              Get.back();
-                            }
-                          },
-                        )
-                      : CustomButton(
-                          text: subcriptionController.buttonText.value,
-                          ontap: () {
-                            if (subcriptionController.selectedPlan == 1) {
-                              subcriptionController.makePayment(0.99);
-                            } else {
-                              Get.toNamed(Approute.chose);
-                            }
-                          },
-                        )
-                ],
-              ),
+              () {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomTextPopins(
+                      text: "Starter Plan",
+                      fontWeight: FontWeight.w500,
+                      size: 20,
+                      color: AppColor.blackborder,
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: subcriptionController.plan.length,
+                      itemBuilder: (context, index) {
+                        return PlanCard(
+                          title: subcriptionController.plan[index]['name'],
+                          subtitle: subcriptionController.plan[index]['sub'],
+                          isvale: subcriptionController.selectedPlan == index,
+                          ontap: () => subcriptionController.selectPlan(index),
+                        );
+                      },
+                    ),
+                    SizedBox(
+                      height: MediaQuery.sizeOf(context).height * 0.32,
+                    ),
+                    arg['inUser'] ?? false
+                        ? CustomButton(
+                            text: subcriptionController.updgradgeText.value,
+                            ontap: () {
+                              if (subcriptionController.selectedPlan == 1) {
+                                subcriptionController.makePayment(0.99);
+                              } else {
+                                Get.back();
+                              }
+                            },
+                          )
+                        : CustomButton(
+                            text: subcriptionController.buttonText.value,
+                            ontap: () {
+                              if (subcriptionController.selectedPlan == 1) {
+                                subcriptionController.makePayment(0.99);
+                              } else {
+                                Get.toNamed(Approute.chose);
+                              }
+                            },
+                          )
+                  ],
+                );
+              },
             ),
           ),
         ));
