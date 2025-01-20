@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/route/route.dart';
 import 'package:match_up/core/utils/image.dart';
+import 'package:match_up/feature/select_sport/model/score_model.dart';
 
 import '../../../core/network_caller/service/service.dart';
 import '../model/baseketball_all_team_model.dart';
@@ -13,6 +14,8 @@ class SportController extends GetxController {
   var allowMultipleSelection = true.obs;
   var selectedTeamIndices = <int>[].obs;
   final RxList<Teams> teamList = <Teams>[].obs;
+  final RxList<Events> competitions =
+      <Events>[].obs; // Updated to hold Events model
   var selectedIndex = (-1).obs;
 
   final RxList<Map<String, String>> selectedTeams = <Map<String, String>>[].obs;
@@ -48,52 +51,52 @@ class SportController extends GetxController {
   }
 
   void toggleTeamSelection(int index) {
-  if (index >= teamList.length) return;
+    if (index >= teamList.length) return;
 
-  final team = teamList[index].team;
-  final teamName = team?.name ?? "";
-  final teamLogo = team?.logos?.first.href ?? "";
+    final team = teamList[index].team;
+    final teamName = team?.name ?? "";
+    final teamLogo = team?.logos?.first.href ?? "";
 
-  if (teamName.isEmpty || teamLogo.isEmpty) return;
+    if (teamName.isEmpty || teamLogo.isEmpty) return;
 
-  debugPrint('Allow multiple: ${allowMultipleSelection.value}');
+    debugPrint('Allow multiple: ${allowMultipleSelection.value}');
 
-  if (allowMultipleSelection.value) {
-    if (selectedTeamIndices.contains(index)) {
-      selectedTeamIndices.remove(index);
-      selectedTeams.removeWhere((item) => item['name'] == teamName);
-    } else {
-      selectedTeamIndices.add(index);
-      selectedTeams.add({'name': teamName, 'logo': teamLogo});
-    }
-  } else {
-    if (selectedTeamIndices.contains(index)) {
-      selectedTeamIndices.remove(index);
-      selectedTeams.removeWhere((item) => item['name'] == teamName);
-    } else {
-      if (selectedTeams.length < 2) {
+    if (allowMultipleSelection.value) {
+      if (selectedTeamIndices.contains(index)) {
+        selectedTeamIndices.remove(index);
+        selectedTeams.removeWhere((item) => item['name'] == teamName);
+      } else {
         selectedTeamIndices.add(index);
         selectedTeams.add({'name': teamName, 'logo': teamLogo});
+      }
+    } else {
+      if (selectedTeamIndices.contains(index)) {
+        selectedTeamIndices.remove(index);
+        selectedTeams.removeWhere((item) => item['name'] == teamName);
       } else {
-        Get.snackbar(
-          "Selection Limit",
-          "You can select only up to 2 teams.",
-          snackPosition: SnackPosition.TOP,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
+        if (selectedTeams.length < 2) {
+          selectedTeamIndices.add(index);
+          selectedTeams.add({'name': teamName, 'logo': teamLogo});
+        } else {
+          Get.snackbar(
+            "Selection Limit",
+            "You can select only up to 2 teams.",
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+          );
+        }
       }
     }
+
+    debugPrint("Selected Teams: $selectedTeams");
   }
-
-  debugPrint("Selected Teams: $selectedTeams");
-}
-
 
   Future<void> callApiTeam() async {
     teamList.clear();
     selectedTeamIndices.clear();
     selectedTeams.clear();
+    competitions.clear(); // Clear competitions before fetching new data
 
     if (selectedSport.value == "Basketball") {
       await baseketballTeam();
@@ -109,21 +112,29 @@ class SportController extends GetxController {
   Future<void> baseketballTeam() async {
     await _fetchTeam(
         "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams");
+    await _fetchdataTeam(
+        "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard");
   }
 
   Future<void> baseballTeam() async {
     await _fetchTeam(
         "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams");
+    await _fetchdataTeam(
+        "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard");
   }
 
   Future<void> footballTeam() async {
     await _fetchTeam(
         "http://site.api.espn.com/apis/site/v2/sports/football/nfl/teams");
+    await _fetchdataTeam(
+        "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard");
   }
 
   Future<void> hockeyTeam() async {
     await _fetchTeam(
         "http://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams");
+    await _fetchdataTeam(
+        "http://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard");
   }
 
   Future<void> _fetchTeam(String url) async {
@@ -143,6 +154,33 @@ class SportController extends GetxController {
       }
     } catch (e) {
       debugPrint("Error fetching teams: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> _fetchdataTeam(String url) async {
+    try {
+      isLoading.value = true;
+      final response = await NetworkCaller().getRequest(url);
+      if (response.isSuccess) {
+        debugPrint("===============Response: ${response.responseData}");
+        final parsedResponse =
+            Events.fromJson(response.responseData as Map<String, dynamic>);
+
+        // Add the fetched competitions (events) to the competitions list
+        if (parsedResponse.competitions != null &&
+            parsedResponse.competitions!.isNotEmpty) {
+          competitions
+              .assignAll(parsedResponse.competitions! as Iterable<Events>);
+          debugPrint("=============$competitions");
+          debugPrint("=============${competitions.length}");
+        }
+        debugPrint("======api data tem=======$competitions");
+        debugPrint("=============${competitions.length}");
+      }
+    } catch (e) {
+      debugPrint("Error fetching competitions: $e");
     } finally {
       isLoading.value = false;
     }

@@ -69,7 +69,6 @@ class Home extends StatelessWidget {
                       );
                     },
                   )),
-          
               CustomTextPopins(
                 text: 'Upcoming Matches',
                 fontWeight: FontWeight.w600,
