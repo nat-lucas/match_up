@@ -16,7 +16,7 @@ class SubscriptionController extends GetxController {
   var selectedPlan = -1.obs;
 
   var buttonText = 'Continue'.obs;
-  var updgradgeText ="Upgrade".obs;
+  var updgradgeText = "Upgrade".obs;
 
   void selectPlan(int index) {
     selectedPlan = index;
@@ -31,13 +31,15 @@ class SubscriptionController extends GetxController {
   final RxList plan = [
     {
       "name": "Free version",
-      "sub": "You can pick only 2 teams (in any sport)",
-      "isvalue": true
+      "sub": "You can pick a total of two teams in any sport to follow",
+      "isvalue": true,
+      "isPrice" : false
     },
     {
       "name": "Premium version",
-      "sub": "\$.99 and you can pick unlimited teams to get updates",
-      "isvalue": false
+      "sub": "You can pick an unlimited amount of teams in any sport to follow",
+      "isvalue": false,
+      "isPrice" : true
     },
   ].obs;
 

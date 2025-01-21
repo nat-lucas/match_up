@@ -20,9 +20,9 @@ class Onboarding extends StatelessWidget {
             children: [
               OnboardGridview(),
               CustomTextPopins(
-                text: "Track Your Teams\n Free or Premium\nAccess!",
+                text: "Follow All of Your\nFavorite Sports Teams\nin One Place!",
                 fontWeight: FontWeight.w700,
-                size: 30.sp,
+                size: 28.sp,
                 textAlign: TextAlign.center,
               ),
               SizedBox(

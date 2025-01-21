@@ -46,7 +46,7 @@ class Login extends StatelessWidget {
                         height: 5.h,
                       ),
                       CustomTextPopins(
-                        text: "Welcome back, you’ve been missed",
+                        text: "Welcome back!",
                         fontWeight: FontWeight.w400,
                         size: 14.sp,
                         color: AppColor.blackborder,
@@ -67,7 +67,6 @@ class Login extends StatelessWidget {
                           max: 1,
                           controller: authcontroller.lpassword,
                           suffix: IconButton(
-                            
                               onPressed: () {
                                 authcontroller.changeVisible();
                               },

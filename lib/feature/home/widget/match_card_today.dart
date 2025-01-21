@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
 import 'package:match_up/core/utils/color.dart';
 import 'package:match_up/core/utils/image.dart';
+
+import '../../../core/route/route.dart';
 
 class MatchCardToday extends StatelessWidget {
   const MatchCardToday({super.key});
@@ -41,10 +44,15 @@ class MatchCardToday extends StatelessWidget {
                 size: 12.sp,
                 color: AppColor.blackborder,
               ),
-              Image.asset(
-                ImagePath.team1,
-                height: 44.h,
-                width: 44.w,
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed(Approute.livescore);
+                },
+                child: Image.asset(
+                  ImagePath.team1,
+                  height: 44.h,
+                  width: 44.w,
+                ),
               ),
               SizedBox(height: 5.h),
               Image.asset(
@@ -52,10 +60,15 @@ class MatchCardToday extends StatelessWidget {
                 height: 16.h,
                 width: 16.w,
               ),
-              Image.asset(
-                ImagePath.team4,
-                height: 44.h,
-                width: 44.w,
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed(Approute.livescore);
+                },
+                child: Image.asset(
+                  ImagePath.team4,
+                  height: 44.h,
+                  width: 44.w,
+                ),
               ),
               CustomTextPopins(
                 text: "BOSTON \nRED SOX",

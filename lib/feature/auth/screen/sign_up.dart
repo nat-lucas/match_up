@@ -46,7 +46,7 @@ class SignUp extends StatelessWidget {
                       ),
                       CustomTextPopins(
                         text:
-                            "Fill your information below or register\nwith your social account",
+                            "Fill out your information below",
                         fontWeight: FontWeight.w400,
                         size: 14.sp,
                         color: AppColor.blackborder,
