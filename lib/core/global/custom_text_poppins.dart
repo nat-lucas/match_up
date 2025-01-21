@@ -8,6 +8,7 @@ class CustomTextPopins extends StatelessWidget {
   final TextAlign? textAlign;
   final FontWeight? fontWeight;
   final int? max;
+  final FontStyle? fontStyle;
   final TextOverflow? textOverflow;
   final TextDecoration? decoration;
 
@@ -19,7 +20,7 @@ class CustomTextPopins extends StatelessWidget {
       this.textAlign,
       this.fontWeight,
       this.max,
-      this.textOverflow, this.decoration});
+      this.textOverflow, this.decoration, this.fontStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class CustomTextPopins extends StatelessWidget {
       maxLines: max,
       textAlign: textAlign,
       style: GoogleFonts.poppins(
-        
+        fontStyle: fontStyle,
         decoration: decoration,
         decorationColor: color,
           color: color, fontSize: size, fontWeight: fontWeight),

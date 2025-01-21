@@ -14,8 +14,7 @@ class SportController extends GetxController {
   var allowMultipleSelection = true.obs;
   var selectedTeamIndices = <int>[].obs;
   final RxList<Teams> teamList = <Teams>[].obs;
-  final RxList<Events> competitions =
-      <Events>[].obs; // Updated to hold Events model
+  final RxList<Events> competitions = <Events>[].obs;
   var selectedIndex = (-1).obs;
 
   final RxList<Map<String, String>> selectedTeams = <Map<String, String>>[].obs;
@@ -30,13 +29,17 @@ class SportController extends GetxController {
       "image": ImagePath.base,
     },
     {
-      "name": "Football",
-      "image": ImagePath.football,
+      "name": "Soccer",
+      "image": ImagePath.soccer,
     },
     {
       "name": "Hockey",
       "image": ImagePath.hokie,
-    }
+    },
+    {
+      "name": "Football",
+      "image": ImagePath.football,
+    },
   ];
 
   void selectSport(int index) {
@@ -106,6 +109,8 @@ class SportController extends GetxController {
       await footballTeam();
     } else if (selectedSport.value == "Hockey") {
       await hockeyTeam();
+    } else if (selectedSport.value == "Soccer") {
+      await footballTeam();
     }
   }
 
@@ -167,8 +172,6 @@ class SportController extends GetxController {
         debugPrint("===============Response: ${response.responseData}");
         final parsedResponse =
             Events.fromJson(response.responseData as Map<String, dynamic>);
-
-        // Add the fetched competitions (events) to the competitions list
         if (parsedResponse.competitions != null &&
             parsedResponse.competitions!.isNotEmpty) {
           competitions

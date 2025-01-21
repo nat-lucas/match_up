@@ -7,13 +7,15 @@ class PlanCard extends StatelessWidget {
   final String title;
   final String subtitle;
   final bool isvale;
+  final bool? price;
   final void Function()? ontap;
   const PlanCard(
       {super.key,
       required this.title,
       required this.subtitle,
       required this.isvale,
-      this.ontap});
+      this.ontap,
+      this.price});
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class PlanCard extends StatelessWidget {
               width: 1.5,
             )),
         child: ListTile(
+          contentPadding: EdgeInsets.zero,
           leading: Container(
             height: 20.h,
             width: 20.w,
@@ -38,11 +41,25 @@ class PlanCard extends StatelessWidget {
                     color: isvale ? AppColor.primaryColor : AppColor.greyWhite,
                     width: 1.5)),
           ),
-          title: CustomTextPopins(
-            text: title,
-            fontWeight: FontWeight.w600,
-            size: 20.sp,
-            color: AppColor.blackborder,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CustomTextPopins(
+                text: title,
+                fontWeight: FontWeight.w600,
+                size: 20.sp,
+                color: AppColor.blackborder,
+              ),
+              price ?? false
+                  ? CustomTextPopins(
+                      text: "\$0.99",
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w700,
+                      size: 20.sp,
+                      color: AppColor.primaryColor,
+                    )
+                  : SizedBox()
+            ],
           ),
           subtitle: CustomTextPopins(
             text: subtitle,

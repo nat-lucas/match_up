@@ -53,6 +53,7 @@ class Subcription extends StatelessWidget {
                         return PlanCard(
                           title: subcriptionController.plan[index]['name'],
                           subtitle: subcriptionController.plan[index]['sub'],
+                          price: subcriptionController.plan[index]['isPrice'],
                           isvale: subcriptionController.selectedPlan == index,
                           ontap: () => subcriptionController.selectPlan(index),
                         );

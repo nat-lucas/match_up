@@ -28,7 +28,7 @@ void showThanksDialog() {
               ),
             )),
         SizedBox(height: 5),
-        Text('Your premium version has been Purchase complete',
+        Text('Thank you for supporting us! You are all set.',
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
               textStyle: TextStyle(
