@@ -20,7 +20,8 @@ class Onboarding extends StatelessWidget {
             children: [
               OnboardGridview(),
               CustomTextPopins(
-                text: "Follow All of Your\nFavorite Sports Teams\nin One Place!",
+                text:
+                    "Follow All of Your\nFavorite Sports Teams\nin One Place!",
                 fontWeight: FontWeight.w700,
                 size: 28.sp,
                 textAlign: TextAlign.center,
@@ -28,10 +29,11 @@ class Onboarding extends StatelessWidget {
               SizedBox(
                 height: 10.r,
               ),
-              CustomButton(text: "Sign in",
-              ontap: () {
-                Get.offNamed(Approute.login);
-              },
+              CustomButton(
+                text: "Sign in",
+                ontap: () {
+                  Get.offNamed(Approute.login);
+                },
               ),
               SizedBox(
                 height: 10.r,
