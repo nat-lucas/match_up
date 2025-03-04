@@ -10,7 +10,7 @@ class Splash extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xffFFE8E8),
       body: Padding(
-        padding:  EdgeInsets.all(20.r),
+        padding: EdgeInsets.all(20.r),
         child: Center(
           child: Image.asset(ImagePath.logo),
         ),

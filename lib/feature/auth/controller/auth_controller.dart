@@ -34,7 +34,25 @@ class AuthController extends GetxController {
       });
       await login2(semail.text, cofirmpassword.text);
       Get.snackbar("Success", "Account created successfully!",
+          colorText: Colors.white,
+          backgroundColor: Colors.green,
           snackPosition: SnackPosition.BOTTOM);
+    } on FirebaseAuthException catch (e) {
+      isLoading.value = false;
+      String errorMessage = "An error occurred";
+
+      if (e.code == 'email-already-in-use') {
+        errorMessage = "This email is already in use. Try logging in instead.";
+      } else if (e.code == 'weak-password') {
+        errorMessage = "Your password is too weak. Try a stronger one!";
+      } else if (e.code == 'invalid-email') {
+        errorMessage = "Invalid email format!";
+      }
+
+      Get.snackbar("Error", errorMessage,
+          snackPosition: SnackPosition.TOP,
+          colorText: Colors.white,
+          backgroundColor: Colors.red);
     } catch (e) {
       isLoading.value = false;
       debugPrint("===========>>$e");
@@ -67,12 +85,34 @@ class AuthController extends GetxController {
       if (userCredential.user != null) {
         Get.offAllNamed(Approute.navbar);
         Get.snackbar("Success", "Login successful!",
-            snackPosition: SnackPosition.BOTTOM);
+            colorText: Colors.white,
+            backgroundColor: Colors.green,
+            snackPosition: SnackPosition.TOP);
       }
+    } on FirebaseAuthException catch (e) {
+      isLoading.value = false;
+
+      String errorMessage = "Login failed";
+
+      if (e.code == 'user-not-found') {
+        errorMessage = "No account found for that email.";
+      } else if (e.code == 'wrong-password') {
+        errorMessage = "Incorrect password. Please try again.";
+      } else if (e.code == 'invalid-email') {
+        errorMessage = "Invalid email format.";
+      } else if (e.code == 'user-disabled') {
+        errorMessage = "This account has been disabled.";
+      }
+
+      debugPrint("Login failed: ${e.message}");
+      Get.snackbar("Error", errorMessage,
+          snackPosition: SnackPosition.TOP,
+          colorText: Colors.white,
+          backgroundColor: Colors.red);
     } catch (e) {
       isLoading.value = false;
-      debugPrint("Login failed: $e");
-      Get.snackbar("Error", "Login failed: $e",
+      debugPrint("Unexpected error: $e");
+      Get.snackbar("Error", "An unexpected error occurred.",
           snackPosition: SnackPosition.BOTTOM);
     } finally {
       isLoading.value = false;
