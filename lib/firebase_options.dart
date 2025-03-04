@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBiuBfxP93cRJxk2dLPlVdIuks4O5S2uuY',
-    appId: '1:960733514314:android:f28053707eee62daccb4b3',
-    messagingSenderId: '960733514314',
-    projectId: 'matchup-8c76c',
-    storageBucket: 'matchup-8c76c.firebasestorage.app',
+    apiKey: 'AIzaSyD10p3FJsP4ljDvguNrImSSl2rcx2tc8pw',
+    appId: '1:373371364852:android:f0756fdf4558356ddbc5a1',
+    messagingSenderId: '373371364852',
+    projectId: 'matchup-jj',
+    storageBucket: 'matchup-jj.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBNIPLuSXGHyx30fp7r7FbUpaC4MwvSFSY',
-    appId: '1:960733514314:ios:86cdf761d7a8a18fccb4b3',
-    messagingSenderId: '960733514314',
-    projectId: 'matchup-8c76c',
-    storageBucket: 'matchup-8c76c.firebasestorage.app',
-    iosBundleId: 'com.example.matchUp',
+    apiKey: 'AIzaSyDjyM4-sYQqBttiPHBDOzRpFdH83IQ1WkE',
+    appId: '1:373371364852:ios:906e693901adf37cdbc5a1',
+    messagingSenderId: '373371364852',
+    projectId: 'matchup-jj',
+    storageBucket: 'matchup-jj.firebasestorage.app',
+    iosBundleId: 'com.example.matchUp.RunnerTests',
   );
+
 }
