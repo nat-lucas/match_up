@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -90,11 +92,12 @@ class AuthController extends GetxController {
             snackPosition: SnackPosition.TOP);
       }
     } on FirebaseAuthException catch (e) {
+      log("=========>>>$e");
       isLoading.value = false;
 
       String errorMessage = "Login failed";
 
-      if (e.code == 'user-not-found') {
+      if (e.code == 'firebase_auth/invalid-credential') {
         errorMessage = "No account found for that email.";
       } else if (e.code == 'wrong-password') {
         errorMessage = "Incorrect password. Please try again.";

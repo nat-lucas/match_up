@@ -34,6 +34,8 @@ class SelectTeam extends StatelessWidget {
               children: [
                 Image.asset(
                   sportController.selectedimage.value,
+                  height: 92.h,
+                  width: 92.w,
                   fit: BoxFit.cover,
                 ),
                 SizedBox(height: 10.h),
