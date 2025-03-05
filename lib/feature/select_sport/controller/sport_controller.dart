@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/route/route.dart';
@@ -11,7 +13,9 @@ class SportController extends GetxController {
   var selectedSport = "".obs;
   var selectedimage = "".obs;
   var isLoading = false.obs;
-  var allowMultipleSelection = true.obs;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  var allowMultipleSelection = false.obs;
   var selectedTeamIndices = <int>[].obs;
   final RxList<Teams> teamList = <Teams>[].obs;
   final RxList<Events> competitions = <Events>[].obs;
@@ -92,14 +96,24 @@ class SportController extends GetxController {
       }
     }
 
+    updateFirestoreSelection();
     debugPrint("Selected Teams: $selectedTeams");
+  }
+
+  void updateFirestoreSelection() async {
+    User? user = _auth.currentUser;
+    firestore.collection('user').doc(user?.uid).update({
+      "selectedTeam": selectedTeams,
+    });
+
+    debugPrint("-=-=-=-=-=-=${firestore.doc(user!.uid).get()}");
   }
 
   Future<void> callApiTeam() async {
     teamList.clear();
     selectedTeamIndices.clear();
     selectedTeams.clear();
-    competitions.clear(); // Clear competitions before fetching new data
+    competitions.clear();
 
     if (selectedSport.value == "Basketball") {
       await baseketballTeam();
