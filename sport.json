@@ -1,0 +1,114 @@
+{
+    "info": {
+      "_postman_id": "sportsdb_api_collection",
+      "name": "SportsDB API",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Search API",
+        "item": [
+          {
+            "name": "Search Team by Name",
+            "request": {
+              "method": "GET",
+              "url": "https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=Arsenal"
+            }
+          },
+          {
+            "name": "Search Team by Short Code",
+            "request": {
+              "method": "GET",
+              "url": "https://www.thesportsdb.com/api/v1/json/3/searchteams.php?sname=ARS"
+            }
+          },
+          {
+            "name": "Search Players from Team",
+            "request": {
+              "method": "GET",
+              "url": "https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?t=Arsenal"
+            }
+          },
+          {
+            "name": "Search Player by Name",
+            "request": {
+              "method": "GET",
+              "url": "https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?p=Danny_Welbeck"
+            }
+          },
+          {
+            "name": "Search Event by Name",
+            "request": {
+              "method": "GET",
+              "url": "https://www.thesportsdb.com/api/v1/json/3/searchevents.php?e=Arsenal_vs_Chelsea"
+            }
+          }
+        ]
+      },
+      {
+        "name": "List API",
+        "item": [
+          {
+            "name": "List All Sports",
+            "request": {
+              "method": "GET",
+              "url": "https://www.thesportsdb.com/api/v1/json/3/all_sports.php"
+            }
+          },
+          {
+            "name": "List All Leagues",
+            "request": {
+              "method": "GET",
+              "url": "https://www.thesportsdb.com/api/v1/json/3/all_leagues.php"
+            }
+          },
+          {
+            "name": "List All Countries",
+            "request": {
+              "method": "GET",
+              "url": "https://www.thesportsdb.com/api/v1/json/3/all_countries.php"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Lookup API",
+        "item": [
+          {
+            "name": "Lookup League by ID",
+            "request": {
+              "method": "GET",
+              "url": "https://www.thesportsdb.com/api/v1/json/3/lookupleague.php?id=4346"
+            }
+          },
+          {
+            "name": "Lookup Team by ID",
+            "request": {
+              "method": "GET",
+              "url": "https://www.thesportsdb.com/api/v1/json/3/lookupteam.php?id=133604"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Schedule API",
+        "item": [
+          {
+            "name": "Next 5 Events by Team ID",
+            "request": {
+              "method": "GET",
+              "url": "https://www.thesportsdb.com/api/v1/json/3/eventsnext.php?id=133602"
+            }
+          },
+          {
+            "name": "Last 5 Events by Team ID",
+            "request": {
+              "method": "GET",
+              "url": "https://www.thesportsdb.com/api/v1/json/3/eventslast.php?id=133602"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  

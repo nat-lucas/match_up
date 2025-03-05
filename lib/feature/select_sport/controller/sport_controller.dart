@@ -68,6 +68,9 @@ class SportController extends GetxController {
     final team = teamList[index].team;
     final teamName = team?.name ?? "";
     final teamLogo = team?.logos?.first.href ?? "";
+    final teamid = team?.uid ?? "";
+
+    
 
     if (teamName.isEmpty || teamLogo.isEmpty) return;
 
@@ -79,7 +82,7 @@ class SportController extends GetxController {
         selectedTeams.removeWhere((item) => item['name'] == teamName);
       } else {
         selectedTeamIndices.add(index);
-        selectedTeams.add({'name': teamName, 'logo': teamLogo});
+        selectedTeams.add({'name': teamName, 'logo': teamLogo,'id': teamid});
       }
     } else {
       if (selectedTeamIndices.contains(index)) {
@@ -88,7 +91,7 @@ class SportController extends GetxController {
       } else {
         if (selectedTeams.length < 2) {
           selectedTeamIndices.add(index);
-          selectedTeams.add({'name': teamName, 'logo': teamLogo});
+          selectedTeams.add({'name': teamName, 'logo': teamLogo,'id': teamid});
         } else {
           Get.snackbar(
             "Selection Limit",
@@ -110,8 +113,6 @@ class SportController extends GetxController {
     firestore.collection('user').doc(user?.uid).update({
       "selectedTeam": selectedTeams,
     });
-
- 
   }
 
   void getFirestoreSelection() async {
@@ -124,8 +125,14 @@ class SportController extends GetxController {
 
       if (doc.exists) {
         var data = doc.data() as Map<String, dynamic>;
-        RxList getUserTeam = data["selectedTeam"]; 
-      
+        List<dynamic> rawTeams = data["selectedTeam"] ?? [];
+
+        List<Map<String, String>> getUserTeam = rawTeams.map((e) {
+          return Map<String, String>.from(e as Map);
+        }).toList();
+
+        selectedTeams.addAll(getUserTeam);
+
         debugPrint("-=-=-=-=-=-= Selected UserTeam: $getUserTeam");
       } else {
         debugPrint("No document found for user: ${user.uid}");

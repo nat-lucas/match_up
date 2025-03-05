@@ -29,7 +29,7 @@ class SplashController extends GetxController {
       debugPrint('User ID: ${currentUser.uid}');
       debugPrint('User Email: ${currentUser.email}');
       debugPrint('User Name: ${currentUser.displayName}');
-      Get.offAllNamed(Approute.navbar);
+      Get.offAllNamed(Approute.chose);
     } else {
       debugPrint("User is not logged in.");
       Get.offAllNamed(Approute.onboarding);
