@@ -126,7 +126,6 @@ class SportController extends GetxController {
         var data = doc.data() as Map<String, dynamic>;
         RxList getUserTeam = data["selectedTeam"]; 
       
-
         debugPrint("-=-=-=-=-=-= Selected UserTeam: $getUserTeam");
       } else {
         debugPrint("No document found for user: ${user.uid}");
