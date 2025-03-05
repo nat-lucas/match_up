@@ -20,8 +20,13 @@ class SportController extends GetxController {
   final RxList<Teams> teamList = <Teams>[].obs;
   final RxList<Events> competitions = <Events>[].obs;
   var selectedIndex = (-1).obs;
+  @override
+  void onInit() {
+    super.onInit();
+    getFirestoreSelection();
+  }
 
-  final RxList<Map<String, String>> selectedTeams = <Map<String, String>>[].obs;
+  RxList<Map<String, String>> selectedTeams = <Map<String, String>>[].obs;
 
   final List sport = [
     {
@@ -106,7 +111,30 @@ class SportController extends GetxController {
       "selectedTeam": selectedTeams,
     });
 
-    debugPrint("-=-=-=-=-=-=${firestore.doc(user!.uid).get()}");
+ 
+  }
+
+  void getFirestoreSelection() async {
+    User? user = _auth.currentUser;
+    if (user == null) return;
+
+    try {
+      DocumentSnapshot doc =
+          await firestore.collection('user').doc(user.uid).get();
+
+      if (doc.exists) {
+        var data = doc.data() as Map<String, dynamic>;
+        RxList getUserTeam = data["selectedTeam"]; 
+      
+
+        debugPrint("-=-=-=-=-=-= Selected UserTeam: $getUserTeam");
+      } else {
+        debugPrint("No document found for user: ${user.uid}");
+      }
+    } catch (e) {
+      debugPrint("Error retrieving Firestore data: $e");
+    }
+    debugPrint("-=-=-=-=-=-= Selected CurrentTeams: $selectedTeams");
   }
 
   Future<void> callApiTeam() async {
