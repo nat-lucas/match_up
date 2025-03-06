@@ -129,7 +129,7 @@ class SportController extends GetxController {
         }).toList();
 
         selectedTeams.addAll(getUserTeam);
-       
+
         var subcription = doc['member'] ?? false;
         debugPrint("==========<><>$subcription");
         allowMultipleSelection.value = subcription;
@@ -201,6 +201,11 @@ class SportController extends GetxController {
             .toList());
 
         Get.toNamed(Approute.selectTeam);
+      } else if (response.statusCode == 403) {
+        Get.snackbar("Eror", "This Not Availabe This moment",
+            colorText: Colors.white, backgroundColor: Colors.red);
+      } else {
+        debugPrint("==========${response.responseData}");
       }
     } catch (e) {
       debugPrint("Error fetching teams: $e");
