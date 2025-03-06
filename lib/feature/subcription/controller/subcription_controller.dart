@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/global/dialog.dart';
+import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
 import 'package:match_up/feature/subcription/controller/key.dart';
 
 import '../../auth/controller/auth_controller.dart';
 
 class SubscriptionController extends GetxController {
   final authcontroller = Get.find<AuthController>();
+  final SportController sportController = Get.find<SportController>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   var selectedPlan = -1.obs;
@@ -76,9 +78,7 @@ class SubscriptionController extends GetxController {
       debugPrint("=========>>$clientSecret");
 
       await Stripe.instance.initPaymentSheet(
-      
         paymentSheetParameters: SetupPaymentSheetParameters(
-          
           paymentIntentClientSecret: clientSecret,
           merchantDisplayName: "MatchUp",
         ),
@@ -95,6 +95,7 @@ class SubscriptionController extends GetxController {
       await Stripe.instance.presentPaymentSheet();
       debugPrint("Payment successful!");
       await updateUserData();
+      await sportController.getFirestoreSelection();
       showThanksDialog();
     } catch (e) {
       debugPrint("Error in payment processing: $e");
@@ -104,7 +105,6 @@ class SubscriptionController extends GetxController {
   Future<String?> _createPaymentIntent(double price, String currency) async {
     try {
       final Dio dio = Dio();
-
       int amountInCents = (price * 100).toInt();
 
       Map<String, dynamic> data = {
@@ -130,7 +130,8 @@ class SubscriptionController extends GetxController {
         debugPrint("===\\Response Data ========>>>: ${response.data}");
         return response.data['client_secret'];
       } else {
-        debugPrint("Failed to create Payment Intent: ${response.data}");
+        debugPrint(
+            "Failed to create Payment Intent: ${response.statusMessage}");
       }
     } catch (e) {
       debugPrint("===== CatchError in _createPaymentIntent ===== $e");

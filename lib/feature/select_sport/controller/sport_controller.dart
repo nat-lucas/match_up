@@ -25,8 +25,6 @@ class SportController extends GetxController {
   final RxMap userData = {}.obs;
   var selectedIndex = (-1).obs;
 
-
-
   RxList<Map<String, String>> selectedTeams = <Map<String, String>>[].obs;
 
   final List sport = [
@@ -131,8 +129,8 @@ class SportController extends GetxController {
         }).toList();
 
         selectedTeams.addAll(getUserTeam);
-        var payment = doc.data() as Map<String, dynamic>;
-        bool subcription = payment['member'] ?? false;
+       
+        var subcription = doc['member'] ?? false;
         debugPrint("==========<><>$subcription");
         allowMultipleSelection.value = subcription;
 
