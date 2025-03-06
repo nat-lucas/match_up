@@ -33,13 +33,13 @@ class SubscriptionController extends GetxController {
       "name": "Free version",
       "sub": "You can pick a total of two teams in any sport to follow",
       "isvalue": true,
-      "isPrice" : false
+      "isPrice": false
     },
     {
       "name": "Premium version",
       "sub": "You can pick an unlimited amount of teams in any sport to follow",
       "isvalue": false,
-      "isPrice" : true
+      "isPrice": true
     },
   ].obs;
 
@@ -76,7 +76,9 @@ class SubscriptionController extends GetxController {
       debugPrint("=========>>$clientSecret");
 
       await Stripe.instance.initPaymentSheet(
+      
         paymentSheetParameters: SetupPaymentSheetParameters(
+          
           paymentIntentClientSecret: clientSecret,
           merchantDisplayName: "MatchUp",
         ),

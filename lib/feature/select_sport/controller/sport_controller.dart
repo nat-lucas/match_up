@@ -131,12 +131,14 @@ class SportController extends GetxController {
           return Map<String, String>.from(e as Map);
         }).toList();
 
-
         selectedTeams.addAll(getUserTeam);
-        var payment = doc.data() as Map<String, dynamic> ;
+        var payment = doc.data() as Map<String, dynamic>;
         bool subcription = payment['member'] ?? false;
+        debugPrint("==========<><>$subcription");
+        allowMultipleSelection.value = subcription;
 
         debugPrint("-=-=-=-=-=-= Selected UserTeam: $getUserTeam");
+        debugPrint("==========<><>$allowMultipleSelection");
       } else {
         debugPrint("No document found for user: ${user.uid}");
       }
@@ -200,8 +202,6 @@ class SportController extends GetxController {
             .map<Team2>((team) => Team2.fromJson(team))
             .toList());
 
-        debugPrint("=================${teamList.length}");
-        debugPrint("=================$teamList");
         Get.toNamed(Approute.selectTeam);
       }
     } catch (e) {
@@ -211,28 +211,28 @@ class SportController extends GetxController {
     }
   }
 
-  Future<void> _fetchdataTeam(String url) async {
-    try {
-      isLoading.value = true;
-      final response = await NetworkCaller().getRequest(url, token: "472735");
-      if (response.isSuccess) {
-        debugPrint("===============Response: ${response.responseData}");
-        final parsedResponse =
-            Events.fromJson(response.responseData as Map<String, dynamic>);
-        if (parsedResponse.competitions != null &&
-            parsedResponse.competitions!.isNotEmpty) {
-          competitions
-              .assignAll(parsedResponse.competitions! as Iterable<Events>);
-          debugPrint("=============$competitions");
-          debugPrint("=============${competitions.length}");
-        }
-        debugPrint("======api data tem=======$competitions");
-        debugPrint("=============${competitions.length}");
-      }
-    } catch (e) {
-      debugPrint("Error fetching competitions: $e");
-    } finally {
-      isLoading.value = false;
-    }
-  }
+  // Future<void> _fetchdataTeam(String url) async {
+  //   try {
+  //     isLoading.value = true;
+  //     final response = await NetworkCaller().getRequest(url, token: "472735");
+  //     if (response.isSuccess) {
+  //       debugPrint("===============Response: ${response.responseData}");
+  //       final parsedResponse =
+  //           Events.fromJson(response.responseData as Map<String, dynamic>);
+  //       if (parsedResponse.competitions != null &&
+  //           parsedResponse.competitions!.isNotEmpty) {
+  //         competitions
+  //             .assignAll(parsedResponse.competitions! as Iterable<Events>);
+  //         debugPrint("=============$competitions");
+  //         debugPrint("=============${competitions.length}");
+  //       }
+  //       debugPrint("======api data tem=======$competitions");
+  //       debugPrint("=============${competitions.length}");
+  //     }
+  //   } catch (e) {
+  //     debugPrint("Error fetching competitions: $e");
+  //   } finally {
+  //     isLoading.value = false;
+  //   }
+  // }
 }
