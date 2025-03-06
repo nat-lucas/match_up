@@ -52,8 +52,8 @@ class Home extends StatelessWidget {
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                  height: 150.h,
+              Obx(() => SizedBox(
+                  height: sportController.height.value,
                   width: double.infinity,
                   child: ListView.separated(
                     separatorBuilder: (context, index) {
@@ -68,7 +68,7 @@ class Home extends StatelessWidget {
                         text: item['name'] ?? "",
                       );
                     },
-                  )),
+                  ))),
               CustomTextPopins(
                 text: 'Upcoming Matches',
                 fontWeight: FontWeight.w600,

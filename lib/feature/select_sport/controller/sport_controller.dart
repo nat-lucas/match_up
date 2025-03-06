@@ -13,6 +13,7 @@ class SportController extends GetxController {
   var selectedSport = "".obs;
   var selectedimage = "".obs;
   var isLoading = false.obs;
+  var height = 150.0.obs;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   var allowMultipleSelection = false.obs;
@@ -130,7 +131,10 @@ class SportController extends GetxController {
           return Map<String, String>.from(e as Map);
         }).toList();
 
+
         selectedTeams.addAll(getUserTeam);
+        var payment = doc.data() as Map<String, dynamic> ;
+        bool subcription = payment['member'] ?? false;
 
         debugPrint("-=-=-=-=-=-= Selected UserTeam: $getUserTeam");
       } else {
