@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -44,7 +45,8 @@ class Setting extends StatelessWidget {
                                     .selectedImage.value !=
                                 null
                             ? FileImage(settingcontroller.selectedImage.value!)
-                            : AssetImage(ImagePath.profile),
+                            : CachedNetworkImageProvider(
+                              settingcontroller.userData['imageUrl']),
                         backgroundColor: AppColor.greyWhite,
                       ),
                       title: CustomTextPopins(

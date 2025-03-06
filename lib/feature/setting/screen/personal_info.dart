@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -5,9 +6,7 @@ import 'package:match_up/core/global/custom_button.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
 import 'package:match_up/core/global/custom_textfeild.dart';
 import 'package:match_up/core/global/loading.dart';
-
 import '../../../core/utils/color.dart';
-import '../../../core/utils/image.dart';
 import '../controller/setting_controller.dart';
 
 class PersonalInfo extends StatelessWidget {
@@ -36,14 +35,14 @@ class PersonalInfo extends StatelessWidget {
             children: [
               Column(
                 children: [
-                Obx(() =>   CircleAvatar(
-                    radius: 45.h,
-                    backgroundColor: AppColor.greyWhite,
-                    backgroundImage:
-                        settingcController.selectedImage.value != null
-                            ? FileImage(settingcController.selectedImage.value!)
-                            : AssetImage(ImagePath.profile),
-                  )),
+                  Obx(() => CircleAvatar(
+                      radius: 45.h,
+                      backgroundColor: AppColor.greyWhite,
+                      backgroundImage: settingcController.selectedImage.value !=
+                              null
+                          ? FileImage(settingcController.selectedImage.value!)
+                          : CachedNetworkImageProvider(
+                              settingcController.userData['imageUrl']))),
                   SizedBox(height: 10.h),
                   GestureDetector(
                     onTap: () {
