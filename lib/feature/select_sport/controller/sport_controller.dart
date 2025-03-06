@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,13 +22,10 @@ class SportController extends GetxController {
   var selectedTeamIndices = <int>[].obs;
   final RxList<Team2> teamList = <Team2>[].obs;
   final RxList<Events> competitions = <Events>[].obs;
+  final RxMap userData = {}.obs;
   var selectedIndex = (-1).obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    getFirestoreSelection();
-  }
+
 
   RxList<Map<String, String>> selectedTeams = <Map<String, String>>[].obs;
 
@@ -115,7 +114,7 @@ class SportController extends GetxController {
     });
   }
 
-  void getFirestoreSelection() async {
+  Future<void> getFirestoreSelection() async {
     User? user = _auth.currentUser;
     if (user == null) return;
 
@@ -137,8 +136,9 @@ class SportController extends GetxController {
         debugPrint("==========<><>$subcription");
         allowMultipleSelection.value = subcription;
 
-        debugPrint("-=-=-=-=-=-= Selected UserTeam: $getUserTeam");
-        debugPrint("==========<><>$allowMultipleSelection");
+        userData.assignAll(doc.data() as Map<String, dynamic>);
+        log("============<><.,$allowMultipleSelection");
+        log("===========$userData");
       } else {
         debugPrint("No document found for user: ${user.uid}");
       }

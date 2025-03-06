@@ -3,8 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/route/route.dart';
+import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
 
 class SplashController extends GetxController {
+  final SportController sportController = Get.put(SportController());
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
@@ -25,10 +27,10 @@ class SplashController extends GetxController {
   void checkUser() async {
     User? currentUser = _auth.currentUser;
     if (currentUser != null) {
-      debugPrint("======User is logged in.");
-      debugPrint('User ID: ${currentUser.uid}');
-      debugPrint('User Email: ${currentUser.email}');
-      debugPrint('User Name: ${currentUser.displayName}');
+      await Future.wait([
+        sportController.getFirestoreSelection(),
+      ]);
+      await Future.delayed(const Duration(milliseconds: 500));
       Get.offAllNamed(Approute.navbar);
     } else {
       debugPrint("User is not logged in.");
