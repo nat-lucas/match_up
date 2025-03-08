@@ -5,6 +5,7 @@ import 'package:match_up/core/global/custom_button.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
 import 'package:match_up/core/route/route.dart';
 import 'package:match_up/core/utils/color.dart';
+import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
 import 'package:match_up/feature/subcription/widget/plan_card.dart';
 
 import '../controller/subcription_controller.dart';
@@ -16,6 +17,7 @@ class Subcription extends StatelessWidget {
   Widget build(BuildContext context) {
     final Map<String, dynamic> arg = Get.arguments;
     final subcriptionController = Get.find<SubscriptionController>();
+    final sportcontroller = Get.find<SportController>();
 
     return Scaffold(
         appBar: AppBar(
@@ -79,6 +81,7 @@ class Subcription extends StatelessWidget {
                               if (subcriptionController.selectedPlan == 1) {
                                 subcriptionController.makePayment(0.99);
                               } else {
+                                sportcontroller.allowMultipleSelection.value = false;
                                 Get.toNamed(Approute.chose);
                               }
                             },

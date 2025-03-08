@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
+import 'package:match_up/core/global/loading.dart';
 import 'package:match_up/core/route/route.dart';
 import 'package:match_up/core/utils/color.dart';
 import 'package:match_up/feature/home/widget/match_card_today.dart';
 import 'package:match_up/feature/home/widget/team_card.dart';
 import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
-
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -88,36 +88,42 @@ class Home extends StatelessWidget {
               SizedBox(
                 height: 15.h,
               ),
-              Obx(() => ListView.separated(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: sportController.scheduleList.length,
-                    itemBuilder: (context, index) {
-                      var data = sportController.scheduleList[index];
-                      return GestureDetector(
-                        onTap: () {
-                          if(index == 0){
-                            Get.toNamed(Approute.livescore);
-                          }
-                        },
-                        child: MatchCardToday(
-                          evenTime: data.strTime ?? "",
-                          eventDate: data.dateEvent ?? "",
-                          date: data.dateEventLocal ?? "",
-                          team1: data.strHomeTeam ?? "",
-                          team2: data.strAwayTeam ?? "",
-                          team1logo: data.strHomeTeamBadge ?? "",
-                          teamlogo2: data.strAwayTeamBadge ?? "",
-                          time: data.strTimeLocal ?? "",
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return SizedBox(
-                        height: 15.h,
-                      );
-                    },
-                  ))
+              Obx(() => sportController.isLoading.value
+                  ? Center(
+                      child: LoadingWidget(
+                        color: AppColor.primaryColor,
+                      ),
+                    )
+                  : ListView.separated(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: sportController.scheduleList.length,
+                      itemBuilder: (context, index) {
+                        var data = sportController.scheduleList[index];
+                        return GestureDetector(
+                          onTap: () {
+                            if (index == 0) {
+                              Get.toNamed(Approute.livescore);
+                            }
+                          },
+                          child: MatchCardToday(
+                            evenTime: data.strTime ?? "",
+                            eventDate: data.dateEvent ?? "",
+                            date: data.dateEventLocal ?? "",
+                            team1: data.strHomeTeam ?? "",
+                            team2: data.strAwayTeam ?? "",
+                            team1logo: data.strHomeTeamBadge ?? "",
+                            teamlogo2: data.strAwayTeamBadge ?? "",
+                            time: data.strTimeLocal ?? "",
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return SizedBox(
+                          height: 15.h,
+                        );
+                      },
+                    ))
             ],
           )),
         ),

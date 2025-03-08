@@ -235,7 +235,9 @@ class SportController extends GetxController {
                 "Event: ${schedule.strEvent}, Date: ${schedule.dateEvent}, Team: ${schedule.strHomeTeam} vs ${schedule.strAwayTeam}");
           }
         }
-      } else {
+      } else if (response.statusCode == 403) {
+        Get.snackbar("Error", "This Not Availabe This moment",
+            colorText: Colors.white, backgroundColor: Colors.red);
         debugPrint('==========${response.responseData}');
       }
     } catch (e) {

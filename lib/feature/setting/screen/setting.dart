@@ -6,6 +6,7 @@ import 'package:match_up/core/global/custom_button.dart';
 import 'package:match_up/core/global/custom_dialog.dart';
 import 'package:match_up/core/route/route.dart';
 import 'package:match_up/feature/auth/controller/auth_controller.dart';
+import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
 import 'package:match_up/feature/setting/widget/custom_list_tile.dart';
 import '../../../core/global/custom_text_poppins.dart';
 import '../../../core/utils/color.dart';
@@ -18,6 +19,7 @@ class Setting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settingcontroller = Get.find<SettingController>();
+    final SportController sportController = Get.find<SportController>();
     final authcontroller = Get.find<AuthController>();
     return Scaffold(
       appBar: AppBar(
@@ -46,7 +48,8 @@ class Setting extends StatelessWidget {
                                 null
                             ? FileImage(settingcontroller.selectedImage.value!)
                             : CachedNetworkImageProvider(
-                              settingcontroller.userData['imageUrl'] ?? "https://i.ibb.co.com/nrs3FjM/images.png"),
+                                settingcontroller.userData['imageUrl'] ??
+                                    "https://i.ibb.co.com/nrs3FjM/images.png"),
                         backgroundColor: AppColor.greyWhite,
                       ),
                       title: CustomTextPopins(
@@ -128,6 +131,7 @@ class Setting extends StatelessWidget {
                         message: "Are Your Sure ?",
                         onYes: () {
                           settingcontroller.logout();
+                          sportController.allowMultipleSelection.value = false;
                           Get.back();
                           Get.offAllNamed(Approute.onboarding);
                         },
