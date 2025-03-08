@@ -42,7 +42,7 @@ class PersonalInfo extends StatelessWidget {
                               null
                           ? FileImage(settingcController.selectedImage.value!)
                           : CachedNetworkImageProvider(
-                              settingcController.userData['imageUrl']))),
+                              settingcController.userData['imageUrl'] ?? "https://i.ibb.co.com/nrs3FjM/images.png"))),
                   SizedBox(height: 10.h),
                   GestureDetector(
                     onTap: () {

@@ -46,7 +46,7 @@ class Setting extends StatelessWidget {
                                 null
                             ? FileImage(settingcontroller.selectedImage.value!)
                             : CachedNetworkImageProvider(
-                              settingcontroller.userData['imageUrl']),
+                              settingcontroller.userData['imageUrl'] ?? "https://i.ibb.co.com/nrs3FjM/images.png"),
                         backgroundColor: AppColor.greyWhite,
                       ),
                       title: CustomTextPopins(

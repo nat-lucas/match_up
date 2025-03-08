@@ -63,9 +63,17 @@ class Home extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       var item = sportController.selectedTeams[index];
-                      return TeramCard(
-                        image: item['logo'] ?? "",
-                        text: item['name'] ?? "",
+                      return GestureDetector(
+                        onTap: () {
+                          debugPrint("Team Selected:");
+                          debugPrint("Name: ${item['name']}");
+                          debugPrint("Image URL: ${item['logo']}");
+                          debugPrint("Team ID: ${item['id']}");
+                        },
+                        child: TeramCard(
+                          image: item['logo'] ?? "",
+                          text: item['name'] ?? "",
+                        ),
                       );
                     },
                   ))),
