@@ -9,6 +9,7 @@ import 'package:match_up/core/utils/image.dart';
 import 'package:match_up/feature/select_sport/model/score_model.dart';
 
 import '../../../core/network_caller/service/service.dart';
+import '../model/shedule_model.dart';
 import '../model/team_model.dart';
 
 class SportController extends GetxController {
@@ -23,6 +24,7 @@ class SportController extends GetxController {
   final RxList<Team2> teamList = <Team2>[].obs;
   final RxList<Events> competitions = <Events>[].obs;
   final RxMap userData = {}.obs;
+  final RxList<Schedule> scheduleList = <Schedule>[].obs;
   var selectedIndex = (-1).obs;
 
   RxList<Map<String, String>> selectedTeams = <Map<String, String>>[].obs;
@@ -66,7 +68,7 @@ class SportController extends GetxController {
 
     final team = teamList[index];
     final teamName = team.strTeam;
-    final teamLogo = team.strLogo ?? "";
+    final teamLogo = team.strBadge ?? "";
     final teamid = team.idTeam;
 
     if (teamName.isEmpty || teamLogo.isEmpty) return;
@@ -214,28 +216,32 @@ class SportController extends GetxController {
     }
   }
 
-  // Future<void> _fetchdataTeam(String url) async {
-  //   try {
-  //     isLoading.value = true;
-  //     final response = await NetworkCaller().getRequest(url, token: "472735");
-  //     if (response.isSuccess) {
-  //       debugPrint("===============Response: ${response.responseData}");
-  //       final parsedResponse =
-  //           Events.fromJson(response.responseData as Map<String, dynamic>);
-  //       if (parsedResponse.competitions != null &&
-  //           parsedResponse.competitions!.isNotEmpty) {
-  //         competitions
-  //             .assignAll(parsedResponse.competitions! as Iterable<Events>);
-  //         debugPrint("=============$competitions");
-  //         debugPrint("=============${competitions.length}");
-  //       }
-  //       debugPrint("======api data tem=======$competitions");
-  //       debugPrint("=============${competitions.length}");
-  //     }
-  //   } catch (e) {
-  //     debugPrint("Error fetching competitions: $e");
-  //   } finally {
-  //     isLoading.value = false;
-  //   }
-  // }
+  Future<void> getNext5event(String id) async {
+    var url = "https://www.thesportsdb.com/api/v2/json/schedule/next/team/$id";
+    try {
+      isLoading.value = true;
+      final response = await NetworkCaller().getRequest(url, token: "472735");
+      if (response.isSuccess) {
+        debugPrint("===============Response: ${response.responseData}");
+
+        var jsonData = response.responseData;
+        if (jsonData != null && jsonData['schedule'] != null) {
+          scheduleList.value = (jsonData['schedule'] as List)
+              .map((item) => Schedule.fromJson(item))
+              .toList();
+          debugPrint("==========list======${scheduleList.length}");
+          for (var schedule in scheduleList) {
+            debugPrint(
+                "Event: ${schedule.strEvent}, Date: ${schedule.dateEvent}, Team: ${schedule.strHomeTeam} vs ${schedule.strAwayTeam}");
+          }
+        }
+      } else {
+        debugPrint('==========${response.responseData}');
+      }
+    } catch (e) {
+      debugPrint("Error fetching competitions: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
 }

@@ -25,7 +25,7 @@ class NetworkCaller {
     final parsedUrl = _parseUrl(url);
     headers ??= {};
     if (token != null) {
-      headers['Authorization'] = 'X-API-KEY $token';
+      headers['X-API-KEY'] = token;
     }
     headers['Content-Type'] = 'application/json';
     log('Request Header: $headers');
