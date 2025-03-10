@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
 import 'package:match_up/core/global/loading.dart';
 import 'package:match_up/core/route/route.dart';
@@ -100,9 +101,25 @@ class Home extends StatelessWidget {
                       itemCount: sportController.scheduleList.length,
                       itemBuilder: (context, index) {
                         var data = sportController.scheduleList[index];
+
+                        bool isTodayMatch = false;
+                        if (data.dateEvent != null &&
+                            data.dateEvent!.isNotEmpty) {
+                          try {
+                            DateTime eventDate =
+                                DateFormat('yyyy-MM-dd').parse(data.dateEvent!);
+                            DateTime today = DateTime.now();
+                            isTodayMatch = eventDate.year == today.year &&
+                                eventDate.month == today.month &&
+                                eventDate.day == today.day;
+                          } catch (e) {
+                            isTodayMatch = false;
+                          }
+                        }
+
                         return GestureDetector(
                           onTap: () {
-                            if (index == 0) {
+                            if (isTodayMatch) {
                               Get.toNamed(Approute.livescore);
                             }
                           },
@@ -119,9 +136,7 @@ class Home extends StatelessWidget {
                         );
                       },
                       separatorBuilder: (context, index) {
-                        return SizedBox(
-                          height: 15.h,
-                        );
+                        return SizedBox(height: 15.h);
                       },
                     ))
             ],
