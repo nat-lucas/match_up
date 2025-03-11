@@ -26,8 +26,19 @@ class SportController extends GetxController {
   final RxMap userData = {}.obs;
   final RxList<Schedule> scheduleList = <Schedule>[].obs;
   var selectedIndex = (-1).obs;
+  RxString firstID = "".obs;
 
   RxList<Map<String, String>> selectedTeams = <Map<String, String>>[].obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    if (_auth.currentUser != null) {
+      getNext5event(firstID.value);
+    } else {
+      debugPrint("===========<><><><><><>No user found ");
+    }
+  }
 
   final List sport = [
     {
@@ -131,6 +142,14 @@ class SportController extends GetxController {
         }).toList();
 
         selectedTeams.addAll(getUserTeam);
+
+        if (selectedTeams.isNotEmpty) {
+          firstID.value = selectedTeams.first['id']!;
+          await getNext5event(firstID.value);
+          debugPrint("===done===========$firstID");
+        } else {
+          firstID.value = "";
+        }
 
         var subcription = doc['member'] ?? false;
         debugPrint("==========<><>$subcription");

@@ -1,141 +1,83 @@
 {
   "info": {
-    "_postman_id": "your-postman-id",
-    "name": "TheSportsDB API",
+    "name": "Live Score API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "List all sports",
+      "name": "Live Score Soccer",
       "request": {
         "method": "GET",
-        "url": "https://www.thesportsdb.com/api/v1/json/3/all_sports.php"
+        "header": [
+          {
+            "key": "X-API-KEY",
+            "value": "your_api_key_here",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://www.thesportsdb.com/api/v2/json/livescore/soccer",
+          "protocol": "https",
+          "host": ["www.thesportsdb.com"],
+          "path": ["api", "v2", "json", "livescore", "soccer"]
+        }
       }
     },
     {
-      "name": "List all leagues",
+      "name": "Live Score Basketball",
       "request": {
         "method": "GET",
-        "url": "https://www.thesportsdb.com/api/v1/json/3/all_leagues.php"
+        "header": [
+          {
+            "key": "X-API-KEY",
+            "value": "your_api_key_here",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://www.thesportsdb.com/api/v2/json/livescore/basketball",
+          "protocol": "https",
+          "host": ["www.thesportsdb.com"],
+          "path": ["api", "v2", "json", "livescore", "basketball"]
+        }
       }
     },
     {
-      "name": "List all countries",
+      "name": "Live Score Ice Hockey",
       "request": {
         "method": "GET",
-        "url": "https://www.thesportsdb.com/api/v1/json/3/all_countries.php"
+        "header": [
+          {
+            "key": "X-API-KEY",
+            "value": "your_api_key_here",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://www.thesportsdb.com/api/v2/json/livescore/ice_hockey",
+          "protocol": "https",
+          "host": ["www.thesportsdb.com"],
+          "path": ["api", "v2", "json", "livescore", "ice_hockey"]
+        }
       }
     },
     {
-      "name": "List all leagues in a country",
+      "name": "Live Score All Sports",
       "request": {
         "method": "GET",
-        "url": "https://www.thesportsdb.com/api/v1/json/3/search_all_leagues.php?c=England"
-      }
-    },
-    {
-      "name": "List all leagues in a country with sport",
-      "request": {
-        "method": "GET",
-        "url": "https://www.thesportsdb.com/api/v1/json/3/search_all_leagues.php?c=England&s=Soccer"
-      }
-    },
-    {
-      "name": "List all seasons in a league",
-      "request": {
-        "method": "GET",
-        "url": "https://www.thesportsdb.com/api/v1/json/3/search_all_seasons.php?id=4328"
-      }
-    },
-    {
-      "name": "List all teams in a league",
-      "request": {
-        "method": "GET",
-        "url": "https://www.thesportsdb.com/api/v1/json/3/search_all_teams.php?l=English%20Premier%20League"
-      }
-    },
-    {
-      "name": "List all teams in a league by country and sport",
-      "request": {
-        "method": "GET",
-        "url": "https://www.thesportsdb.com/api/v1/json/3/search_all_teams.php?s=Soccer&c=Spain"
-      }
-    },
-    {
-      "name": "List all teams details in a league by ID",
-      "request": {
-        "method": "GET",
-        "url": "https://www.thesportsdb.com/api/v1/json/3/lookup_all_teams.php?id=4328"
-      }
-    },
-    {
-      "name": "List all players in a team by team ID",
-      "request": {
-        "method": "GET",
-        "url": "https://www.thesportsdb.com/api/v1/json/3/lookup_all_players.php?id=133604"
-      }
-    },
-    {
-      "name": "List all users loved teams and players",
-      "request": {
-        "method": "GET",
-        "url": "https://www.thesportsdb.com/api/v1/json/3/searchloves.php?u=zag"
-      }
-    },
-    {
-      "name": "Next 5 Events by Team Id",
-      "request": {
-        "method": "GET",
-        "url": "https://www.thesportsdb.com/api/v1/json/3/eventsnext.php?id=133602"
-      }
-    },
-    {
-      "name": "Next 25 Events by League Id",
-      "request": {
-        "method": "GET",
-        "url": "https://www.thesportsdb.com/api/v1/json/3/eventsnextleague.php?id=4328"
-      }
-    },
-    {
-      "name": "Last 5 Events by Team Id",
-      "request": {
-        "method": "GET",
-        "url": "https://www.thesportsdb.com/api/v1/json/3/eventslast.php?id=133602"
-      }
-    },
-    {
-      "name": "Last 15 Events by League Id",
-      "request": {
-        "method": "GET",
-        "url": "https://www.thesportsdb.com/api/v1/json/3/eventspastleague.php?id=4328"
-      }
-    },
-    {
-      "name": "Events in a specific round",
-      "request": {
-        "method": "GET",
-        "url": "https://www.thesportsdb.com/api/v1/json/3/eventsround.php?id=4328&r=38&s=2014-2015"
-      }
-    },
-    {
-      "name": "Events on a specific day",
-      "request": {
-        "method": "GET",
-        "url": "https://www.thesportsdb.com/api/v1/json/3/eventsday.php?d=2014-10-10"
-      }
-    },
-    {
-      "name": "TV Events on a day",
-      "request": {
-        "method": "GET",
-        "url": "https://www.thesportsdb.com/api/v1/json/3/eventstv.php?d=2018-07-07"
-      }
-    },
-    {
-      "name": "All events in specific league by season",
-      "request": {
-        "method": "GET",
-        "url": "https://www.thesportsdb.com/api/v1/json/3/eventsseason.php?id=4328&s=2014-2015"
+        "header": [
+          {
+            "key": "X-API-KEY",
+            "value": "your_api_key_here",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://www.thesportsdb.com/api/v2/json/livescore/all",
+          "protocol": "https",
+          "host": ["www.thesportsdb.com"],
+          "path": ["api", "v2", "json", "livescore", "all"]
+        }
       }
     }
   ]

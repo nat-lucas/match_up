@@ -5,8 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/route/route.dart';
+import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
 
 class AuthController extends GetxController {
+  final SportController sportController = Get.find<SportController>();
   TextEditingController lemail = TextEditingController();
   TextEditingController lpassword = TextEditingController();
   TextEditingController semail = TextEditingController();
@@ -96,6 +98,7 @@ class AuthController extends GetxController {
       );
 
       if (userCredential.user != null) {
+        await sportController.getFirestoreSelection();
         Get.offAllNamed(Approute.navbar);
         Get.snackbar("Success", "Login successful!",
             colorText: Colors.white,

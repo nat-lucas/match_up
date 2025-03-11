@@ -29,6 +29,7 @@ class SplashController extends GetxController {
     if (currentUser != null) {
       await Future.wait([
         sportController.getFirestoreSelection(),
+        
       ]);
       await Future.delayed(const Duration(milliseconds: 500));
       Get.offAllNamed(Approute.navbar);
