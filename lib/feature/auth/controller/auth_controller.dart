@@ -81,8 +81,19 @@ class AuthController extends GetxController {
     try {
       isLoading.value = true;
 
+      if (lemail.text.isEmpty || lpassword.text.isEmpty) {
+        Get.snackbar("Error", "Email and password cannot be empty.",
+            snackPosition: SnackPosition.TOP,
+            colorText: Colors.white,
+            backgroundColor: Colors.red);
+        isLoading.value = false;
+        return;
+      }
+
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
-          email: lemail.text, password: lpassword.text);
+        email: lemail.text.trim(),
+        password: lpassword.text.trim(),
+      );
 
       if (userCredential.user != null) {
         Get.offAllNamed(Approute.navbar);
@@ -92,31 +103,43 @@ class AuthController extends GetxController {
             snackPosition: SnackPosition.TOP);
       }
     } on FirebaseAuthException catch (e) {
-      log("=========>>>$e");
+      log("Firebase Auth Error: ${e.code}");
+
       isLoading.value = false;
 
       String errorMessage = "Login failed";
 
-      if (e.code == 'firebase_auth/invalid-credential') {
-        errorMessage = "No account found for that email.";
-      } else if (e.code == 'wrong-password') {
-        errorMessage = "Incorrect password. Please try again.";
-      } else if (e.code == 'invalid-email') {
-        errorMessage = "Invalid email format.";
-      } else if (e.code == 'user-disabled') {
-        errorMessage = "This account has been disabled.";
+      switch (e.code) {
+        case 'invalid-credential':
+        case 'user-not-found':
+          errorMessage = "No account found for this email.";
+          break;
+        case 'wrong-password':
+          errorMessage = "Incorrect password. Please try again.";
+          break;
+        case 'invalid-email':
+          errorMessage = "Invalid email format.";
+          break;
+        case 'user-disabled':
+          errorMessage = "This account has been disabled.";
+          break;
+        default:
+          errorMessage = e.message ?? "An unexpected error occurred.";
+          break;
       }
 
-      debugPrint("Login failed: ${e.message}");
       Get.snackbar("Error", errorMessage,
           snackPosition: SnackPosition.TOP,
           colorText: Colors.white,
           backgroundColor: Colors.red);
     } catch (e) {
       isLoading.value = false;
-      debugPrint("Unexpected error: $e");
+      log("Unexpected error: $e");
+
       Get.snackbar("Error", "An unexpected error occurred.",
-          snackPosition: SnackPosition.BOTTOM);
+          snackPosition: SnackPosition.BOTTOM,
+          colorText: Colors.white,
+          backgroundColor: Colors.red);
     } finally {
       isLoading.value = false;
     }
