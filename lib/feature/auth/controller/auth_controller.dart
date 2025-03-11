@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/route/route.dart';
+import 'package:match_up/feature/nav_bar/controller/navcontroller.dart';
 import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
 
 class AuthController extends GetxController {
@@ -19,6 +20,7 @@ class AuthController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   RxBool visible = true.obs;
   RxBool isLoading = false.obs;
+  NavController navController = Get.put(NavController());
   changeVisible() {
     visible.value = !visible.value;
   }
@@ -99,6 +101,7 @@ class AuthController extends GetxController {
 
       if (userCredential.user != null) {
         await sportController.getFirestoreSelection();
+        navController.currentIndex.value = 0;
         Get.offAllNamed(Approute.navbar);
         Get.snackbar("Success", "Login successful!",
             colorText: Colors.white,

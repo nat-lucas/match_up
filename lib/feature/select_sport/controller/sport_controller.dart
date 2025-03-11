@@ -236,6 +236,7 @@ class SportController extends GetxController {
   }
 
   Future<void> getNext5event(String id) async {
+    scheduleList.clear();
     var url = "https://www.thesportsdb.com/api/v2/json/schedule/next/team/$id";
     try {
       isLoading.value = true;

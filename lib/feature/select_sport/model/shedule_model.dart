@@ -26,8 +26,8 @@ class Schedule {
   final String? strDescriptionEN;
   final String? strHomeTeam;
   final String? strAwayTeam;
-  final int? intHomeScore;
-  final int? intAwayScore;
+  final String? intHomeScore;
+  final String? intAwayScore;
   final String? strTimestamp;
   final String? dateEvent;
   final String? dateEventLocal;
