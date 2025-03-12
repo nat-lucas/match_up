@@ -86,7 +86,7 @@ class Setting extends StatelessWidget {
                 ),
                 CustomListTile(
                     onTap: () {
-                      Get.toNamed(Approute.editTeam);
+                      Get.toNamed(Approute.chose);
                     },
                     image: ImagePath.team,
                     tittle: "Edit Team",
