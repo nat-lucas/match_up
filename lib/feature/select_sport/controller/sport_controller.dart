@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:match_up/core/route/route.dart';
 import 'package:match_up/core/utils/image.dart';
 import 'package:match_up/feature/select_sport/model/score_model.dart';
-
 import '../../../core/network_caller/service/service.dart';
 import '../model/shedule_model.dart';
 import '../model/team_model.dart';
