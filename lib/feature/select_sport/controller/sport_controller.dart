@@ -255,7 +255,31 @@ class SportController extends GetxController {
         }
       } else if (response.statusCode == 403) {
         Get.snackbar("Error", "This Not Availabe This moment",
-            colorText: Colors.white, backgroundColor: Colors.red);
+            duration: Duration(seconds: 2),
+            colorText: Colors.white,
+            backgroundColor: Colors.red);
+        debugPrint('==========${response.responseData}');
+      }
+    } catch (e) {
+      debugPrint("Error fetching competitions: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> livescoor() async {
+    var url = "https://www.thesportsdb.com/api/v2/json/livescore/4380";
+    try {
+      isLoading.value = true;
+      final response = await NetworkCaller().getRequest(url, token: "472735");
+      if (response.isSuccess) {
+        debugPrint("=============###${scheduleList.first.idLeague}");
+        debugPrint("=============<><>${response.responseData}");
+      } else if (response.statusCode == 403) {
+        Get.snackbar("Error", "This Not Availabe This moment",
+            duration: Duration(seconds: 2),
+            colorText: Colors.white,
+            backgroundColor: Colors.red);
         debugPrint('==========${response.responseData}');
       }
     } catch (e) {

@@ -89,8 +89,6 @@ class Home extends StatelessWidget {
               SizedBox(
                 height: 15.h,
               ),
-         
-              
               Obx(() => sportController.isLoading.value
                   ? Center(
                       child: LoadingWidget(
@@ -122,6 +120,7 @@ class Home extends StatelessWidget {
                         return GestureDetector(
                           onTap: () {
                             if (isTodayMatch) {
+                              sportController.livescoor();
                               Get.toNamed(Approute.livescore);
                             }
                           },
