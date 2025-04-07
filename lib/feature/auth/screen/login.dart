@@ -119,6 +119,7 @@ class Login extends StatelessWidget {
                   ),
                   SizedBox(),
                   SizedBox(),
+                  
                   SizedBox(),
                   Align(
                     alignment: Alignment.center,
@@ -132,7 +133,7 @@ class Login extends StatelessWidget {
                             color: AppColor.blackborder),
                       ),
                       TextSpan(
-                        text: "Sing Up ",
+                        text: "Sign Up ",
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                             fontSize: 16.sp,

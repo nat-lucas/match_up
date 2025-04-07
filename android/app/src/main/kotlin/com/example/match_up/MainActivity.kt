@@ -1,4 +1,4 @@
-package com.example.match_up
+package com.app.match_up
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 
