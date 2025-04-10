@@ -2,10 +2,9 @@
 import 'package:get/get.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:match_up/core/helper/sharedprefarences.dart' show SharedPreferencesHelper;
 import 'package:shared_preferences/shared_preferences.dart';
 
-
+import '../../../core/helper/sharedprefarences.dart';
 
 class NotificationController extends GetxController {
   SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
@@ -13,15 +12,18 @@ class NotificationController extends GetxController {
   final FlutterLocalNotificationsPlugin _localNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-
-
   @override
   void onInit() {
     super.onInit();
+    FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) async {
+      await preferencesHelper.init();
+      await preferencesHelper.setString('fcm_token', fcmToken);
+      print("🔁 Refreshed FCM Token: $fcmToken");
+    });
+
     _initializeLocalNotifications();
     configureNotificationListener();
     saveTokenForiOS();
-    getAndSaveFCMToken();
   }
 
   void _initializeLocalNotifications() {
@@ -69,33 +71,49 @@ class NotificationController extends GetxController {
 
   Future<void> saveTokenForiOS() async {
     try {
-      if (GetPlatform.isIOS) {
-        await _firebaseMessaging.requestPermission(
-          alert: true,
-          badge: true,
-          sound: true,
-        );
-
-        print('User granted permission for notifications');
-
-        String? apnsToken = await _firebaseMessaging.getAPNSToken();
-        print('APNs Token: $apnsToken');
-
-        String? fcmToken = await _firebaseMessaging.getToken();
-        if (fcmToken != null) {
-          await preferencesHelper.init();
-          await preferencesHelper.setString('fcm_token', fcmToken);
-
-          print("FCM Token for iOS: $fcmToken");
-        } else {
-          print("Failed to get FCM token on iOS.");
-        }
-
-        _firebaseMessaging.setForegroundNotificationPresentationOptions(
-            alert: true, sound: true, badge: true);
-      } else {
+      if (!GetPlatform.isIOS) {
         print("saveTokenForiOS function is being called on a non-iOS platform");
+        return;
       }
+
+      await _firebaseMessaging.requestPermission(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+
+      print('User granted permission for notifications');
+
+      // Wait for APNs token to be set
+      String? apnsToken;
+      int retries = 5;
+      while (apnsToken == null && retries > 0) {
+        await Future.delayed(Duration(seconds: 1));
+        apnsToken = await _firebaseMessaging.getAPNSToken();
+        retries--;
+      }
+
+      if (apnsToken == null) {
+        print('❌ Failed to fetch APNs token after retries.');
+      } else {
+        print('✅ APNs Token: $apnsToken');
+      }
+
+      String? fcmToken = await _firebaseMessaging.getToken();
+      if (fcmToken != null) {
+        await preferencesHelper.init();
+        await preferencesHelper.setString('fcm_token', fcmToken);
+
+        print("✅ FCM Token for iOS: $fcmToken");
+      } else {
+        print("❌ Failed to get FCM token on iOS.");
+      }
+
+      _firebaseMessaging.setForegroundNotificationPresentationOptions(
+        alert: true,
+        sound: true,
+        badge: true,
+      );
     } catch (e) {
       print("Error in saveTokenForiOS: $e");
     }

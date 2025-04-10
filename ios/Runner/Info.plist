@@ -6,6 +6,8 @@
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>aps-environment</key>
+	<string>development</string>
 	<key>CFBundleDisplayName</key>
 	<string>Match Up</string>
 	<key>CFBundleExecutable</key>

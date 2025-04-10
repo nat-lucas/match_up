@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.matchUp.RunnerTests</string>
+	<string>com.app.match-up</string>
 	<key>PROJECT_ID</key>
 	<string>matchup-jj</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:373371364852:ios:906e693901adf37cdbc5a1</string>
+	<string>1:373371364852:ios:4d214dcff4d7c58ddbc5a1</string>
 </dict>
 </plist>

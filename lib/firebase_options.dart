@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD10p3FJsP4ljDvguNrImSSl2rcx2tc8pw',
-    appId: '1:373371364852:android:f0756fdf4558356ddbc5a1',
+    appId: '1:373371364852:android:024c7a3979a309cedbc5a1',
     messagingSenderId: '373371364852',
     projectId: 'matchup-jj',
     storageBucket: 'matchup-jj.firebasestorage.app',
@@ -59,7 +59,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDjyM4-sYQqBttiPHBDOzRpFdH83IQ1WkE',
-    appId: '1:373371364852:ios:906e693901adf37cdbc5a1',
+    appId: '1:373371364852:ios:af48536a8a9555badbc5a1',
     messagingSenderId: '373371364852',
     projectId: 'matchup-jj',
     storageBucket: 'matchup-jj.firebasestorage.app',
