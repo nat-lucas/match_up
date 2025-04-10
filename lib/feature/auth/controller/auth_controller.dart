@@ -4,11 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:match_up/core/helper/sharedprefarences.dart';
 import 'package:match_up/core/route/route.dart';
 import 'package:match_up/feature/nav_bar/controller/navcontroller.dart';
 import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
 
 class AuthController extends GetxController {
+  SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
   final SportController sportController = Get.find<SportController>();
   TextEditingController lemail = TextEditingController();
   TextEditingController lpassword = TextEditingController();
@@ -26,6 +28,7 @@ class AuthController extends GetxController {
   }
 
   Future<void> signUpWithEmailAndPassword() async {
+    preferencesHelper.init();
     try {
       isLoading.value = true;
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
@@ -35,6 +38,7 @@ class AuthController extends GetxController {
       await _firestore.collection('user').doc(userCredential.user?.uid).set({
         "email": semail.text,
         "password": cofirmpassword.text,
+        "fcm_token": preferencesHelper.getString("fcm_token"),
         "member": false,
         "name": "Unknown",
       });
@@ -100,6 +104,9 @@ class AuthController extends GetxController {
       );
 
       if (userCredential.user != null) {
+        await _firestore.collection('user').doc(userCredential.user?.uid).update({
+          "fcm_token": preferencesHelper.getString("fcm_token"),
+        });
         await sportController.getFirestoreSelection();
         navController.currentIndex.value = 0;
         Get.offAllNamed(Approute.navbar);
