@@ -78,7 +78,7 @@ class SelectTeam extends StatelessWidget {
                             var data = sportController.teamList[index];
                             return ListTile(
                               title: CustomTextPopins(
-                                text: data.strTeam ?? "NRA",
+                                text: data.strTeam,
                                 size: 14.sp,
                                 color: AppColor.blackborder,
                               ),
