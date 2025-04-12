@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:match_up/core/utils/image.dart';
+import 'package:match_up/feature/home/screen/live.dart';
 import 'package:match_up/feature/spread/widget/custom_row.dart';
 import '../../../core/global/custom_text_poppins.dart';
 import '../../../core/utils/color.dart';
@@ -14,11 +16,16 @@ class Spread extends StatelessWidget {
       appBar: AppBar(
         scrolledUnderElevation: 0,
         centerTitle: false,
-        title: CustomTextPopins(
-          text: "Spread",
-          fontWeight: FontWeight.w600,
-          size: 24.sp,
-          color: AppColor.blackborder,
+        title: GestureDetector(
+          onTap: () {
+            Get.to(()=> LiveScoreSSE());
+          },
+          child: CustomTextPopins(
+            text: "Spread",
+            fontWeight: FontWeight.w600,
+            size: 24.sp,
+            color: AppColor.blackborder,
+          ),
         ),
       ),
       body: SingleChildScrollView(
