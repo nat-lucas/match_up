@@ -15,7 +15,8 @@ class LiveScoreController extends GetxController {
   }
 
   Future<void> _connectToSSE() async {
-    const url = 'http://10.0.20.13:5001/api/v1/sports/live-score?matchId=139141';
+    const url =
+        'http://10.0.20.13:5001/api/v1/sports/live-score?matchId=139141';
     final uri = Uri.parse(url);
     _httpClient = HttpClient();
 
@@ -25,7 +26,8 @@ class LiveScoreController extends GetxController {
 
       final response = await request.close();
 
-      response.transform(utf8.decoder).transform(const LineSplitter()).listen((line) {
+      response.transform(utf8.decoder).transform(const LineSplitter()).listen(
+          (line) {
         if (line.startsWith('data:')) {
           final newData = line.replaceFirst('data:', '').trim();
 

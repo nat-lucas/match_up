@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:match_up/core/utils/image.dart';
+import 'package:match_up/feature/home/controller/live_contorller.dart';
 import 'package:match_up/feature/home/widget/team_scoor.dart';
 
 import '../../../core/global/custom_text_poppins.dart';
@@ -11,6 +13,8 @@ class LiveSport extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final LiveScoreController liveScoreController =
+        Get.put(LiveScoreController());
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,
