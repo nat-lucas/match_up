@@ -64,8 +64,10 @@ class Home extends StatelessWidget {
                       var item = sportController.selectedTeams[index];
                       return GestureDetector(
                         onTap: () {
-                          debugPrint("Team ID: ${item['id']}");
+                          sportController.teamId.value = item['id'] as String;
                           sportController.getNext5event(item['id'] as String);
+                          debugPrint(
+                              "Team ID: ${item['id']} ${sportController.teamId.value}");
                         },
                         child: TeramCard(
                           image: item['logo'] ?? "",
@@ -120,8 +122,9 @@ class Home extends StatelessWidget {
                         return GestureDetector(
                           onTap: () {
                             if (isTodayMatch) {
-                              sportController.livescoor();
-                              Get.toNamed(Approute.livescore);
+                              Get.toNamed(Approute.livescore,arguments: {
+                                'teamId' : sportController.teamId.value,
+                              });
                             }
                           },
                           child: MatchCardToday(
