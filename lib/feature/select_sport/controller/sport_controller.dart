@@ -144,6 +144,7 @@ class SportController extends GetxController {
 
         if (selectedTeams.isNotEmpty) {
           firstID.value = selectedTeams.first['id']!;
+          teamId.value = selectedTeams.first['id']!;
           await getNext5event(firstID.value);
           debugPrint("===done===========$firstID");
         } else {
