@@ -16,7 +16,7 @@ class Subcription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> arg = Get.arguments;
-    final subcriptionController = Get.put(SubscriptionController());
+    final subcriptionController = Get.find<SubscriptionController>();
     final sportcontroller = Get.find<SportController>();
 
     return Scaffold(
@@ -81,7 +81,8 @@ class Subcription extends StatelessWidget {
                               if (subcriptionController.selectedPlan == 1) {
                                 subcriptionController.makePayment(0.99);
                               } else {
-                                sportcontroller.allowMultipleSelection.value = false;
+                                sportcontroller.allowMultipleSelection.value =
+                                    false;
                                 Get.toNamed(Approute.chose);
                               }
                             },

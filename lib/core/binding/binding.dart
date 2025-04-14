@@ -6,6 +6,7 @@ import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
 import 'package:match_up/feature/setting/controller/edit_team_controller.dart';
 import 'package:match_up/feature/setting/controller/setting_controller.dart';
 import 'package:match_up/feature/splash/controller/splash_controller.dart';
+import 'package:match_up/feature/subcription/controller/subcription_controller.dart';
 
 class Appbinding extends Bindings {
   @override
@@ -15,6 +16,7 @@ class Appbinding extends Bindings {
     Get.put(SportController());
     Get.put(NavController());
     Get.put(EditTeamController());
+    Get.put(SubscriptionController() );
     Get.put( NotificationController());
     Get.put(SettingController());
   }

@@ -104,8 +104,9 @@ class Setting extends StatelessWidget {
                 ),
                 CustomListTile(
                     onTap: () {
-                      Get.toNamed(Approute.subcription,
-                          arguments: {"inUser": true});
+                      Get.toNamed(
+                        Approute.subcribtion2,
+                      );
                     },
                     image: ImagePath.payment,
                     tittle: "Subcription",

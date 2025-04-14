@@ -14,6 +14,7 @@ import 'package:match_up/feature/setting/screen/personal_info.dart';
 import 'package:match_up/feature/setting/screen/polici.dart';
 import 'package:match_up/feature/splash/screen/splash.dart';
 import 'package:match_up/feature/subcription/screen/subcription.dart';
+import 'package:match_up/feature/subcription/screen/subcription2.dart';
 
 class Approute {
   static const String splash = "/splash";
@@ -22,6 +23,7 @@ class Approute {
   static const String singup = "/signup";
   static const String forgot = '/forgot';
   static const String subcription = '/subcription';
+  static const String subcribtion2 = '/subcribtion2';
   static const String chose = "/chose";
   static const String selectTeam = '/selectTeam';
   static const String navbar = '/navbar';
@@ -46,6 +48,7 @@ class Approute {
     GetPage(name: subcription, page: () => Subcription()),
     GetPage(name: chose, page: () => ChooseSport()),
     GetPage(name: livescore, page: () => LiveSport()),
+    GetPage(name: subcribtion2, page: () => Subcription2()),
     GetPage(name: editTeam, page: () => EditTeam())
   ];
 }

@@ -98,13 +98,13 @@ class SportController extends GetxController {
         selectedTeamIndices.remove(index);
         selectedTeams.removeWhere((item) => item['name'] == teamName);
       } else {
-        if (selectedTeams.length < 2) {
+        if (selectedTeams.isEmpty) {
           selectedTeamIndices.add(index);
           selectedTeams.add({'name': teamName, 'logo': teamLogo, 'id': teamid});
         } else {
           Get.snackbar(
             "Selection Limit",
-            "You can select only up to 2 teams.",
+            "You can select only up to 1 teams.",
             snackPosition: SnackPosition.TOP,
             backgroundColor: Colors.red,
             colorText: Colors.white,
