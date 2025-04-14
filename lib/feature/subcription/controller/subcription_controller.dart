@@ -50,12 +50,17 @@ class SubscriptionController extends GetxController {
       final currentUser = _auth.currentUser;
 
       if (currentUser != null) {
+        final DateTime purchaseDate = DateTime.now();
+        final DateTime expireDate = purchaseDate.add(Duration(days: 30));
         await _firestore.collection('user').doc(currentUser.uid).update({
           "member": true,
+          "purchase-date": purchaseDate.toIso8601String(),
+          "expire-date": expireDate.toIso8601String(),
         });
+        await _firestore.collection('user').doc(currentUser.uid).update({});
 
         debugPrint("User data updated successfully.");
-         await sportController.getFirestoreSelection();
+        await sportController.getFirestoreSelection();
       } else {
         debugPrint("User is null, cannot update data.");
         Get.snackbar("Error", "User not found. Please log in again.",
@@ -96,7 +101,7 @@ class SubscriptionController extends GetxController {
       await Stripe.instance.presentPaymentSheet();
       debugPrint("Payment successful!");
       await updateUserData();
-     
+
       showThanksDialog();
     } catch (e) {
       debugPrint("Error in payment processing: $e");

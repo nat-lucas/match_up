@@ -40,6 +40,8 @@ class AuthController extends GetxController {
         "password": cofirmpassword.text,
         "fcm_token": preferencesHelper.getString("fcm_token"),
         "member": false,
+        "purchase-date": "",
+        "expire-date": "",
         "name": "Unknown",
       });
       await login2(semail.text, cofirmpassword.text);
@@ -104,7 +106,10 @@ class AuthController extends GetxController {
       );
 
       if (userCredential.user != null) {
-        await _firestore.collection('user').doc(userCredential.user?.uid).update({
+        await _firestore
+            .collection('user')
+            .doc(userCredential.user?.uid)
+            .update({
           "fcm_token": preferencesHelper.getString("fcm_token"),
         });
         await sportController.getFirestoreSelection();

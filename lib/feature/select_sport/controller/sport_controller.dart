@@ -26,6 +26,8 @@ class SportController extends GetxController {
   var selectedIndex = (-1).obs;
   RxString firstID = "".obs;
   RxString teamId = "".obs;
+  var purchaseDate = "".obs;
+  var expireDate = "".obs;
 
   RxList<Map<String, String>> selectedTeams = <Map<String, String>>[].obs;
 
@@ -152,8 +154,12 @@ class SportController extends GetxController {
         }
 
         var subcription = doc['member'] ?? false;
-        debugPrint("===subcription=======<><>$subcription");
+        var pDate = doc["purchase-date"] ?? "";
+        var eDate = doc["expire-date"] ?? "";
+    
         allowMultipleSelection.value = subcription;
+        purchaseDate.value = pDate;
+        expireDate.value = eDate;
 
         userData.assignAll(doc.data() as Map<String, dynamic>);
         log("============<><.,$allowMultipleSelection");

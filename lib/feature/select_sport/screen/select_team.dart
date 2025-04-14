@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/global/custom_button.dart';
+import 'package:match_up/feature/nav_bar/controller/navcontroller.dart';
 import '../../../core/global/custom_text_poppins.dart';
 import '../../../core/route/route.dart';
 import '../../../core/utils/color.dart';
@@ -13,6 +14,7 @@ class SelectTeam extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sportController = Get.find<SportController>();
+    final navController = Get.find<NavController>();
     return Scaffold(
       backgroundColor: Color(0xffFAFAFA),
       appBar: AppBar(
@@ -114,6 +116,7 @@ class SelectTeam extends StatelessWidget {
         height: 60.h,
         child: CustomButton(
           ontap: () {
+            navController.currentIndex.value =  0;
             Get.offAllNamed(Approute.navbar);
           },
           text: "Next",

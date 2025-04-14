@@ -17,6 +17,14 @@ class Subcription2 extends StatelessWidget {
   Widget build(BuildContext context) {
     final subcriptionController = Get.find<SubscriptionController>();
     final sporController = Get.find<SportController>();
+    String formatDateFromString(String dateString) {
+      try {
+        DateTime date = DateTime.parse(dateString);
+        return "${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year}";
+      } catch (e) {
+        return "Invalid date";
+      }
+    }
 
     return Scaffold(
         appBar: AppBar(
@@ -57,13 +65,16 @@ class Subcription2 extends StatelessWidget {
                         child: Column(
                           children: [
                             cusTomROW(
-                                tittle: "Purchased Date", date: "10-02-2025"),
+                                tittle: "Purchased Date",
+                                date: formatDateFromString(
+                                    sporController.purchaseDate.value)),
                             SizedBox(
                               height: 5.r,
                             ),
                             cusTomROW(
                                 tittle: "Expiry Date          ",
-                                date: "10-02-2025"),
+                                date: formatDateFromString(
+                                    sporController.expireDate.value)),
                           ],
                         ),
                       )
