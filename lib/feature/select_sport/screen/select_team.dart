@@ -116,7 +116,7 @@ class SelectTeam extends StatelessWidget {
         height: 60.h,
         child: CustomButton(
           ontap: () {
-            navController.currentIndex.value =  0;
+            navController.currentIndex.value = 0;
             Get.offAllNamed(Approute.navbar);
           },
           text: "Next",
