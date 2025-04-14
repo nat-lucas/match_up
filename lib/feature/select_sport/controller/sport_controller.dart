@@ -152,7 +152,7 @@ class SportController extends GetxController {
         }
 
         var subcription = doc['member'] ?? false;
-        debugPrint("==========<><>$subcription");
+        debugPrint("===subcription=======<><>$subcription");
         allowMultipleSelection.value = subcription;
 
         userData.assignAll(doc.data() as Map<String, dynamic>);

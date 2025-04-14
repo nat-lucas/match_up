@@ -55,6 +55,7 @@ class SubscriptionController extends GetxController {
         });
 
         debugPrint("User data updated successfully.");
+         await sportController.getFirestoreSelection();
       } else {
         debugPrint("User is null, cannot update data.");
         Get.snackbar("Error", "User not found. Please log in again.",
@@ -95,7 +96,7 @@ class SubscriptionController extends GetxController {
       await Stripe.instance.presentPaymentSheet();
       debugPrint("Payment successful!");
       await updateUserData();
-      await sportController.getFirestoreSelection();
+     
       showThanksDialog();
     } catch (e) {
       debugPrint("Error in payment processing: $e");
