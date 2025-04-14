@@ -2,6 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../core/global/custom_text_poppins.dart';
+import '../../../core/utils/color.dart';
+
 
 class TeamScoor extends StatelessWidget {
   final String title;
@@ -30,15 +33,16 @@ class TeamScoor extends StatelessWidget {
         //       height: 13.h,
         //       width: 13.w,
         //     )),
-        // Positioned(
-        //   bottom: 0,
-        //   child: CustomTextPopins(
-        //     text: title,
-        //     color: AppColor.blackborder,
-        //     size: 12.sp,
-        //     fontWeight: FontWeight.w500,
-        //   ),
-        // ),
+        Positioned(
+          bottom: -5,
+          
+          child: CustomTextPopins(
+            text: title,
+            color: AppColor.blackborder,
+            size: 12.sp,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ],
     );
   }

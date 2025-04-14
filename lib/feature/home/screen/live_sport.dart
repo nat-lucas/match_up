@@ -19,6 +19,7 @@ class LiveSport extends StatelessWidget {
         Get.put(LiveScoreController());
 
     var liveData = liveScoreController.liveScores;
+
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,
@@ -53,6 +54,13 @@ class LiveSport extends StatelessWidget {
                     ),
                   );
                 } else {
+                  if (liveScoreController.liveScores.first.strStatus!.isEmpty) {
+                    liveScoreController.status.value =
+                        liveData.first.strProgress ?? "";
+                  } else {
+                    liveScoreController.status.value =
+                        liveData.first.strStatus ?? "";
+                  }
                   return liveScoreController.liveScores.isNotEmpty
                       ? Container(
                           padding: EdgeInsets.all(15.r),
@@ -66,7 +74,6 @@ class LiveSport extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // ✅ You can safely access liveData.first here now
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -74,7 +81,6 @@ class LiveSport extends StatelessWidget {
                                   TeamScoor(
                                     image:
                                         liveData.first.strHomeTeamBadge ?? "",
-                         
                                     title: liveData.first.strHomeTeam,
                                   ),
                                   Column(
@@ -93,7 +99,7 @@ class LiveSport extends StatelessWidget {
                                         color: AppColor.primaryColor,
                                       ),
                                       CustomTextPopins(
-                                        text: "${liveData.first.strStatus}",
+                                        text: liveScoreController.status.value,
                                         fontWeight: FontWeight.w400,
                                         size: 12.sp,
                                         color: AppColor.blackborder,
@@ -103,7 +109,6 @@ class LiveSport extends StatelessWidget {
                                   TeamScoor(
                                     image:
                                         liveData.first.strAwayTeamBadge ?? "",
-                     
                                     title: liveData.first.strAwayTeam,
                                   ),
                                 ],

@@ -16,7 +16,7 @@ class Subcription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> arg = Get.arguments;
-    final subcriptionController = Get.find<SubscriptionController>();
+    final subcriptionController = Get.put(SubscriptionController());
     final sportcontroller = Get.find<SportController>();
 
     return Scaffold(

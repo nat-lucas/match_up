@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
 import 'package:match_up/core/utils/color.dart';
 
@@ -21,7 +22,7 @@ class PlanCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: ontap,
-      child: Container(
+      child:   Container(
         margin: EdgeInsets.symmetric(vertical: 10.r),
         padding: EdgeInsets.all(10.r),
         decoration: BoxDecoration(

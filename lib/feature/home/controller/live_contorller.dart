@@ -11,6 +11,7 @@ class LiveScoreController extends GetxController {
   final RxString liveScore = "Connecting to live score...".obs;
   final RxList<LiveScore> liveScores = <LiveScore>[].obs;
   RxBool isLoading = false.obs;
+    RxString status = "".obs;
 
   HttpClient? _httpClient;
   String _lastData = "";
