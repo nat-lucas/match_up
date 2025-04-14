@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:match_up/core/global/loading.dart';
 import 'package:match_up/core/utils/image.dart';
 import 'package:match_up/feature/home/controller/live_contorller.dart';
@@ -28,6 +29,16 @@ class LiveSport extends StatelessWidget {
           size: 24.sp,
           color: AppColor.blackborder,
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: Lottie.asset(
+              "assets/anim/live.json",
+              height: 40.h,
+              width: 40.w,
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
