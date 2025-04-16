@@ -21,8 +21,8 @@ class TeamScoor extends StatelessWidget {
     return Stack(
       children: [
         SizedBox(
-          height: 80.h,
-          width: 80.w,
+          height: 90.h,
+          width: 90.w,
         ),
         CachedNetworkImage( height: 65.h, width: 65.w, imageUrl: image,),
         // Positioned(

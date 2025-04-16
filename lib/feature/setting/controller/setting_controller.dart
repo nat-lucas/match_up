@@ -24,6 +24,10 @@ class SettingController extends GetxController {
   }
 
   Future<void> logout() async {
+    final currentUser = _auth.currentUser;
+    await _firestore.collection('user').doc(currentUser!.uid).update({
+      "fcm_token":"",
+    });
     await _auth.signOut();
   }
 
@@ -154,9 +158,12 @@ class SettingController extends GetxController {
   }
 
   Future<void> saveImageUrlToFirestore(String imageUrl) async {
-          final User? currentUser = _auth.currentUser;
+    final User? currentUser = _auth.currentUser;
     try {
-      await FirebaseFirestore.instance.collection("user").doc(currentUser?.uid).update(
+      await FirebaseFirestore.instance
+          .collection("user")
+          .doc(currentUser?.uid)
+          .update(
         {"imageUrl": imageUrl},
       );
       await fetchUserData();
