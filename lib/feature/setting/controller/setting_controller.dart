@@ -26,7 +26,7 @@ class SettingController extends GetxController {
   Future<void> logout() async {
     final currentUser = _auth.currentUser;
     await _firestore.collection('user').doc(currentUser!.uid).update({
-      "fcm_token":"",
+      "fcm_token": "",
     });
     await _auth.signOut();
   }
