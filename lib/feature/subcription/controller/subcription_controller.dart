@@ -45,7 +45,8 @@ class SubscriptionController extends GetxController {
     },
   ].obs;
 
-  Future<void> updateUserData() async {
+  Future<void> updateUserData() async { 
+    
     try {
       final currentUser = _auth.currentUser;
 
