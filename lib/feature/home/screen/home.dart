@@ -97,52 +97,61 @@ class Home extends StatelessWidget {
                         color: AppColor.primaryColor,
                       ),
                     )
-                  : ListView.separated(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: sportController.scheduleList.length,
-                      itemBuilder: (context, index) {
-                        var data = sportController.scheduleList[index];
-
-                        bool isTodayMatch = false;
-                        if (data.dateEvent != null &&
-                            data.dateEvent!.isNotEmpty) {
-                          try {
-                            DateTime eventDate =
-                                DateFormat('yyyy-MM-dd').parse(data.dateEvent!);
-                            DateTime today = DateTime.now();
-                            isTodayMatch = eventDate.year == today.year &&
-                                eventDate.month == today.month &&
-                                eventDate.day == today.day;
-                          } catch (e) {
-                            isTodayMatch = false;
-                          }
-                        }
-
-                        return GestureDetector(
-                          onTap: () {
-                            if (isTodayMatch) {
-                              Get.toNamed(Approute.livescore,arguments: {
-                                'teamId' : sportController.teamId.value,
-                              });
-                            }
-                          },
-                          child: MatchCardToday(
-                            evenTime: data.strTime ?? "",
-                            eventDate: data.dateEvent ?? "",
-                            date: data.dateEventLocal ?? "",
-                            team1: data.strHomeTeam ?? "",
-                            team2: data.strAwayTeam ?? "",
-                            team1logo: data.strHomeTeamBadge ?? "",
-                            teamlogo2: data.strAwayTeamBadge ?? "",
-                            time: data.strTimeLocal ?? "",
+                  : sportController.noMatch.value
+                      ? Center(
+                          child: CustomTextPopins(
+                            text: "No Match Found This Team!",
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                            size: 18.sp,
                           ),
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return SizedBox(height: 15.h);
-                      },
-                    ))
+                        )
+                      : ListView.separated(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: sportController.scheduleList.length,
+                          itemBuilder: (context, index) {
+                            var data = sportController.scheduleList[index];
+
+                            bool isTodayMatch = false;
+                            if (data.dateEvent != null &&
+                                data.dateEvent!.isNotEmpty) {
+                              try {
+                                DateTime eventDate = DateFormat('yyyy-MM-dd')
+                                    .parse(data.dateEvent!);
+                                DateTime today = DateTime.now();
+                                isTodayMatch = eventDate.year == today.year &&
+                                    eventDate.month == today.month &&
+                                    eventDate.day == today.day;
+                              } catch (e) {
+                                isTodayMatch = false;
+                              }
+                            }
+
+                            return GestureDetector(
+                              onTap: () {
+                                if (isTodayMatch) {
+                                  Get.toNamed(Approute.livescore, arguments: {
+                                    'teamId': sportController.teamId.value,
+                                  });
+                                }
+                              },
+                              child: MatchCardToday(
+                                evenTime: data.strTime ?? "",
+                                eventDate: data.dateEvent ?? "",
+                                date: data.dateEventLocal ?? "",
+                                team1: data.strHomeTeam ?? "",
+                                team2: data.strAwayTeam ?? "",
+                                team1logo: data.strHomeTeamBadge ?? "",
+                                teamlogo2: data.strAwayTeamBadge ?? "",
+                                time: data.strTimeLocal ?? "",
+                              ),
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return SizedBox(height: 15.h);
+                          },
+                        ))
             ],
           )),
         ),

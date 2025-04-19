@@ -15,6 +15,7 @@ class SportController extends GetxController {
   var selectedimage = "".obs;
   var isLoading = false.obs;
   var height = 150.0.obs;
+  RxBool noMatch = false.obs;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   var allowMultipleSelection = false.obs;
@@ -156,7 +157,7 @@ class SportController extends GetxController {
         var subcription = doc['member'] ?? false;
         var pDate = doc["purchase-date"] ?? "";
         var eDate = doc["expire-date"] ?? "";
-    
+
         allowMultipleSelection.value = subcription;
         purchaseDate.value = pDate;
         expireDate.value = eDate;
@@ -241,20 +242,68 @@ class SportController extends GetxController {
     }
   }
 
+  // Future<void> getNext5event(String id) async {
+  //   scheduleList.clear();
+  //   var url = "https://www.thesportsdb.com/api/v2/json/schedule/next/team/$id";
+  //   try {
+  //     isLoading.value = true;
+  //     final response = await NetworkCaller().getRequest(url, token: "472735");
+  //     if (response.isSuccess) {
+  //       debugPrint("===============Response: ${response.responseData}");
+
+  //       var jsonData = response.responseData;
+
+  //       if (jsonData != null && jsonData['schedule'] != null) {
+  //         scheduleList.value = (jsonData['schedule'] as List)
+  //             .map((item) => Schedule.fromJson(item))
+  //             .toList();
+  //         debugPrint("==========list======${scheduleList.length}");
+  //         for (var schedule in scheduleList) {
+  //           debugPrint(
+  //               "Event: ${schedule.strEvent}, Date: ${schedule.dateEvent}, Team: ${schedule.strHomeTeam} vs ${schedule.strAwayTeam}");
+  //         }
+  //       }
+  //     } else if (response.statusCode == 403) {
+  //       Get.snackbar("Error", "This Not Availabe This moment",
+  //           duration: Duration(seconds: 2),
+  //           colorText: Colors.white,
+  //           backgroundColor: Colors.red);
+  //       debugPrint('==========${response.responseData}');
+  //     }else{
+  //       debugPrint("============Match Not Found");
+  //     }
+  //   } catch (e) {
+  //     debugPrint("Error fetching competitions: $e");
+  //   } finally {
+  //     isLoading.value = false;
+  //   }
+  // }
+
   Future<void> getNext5event(String id) async {
     scheduleList.clear();
     var url = "https://www.thesportsdb.com/api/v2/json/schedule/next/team/$id";
     try {
       isLoading.value = true;
       final response = await NetworkCaller().getRequest(url, token: "472735");
+
       if (response.isSuccess) {
+      
         debugPrint("===============Response: ${response.responseData}");
 
         var jsonData = response.responseData;
+
+        if (jsonData != null && jsonData['Message'] == "No data found") {
+          noMatch.value = true;
+          debugPrint("=============No Match Found ");
+          return;
+        }
+
         if (jsonData != null && jsonData['schedule'] != null) {
+          noMatch.value = false;
           scheduleList.value = (jsonData['schedule'] as List)
               .map((item) => Schedule.fromJson(item))
               .toList();
+
           debugPrint("==========list======${scheduleList.length}");
           for (var schedule in scheduleList) {
             debugPrint(
@@ -262,11 +311,14 @@ class SportController extends GetxController {
           }
         }
       } else if (response.statusCode == 403) {
-        Get.snackbar("Error", "This Not Availabe This moment",
+         noMatch.value = false;
+        Get.snackbar("Error", "This is not available at this moment",
             duration: Duration(seconds: 2),
             colorText: Colors.white,
             backgroundColor: Colors.red);
         debugPrint('==========${response.responseData}');
+      } else {
+        debugPrint("============Match Not Found");
       }
     } catch (e) {
       debugPrint("Error fetching competitions: $e");
