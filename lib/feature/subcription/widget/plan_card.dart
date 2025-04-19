@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
 import 'package:match_up/core/utils/color.dart';
 
