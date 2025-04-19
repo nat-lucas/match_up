@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:match_up/core/global/custom_button.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
 import 'package:match_up/core/global/custom_textfeild.dart';
+import 'package:match_up/core/global/loading.dart';
 import 'package:match_up/core/utils/color.dart';
 import 'package:match_up/core/validator/validator.dart';
 import 'package:match_up/feature/auth/controller/auth_controller.dart';
@@ -74,14 +75,20 @@ class ForgotPassword extends StatelessWidget {
                       SizedBox(
                         height: 20.h,
                       ),
-                      CustomButton(
-                        text: "Send",
-                        ontap: () {
-                          if (fromkey.currentState!.validate()) {
-                            authcontroller.resetPassword();
-                          }
-                        },
-                      )
+                      Obx(() => authcontroller.isLoading.value
+                          ? Center(
+                              child: LoadingWidget(
+                                color: AppColor.primaryColor,
+                              ),
+                            )
+                          : CustomButton(
+                              text: "Send",
+                              ontap: () {
+                                if (fromkey.currentState!.validate()) {
+                                  authcontroller.resetPassword();
+                                }
+                              },
+                            ))
                     ],
                   ),
                 ],

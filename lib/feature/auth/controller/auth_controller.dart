@@ -164,14 +164,65 @@ class AuthController extends GetxController {
   }
 
   Future<void> resetPassword() async {
-    try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: forgot.text);
-      Get.snackbar("Succesfull", "Reset Password Email send Done");
-      Get.offNamed(Approute.login);
+    final email = forgot.text.trim();
 
-      debugPrint("Password reset email sent.");
+    if (email.isEmpty) {
+      Get.snackbar("Error", "Please enter your email.",
+          snackPosition: SnackPosition.TOP,
+          colorText: Colors.white,
+          backgroundColor: Colors.red);
+      return;
+    }
+
+    try {
+      isLoading.value = true;
+      // Get all user documents
+      final querySnapshot =
+          await FirebaseFirestore.instance.collection('user').get();
+
+      // Find a user with the matching email (case insensitive)
+      final matchingUser = querySnapshot.docs.where((doc) {
+        final userEmail = (doc.data()['email'] as String?)?.toLowerCase();
+        return userEmail == email.toLowerCase();
+      }).toList();
+
+      if (matchingUser.isEmpty) {
+        Get.snackbar("Error", "No account found for this email.",
+            snackPosition: SnackPosition.TOP,
+            colorText: Colors.white,
+            backgroundColor: Colors.red);
+        return;
+      }
+
+      // Send the reset email
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+
+      Get.snackbar("Success", "Reset password email sent!",
+          snackPosition: SnackPosition.TOP,
+          colorText: Colors.white,
+          backgroundColor: Colors.green);
+
+      Get.offNamed(Approute.login);
+    } on FirebaseAuthException catch (e) {
+      String errorMessage = "Failed to send reset email.";
+
+      if (e.code == 'invalid-email') {
+        errorMessage = "Invalid email format.";
+      }
+
+      Get.snackbar("Error", errorMessage,
+          snackPosition: SnackPosition.TOP,
+          colorText: Colors.white,
+          backgroundColor: Colors.red);
     } catch (e) {
+      isLoading.value = false;
       debugPrint("Error: $e");
+      Get.snackbar("Error", "Something went wrong. Please try again.",
+          snackPosition: SnackPosition.TOP,
+          colorText: Colors.white,
+          backgroundColor: Colors.red);
+    } finally {
+      isLoading.value = false;
     }
   }
 }
