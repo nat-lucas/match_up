@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
+import 'package:match_up/core/global/loading.dart';
 import 'package:match_up/core/utils/color.dart';
 import 'package:match_up/core/utils/image.dart';
 import 'package:intl/intl.dart';
@@ -69,7 +70,7 @@ class MatchCardToday extends StatelessWidget {
     String displayTime = time.isNotEmpty ? time : evenTime;
     String teamName = formatTeamName(team1);
     String teamName2 = formatTeamName(team2);
-    debugPrint("=======Timeing=======$displayTime $time $evenTime");
+    debugPrint("================$team1logo,===========$teamlogo2");
 
     return Container(
       width: double.infinity,
@@ -114,6 +115,8 @@ class MatchCardToday extends StatelessWidget {
                       imageUrl: team1logo,
                       height: 44.h,
                       width: 44.w,
+                      placeholder: (context, url) => LoadingWidget(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                   ],
                 ),
@@ -137,6 +140,8 @@ class MatchCardToday extends StatelessWidget {
                       imageUrl: teamlogo2,
                       height: 44.h,
                       width: 44.w,
+                      placeholder: (context, url) => LoadingWidget(color: AppColor.primaryColor,),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                     SizedBox(
                       width: 10.w,
