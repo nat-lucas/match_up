@@ -115,7 +115,9 @@ class MatchCardToday extends StatelessWidget {
                       imageUrl: team1logo,
                       height: 44.h,
                       width: 44.w,
-                      placeholder: (context, url) => LoadingWidget(),
+                      placeholder: (context, url) => LoadingWidget(
+                        color: AppColor.primaryColor,
+                      ),
                       errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                   ],
@@ -140,7 +142,9 @@ class MatchCardToday extends StatelessWidget {
                       imageUrl: teamlogo2,
                       height: 44.h,
                       width: 44.w,
-                      placeholder: (context, url) => LoadingWidget(color: AppColor.primaryColor,),
+                      placeholder: (context, url) => LoadingWidget(
+                        color: AppColor.primaryColor,
+                      ),
                       errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                     SizedBox(
