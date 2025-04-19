@@ -116,6 +116,7 @@ class SelectTeam extends StatelessWidget {
         height: 60.h,
         child: CustomButton(
           ontap: () {
+            sportController.getFirestoreSelection();
             navController.currentIndex.value = 0;
             Get.offAllNamed(Approute.navbar);
           },
