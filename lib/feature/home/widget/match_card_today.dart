@@ -69,6 +69,7 @@ class MatchCardToday extends StatelessWidget {
     String displayTime = time.isNotEmpty ? time : evenTime;
     String teamName = formatTeamName(team1);
     String teamName2 = formatTeamName(team2);
+    debugPrint("=======Timeing=======$displayTime $time $evenTime");
 
     return Container(
       width: double.infinity,

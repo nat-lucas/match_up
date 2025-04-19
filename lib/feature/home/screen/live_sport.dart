@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:match_up/core/global/loading.dart';
-import 'package:match_up/core/utils/image.dart';
 import 'package:match_up/feature/home/controller/live_contorller.dart';
 import 'package:match_up/feature/home/widget/team_scoor.dart';
 
@@ -114,95 +113,95 @@ class LiveSport extends StatelessWidget {
                                 ],
                               ),
                               SizedBox(height: 20.h),
-                              CustomTextPopins(
-                                text: "Match Overview",
-                                fontWeight: FontWeight.w500,
-                                size: 13.sp,
-                                color: AppColor.blackborder,
-                              ),
-                              SizedBox(height: 5.h),
-                              CustomTextPopins(
-                                text: "Summary",
-                                fontWeight: FontWeight.w400,
-                                size: 12.sp,
-                                color: AppColor.blackborder,
-                              ),
-                              SizedBox(height: 10.h),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: CustomTextPopins(
-                                  text: "R  1  2 3  4  5  6  7  8  9 EI  H E",
-                                  fontWeight: FontWeight.w400,
-                                  size: 12.sp,
-                                  color: AppColor.black,
-                                ),
-                              ),
-                              SizedBox(height: 10.h),
-                              Divider(
-                                color: AppColor.greyWhite,
-                                thickness: 1.5,
-                                height: 1.h,
-                              ),
-                              SizedBox(height: 10.h),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  CustomTextPopins(
-                                    text: "CHICAGO CUBS",
-                                    fontWeight: FontWeight.w500,
-                                    size: 10.sp,
-                                    color: AppColor.black,
-                                  ),
-                                  Image.asset(
-                                    ImagePath.basebol,
-                                    height: 13.h,
-                                    width: 13.w,
-                                  ),
-                                  CustomTextPopins(
-                                    text: "4",
-                                    fontWeight: FontWeight.w400,
-                                    size: 12.sp,
-                                    color: AppColor.primaryColor,
-                                  ),
-                                  CustomTextPopins(
-                                    text: "1  0  0  0  0  0  0  1  1   9 0",
-                                    fontWeight: FontWeight.w400,
-                                    size: 12.sp,
-                                    color: AppColor.black,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 10.h),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  CustomTextPopins(
-                                    text: "BOSTON RED SOX",
-                                    fontWeight: FontWeight.w500,
-                                    size: 10.sp,
-                                    color: AppColor.black,
-                                  ),
-                                  Image.asset(
-                                    ImagePath.bol,
-                                    height: 13.h,
-                                    width: 13.w,
-                                  ),
-                                  CustomTextPopins(
-                                    text: "1",
-                                    fontWeight: FontWeight.w400,
-                                    size: 12.sp,
-                                    color: AppColor.primaryColor,
-                                  ),
-                                  CustomTextPopins(
-                                    text: "0  0  0  0  0  0  0  1  0   3 1",
-                                    fontWeight: FontWeight.w400,
-                                    size: 12.sp,
-                                    color: AppColor.black,
-                                  ),
-                                ],
-                              )
+                              // CustomTextPopins(
+                              //   text: "Match Overview",
+                              //   fontWeight: FontWeight.w500,
+                              //   size: 13.sp,
+                              //   color: AppColor.blackborder,
+                              // ),
+                              // SizedBox(height: 5.h),
+                              // CustomTextPopins(
+                              //   text: "Summary",
+                              //   fontWeight: FontWeight.w400,
+                              //   size: 12.sp,
+                              //   color: AppColor.blackborder,
+                              // ),
+                              // SizedBox(height: 10.h),
+                              // Align(
+                              //   alignment: Alignment.centerRight,
+                              //   child: CustomTextPopins(
+                              //     text: "R  1  2 3  4  5  6  7  8  9 EI  H E",
+                              //     fontWeight: FontWeight.w400,
+                              //     size: 12.sp,
+                              //     color: AppColor.black,
+                              //   ),
+                              // ),
+                              // SizedBox(height: 10.h),
+                              // Divider(
+                              //   color: AppColor.greyWhite,
+                              //   thickness: 1.5,
+                              //   height: 1.h,
+                              // ),
+                              // SizedBox(height: 10.h),
+                              // Row(
+                              //   mainAxisAlignment:
+                              //       MainAxisAlignment.spaceAround,
+                              //   children: [
+                              //     CustomTextPopins(
+                              //       text: "CHICAGO CUBS",
+                              //       fontWeight: FontWeight.w500,
+                              //       size: 10.sp,
+                              //       color: AppColor.black,
+                              //     ),
+                              //     Image.asset(
+                              //       ImagePath.basebol,
+                              //       height: 13.h,
+                              //       width: 13.w,
+                              //     ),
+                              //     CustomTextPopins(
+                              //       text: "4",
+                              //       fontWeight: FontWeight.w400,
+                              //       size: 12.sp,
+                              //       color: AppColor.primaryColor,
+                              //     ),
+                              //     CustomTextPopins(
+                              //       text: "1  0  0  0  0  0  0  1  1   9 0",
+                              //       fontWeight: FontWeight.w400,
+                              //       size: 12.sp,
+                              //       color: AppColor.black,
+                              //     ),
+                              //   ],
+                              // ),
+                              // SizedBox(height: 10.h),
+                              // Row(
+                              //   mainAxisAlignment:
+                              //       MainAxisAlignment.spaceAround,
+                              //   children: [
+                              //     CustomTextPopins(
+                              //       text: "BOSTON RED SOX",
+                              //       fontWeight: FontWeight.w500,
+                              //       size: 10.sp,
+                              //       color: AppColor.black,
+                              //     ),
+                              //     Image.asset(
+                              //       ImagePath.bol,
+                              //       height: 13.h,
+                              //       width: 13.w,
+                              //     ),
+                              //     CustomTextPopins(
+                              //       text: "1",
+                              //       fontWeight: FontWeight.w400,
+                              //       size: 12.sp,
+                              //       color: AppColor.primaryColor,
+                              //     ),
+                              //     CustomTextPopins(
+                              //       text: "0  0  0  0  0  0  0  1  0   3 1",
+                              //       fontWeight: FontWeight.w400,
+                              //       size: 12.sp,
+                              //       color: AppColor.black,
+                              //     ),
+                              //   ],
+                              // )
                             ],
                           ),
                         )
