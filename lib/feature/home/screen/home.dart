@@ -114,8 +114,8 @@ class Home extends StatelessWidget {
                             var data = sportController.scheduleList[index];
 
                             bool isTodayMatch = false;
-                            if (data.dateEvent != null &&
-                                data.dateEvent!.isNotEmpty) {
+                            if (data.dateEventLocal != null &&
+                                data.dateEventLocal!.isNotEmpty) {
                               try {
                                 DateTime eventDate = DateFormat('yyyy-MM-dd')
                                     .parse(data.dateEvent!);
@@ -130,6 +130,7 @@ class Home extends StatelessWidget {
 
                             return GestureDetector(
                               onTap: () {
+                                debugPrint("=====Today---====$isTodayMatch");
                                 if (isTodayMatch) {
                                   Get.toNamed(Approute.livescore, arguments: {
                                     'teamId': sportController.teamId.value,
@@ -138,7 +139,7 @@ class Home extends StatelessWidget {
                               },
                               child: MatchCardToday(
                                 evenTime: data.strTime ?? "",
-                                eventDate: data.dateEvent ?? "",
+                                eventDate: data.dateEventLocal ?? "",
                                 date: data.dateEventLocal ?? "",
                                 team1: data.strHomeTeam ?? "",
                                 team2: data.strAwayTeam ?? "",
