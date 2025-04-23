@@ -25,7 +25,7 @@ class LiveScoreController extends GetxController {
   Future<void> _connectToSSE() async {
     debugPrint("==================<><>${sportController.teamId.value}");
     final url =
-        'https://testapi.tourshare.xyz/api/v1/sports/live-score?matchId=${sportController.teamId.value}';
+        'https://api.sportscard.us/api/v1/sports/live-score?matchId=${sportController.teamId.value}';
     final uri = Uri.parse(url);
     _httpClient = HttpClient();
 
