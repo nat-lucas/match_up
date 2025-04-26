@@ -45,8 +45,7 @@ class SignUp extends StatelessWidget {
                         height: 5.h,
                       ),
                       CustomTextPopins(
-                        text:
-                            "Fill out your information below",
+                        text: "Fill out your information below",
                         fontWeight: FontWeight.w400,
                         size: 14.sp,
                         color: AppColor.blackborder,
@@ -119,7 +118,7 @@ class SignUp extends StatelessWidget {
                               color: AppColor.primaryColor,
                             )
                           : CustomButton(
-                              text: "Sign Up",
+                              text: "Sign up",
                               ontap: () {
                                 if (fromkey.currentState!.validate()) {
                                   authcontroller.signUpWithEmailAndPassword();
