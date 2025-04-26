@@ -143,7 +143,7 @@ class SignUp extends StatelessWidget {
                             color: AppColor.blackborder),
                       ),
                       TextSpan(
-                        text: "Sing in",
+                        text: "Sign in",
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                             fontSize: 16.sp,
