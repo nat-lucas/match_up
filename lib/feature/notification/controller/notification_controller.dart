@@ -24,6 +24,7 @@ class NotificationController extends GetxController {
     _initializeLocalNotifications();
     configureNotificationListener();
     saveTokenForiOS();
+    getAndSaveFCMToken();
   }
 
   void _initializeLocalNotifications() {

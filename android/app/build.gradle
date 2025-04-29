@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.app.new.match_up"
+    namespace = "com.app.matchup"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -25,7 +25,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.app.new.match_up"
+        applicationId = "com.app.matchup"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 23
@@ -45,7 +45,7 @@ android {
 dependencies {
     implementation "androidx.core:core-ktx:1.12.0"
 
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
+     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
 
  
 }

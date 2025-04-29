@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD10p3FJsP4ljDvguNrImSSl2rcx2tc8pw',
-    appId: '1:373371364852:android:024c7a3979a309cedbc5a1',
+    appId: '1:373371364852:android:65e99bd9403061b0dbc5a1',
     messagingSenderId: '373371364852',
     projectId: 'matchup-jj',
     storageBucket: 'matchup-jj.firebasestorage.app',
