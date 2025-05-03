@@ -89,7 +89,7 @@ class Setting extends StatelessWidget {
                       Get.toNamed(Approute.chose);
                     },
                     image: ImagePath.team,
-                    tittle: "Edit Team",
+                    tittle: "Edit Teams",
                     trailing: false),
                 Obx(
                   () => CustomListTile(
@@ -116,7 +116,7 @@ class Setting extends StatelessWidget {
                       Get.toNamed(Approute.policies);
                     },
                     image: ImagePath.polyci,
-                    tittle: "Legat & Policy",
+                    tittle: "Legal & Policy",
                     trailing: false),
                 CustomListTile(
                     onTap: () {

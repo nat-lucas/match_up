@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:match_up/core/global/custom_button.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
 import 'package:match_up/core/utils/color.dart';
@@ -20,7 +21,8 @@ class Subcription2 extends StatelessWidget {
     String formatDateFromString(String dateString) {
       try {
         DateTime date = DateTime.parse(dateString);
-        return "${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year}";
+        String formatted = DateFormat('EEE-MMMd-yyyy').format(date);
+        return formatted;
       } catch (e) {
         return "Invalid date";
       }

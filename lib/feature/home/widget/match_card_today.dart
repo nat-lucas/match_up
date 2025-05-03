@@ -66,6 +66,16 @@ class MatchCardToday extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+String formatTimeTo12Hour(String time24) {
+  try {
+    DateTime dateTime = DateFormat("HH:mm").parse(time24);
+    String formatted = DateFormat("h:mm a").format(dateTime);
+    return formatted;
+  } catch (e) {
+    return "Invalid time";
+  }
+}
     String matchDateText = checkMatchDate(date);
     String displayTime = time.isNotEmpty ? time : evenTime;
     String teamName = formatTeamName(team1);
@@ -182,8 +192,9 @@ class MatchCardToday extends StatelessWidget {
                   size: 14.sp,
                   color: AppColor.white),
               CustomTextPopins(
-                  text: displayTime,
+                  text: formatTimeTo12Hour(displayTime),
                   fontWeight: FontWeight.w600,
+                  textOverflow: TextOverflow.ellipsis,
                   size: 14.sp,
                   color: AppColor.white),
             ],
