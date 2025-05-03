@@ -1,0 +1,2 @@
+ const publishkey = "pk_test_51QzZ94JkG6J1OKfzpGAFx8anZA92HIFuUyqUlFMWdIruKAxEplTpVjzUNkCcuHxAFSFSUYtTqzFIkFFpzQKCmloe00AOGNYXu3";
+ const seckerkey = "sk_test_51QzZ94JkG6J1OKfz3Ci2CRrkoWdgPI2kitAaWA9KWez6pmV50C44HYHLJugV98Bea5pPZGG7FEr0tAQbXo3Sy9M800lWBBx5Y4";

@@ -1,0 +1,84 @@
+{
+  "info": {
+    "name": "Live Score API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Live Score Soccer",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-API-KEY",
+            "value": "your_api_key_here",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://www.thesportsdb.com/api/v2/json/livescore/soccer",
+          "protocol": "https",
+          "host": ["www.thesportsdb.com"],
+          "path": ["api", "v2", "json", "livescore", "soccer"]
+        }
+      }
+    },
+    {
+      "name": "Live Score Basketball",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-API-KEY",
+            "value": "your_api_key_here",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://www.thesportsdb.com/api/v2/json/livescore/basketball",
+          "protocol": "https",
+          "host": ["www.thesportsdb.com"],
+          "path": ["api", "v2", "json", "livescore", "basketball"]
+        }
+      }
+    },
+    {
+      "name": "Live Score Ice Hockey",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-API-KEY",
+            "value": "your_api_key_here",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://www.thesportsdb.com/api/v2/json/livescore/ice_hockey",
+          "protocol": "https",
+          "host": ["www.thesportsdb.com"],
+          "path": ["api", "v2", "json", "livescore", "ice_hockey"]
+        }
+      }
+    },
+    {
+      "name": "Live Score All Sports",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-API-KEY",
+            "value": "your_api_key_here",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://www.thesportsdb.com/api/v2/json/livescore/all",
+          "protocol": "https",
+          "host": ["www.thesportsdb.com"],
+          "path": ["api", "v2", "json", "livescore", "all"]
+        }
+      }
+    }
+  ]
+}
