@@ -140,7 +140,7 @@ class Setting extends StatelessWidget {
                     },
                     image: ImagePath.exit,
                     iscolor: true,
-                    tittle: "Sing Out",
+                    tittle: "Sign Out",
                     trailing: false),
                 SizedBox(
                   height: 20.h,

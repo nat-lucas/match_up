@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/helper/sharedprefarences.dart';
+import 'package:match_up/core/network_caller/service/service.dart';
 import 'package:match_up/core/route/route.dart';
 import 'package:match_up/feature/nav_bar/controller/navcontroller.dart';
 import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
@@ -18,6 +19,7 @@ class AuthController extends GetxController {
   TextEditingController spassword = TextEditingController();
   TextEditingController cofirmpassword = TextEditingController();
   TextEditingController forgot = TextEditingController();
+  TextEditingController otp = TextEditingController();
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   RxBool visible = true.obs;
@@ -25,6 +27,32 @@ class AuthController extends GetxController {
   NavController navController = Get.put(NavController());
   changeVisible() {
     visible.value = !visible.value;
+  }
+
+  Future<void> verifyEmail() async {
+    Map<String, dynamic> body = {
+      "email": semail.text,
+    };
+    try {
+      isLoading.value = true;
+      final response = await NetworkCaller().postRequest(
+        "https://api.sportscard.us/api/v1",
+        body: body,
+      );
+
+      if (response.isSuccess) {
+        debugPrint("==get data ======>>>${response.responseData}");
+        Get.toNamed(Approute.verifyOtp);
+      } else {
+        isLoading.value = false;
+        debugPrint("==get data ======>>>${response.responseData}");
+      }
+    } catch (e) {
+      isLoading.value = false;
+      debugPrint("========>>>Error: $e");
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   Future<void> signUpWithEmailAndPassword() async {
@@ -176,11 +204,10 @@ class AuthController extends GetxController {
 
     try {
       isLoading.value = true;
-      // Get all user documents
+
       final querySnapshot =
           await FirebaseFirestore.instance.collection('user').get();
 
-      // Find a user with the matching email (case insensitive)
       final matchingUser = querySnapshot.docs.where((doc) {
         final userEmail = (doc.data()['email'] as String?)?.toLowerCase();
         return userEmail == email.toLowerCase();
