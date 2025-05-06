@@ -29,20 +29,67 @@ class AuthController extends GetxController {
     visible.value = !visible.value;
   }
 
-  Future<void> verifyEmail() async {
-    Map<String, dynamic> body = {
-      "email": semail.text,
-    };
+  Future<void> sendOtpMail() async {
+    final email = semail.text.trim().toLowerCase();
+
     try {
       isLoading.value = true;
+
+      final querySnapshot =
+          await FirebaseFirestore.instance.collection('user').get();
+
+      final matchingUser = querySnapshot.docs.where((doc) {
+        final userEmail = (doc.data()['email'] as String?)?.toLowerCase();
+        return userEmail == email;
+      }).toList();
+
+      if (matchingUser.isNotEmpty) {
+        isLoading.value = false;
+        Get.snackbar("Error", "Email already exists.",
+            snackPosition: SnackPosition.TOP,
+            colorText: Colors.white,
+            backgroundColor: Colors.red);
+        return;
+      }
+
+    
+      Map<String, dynamic> body = {
+        "email": email,
+      };
+
       final response = await NetworkCaller().postRequest(
-        "https://api.sportscard.us/api/v1",
+        "https://api.sportscard.us/api/v1/auth/send-otp",
         body: body,
       );
 
       if (response.isSuccess) {
         debugPrint("==get data ======>>>${response.responseData}");
         Get.toNamed(Approute.verifyOtp);
+      } else {
+        debugPrint("==get data ======>>>${response.responseData}");
+      }
+    } catch (e) {
+      debugPrint("========>>>Error: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> verifyOtp() async {
+    Map<String, dynamic> body = {
+      "email": semail.text,
+      "otp": otp.text,
+    };
+    try {
+      isLoading.value = true;
+      final response = await NetworkCaller().postRequest(
+        "https://api.sportscard.us/api/v1/auth/verify-otp",
+        body: body,
+      );
+
+      if (response.isSuccess) {
+        debugPrint("==get data ======>>>${response.responseData}");
+        signUpWithEmailAndPassword();
       } else {
         isLoading.value = false;
         debugPrint("==get data ======>>>${response.responseData}");
