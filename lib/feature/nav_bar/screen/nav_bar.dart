@@ -56,7 +56,7 @@ class NavBar extends StatelessWidget {
                   color: navController.currentIndex.value == 1
                       ? AppColor.primaryColor
                       : null),
-              label: "Spread",
+              label: "Highlights",
             ),
             BottomNavigationBarItem(
               icon: Image.asset(ImagePath.setting,

@@ -16,7 +16,7 @@ class Spread extends StatelessWidget {
         scrolledUnderElevation: 0,
         centerTitle: false,
         title: CustomTextPopins(
-          text: "Spread",
+          text: "Highlights",
           fontWeight: FontWeight.w600,
           size: 24.sp,
           color: AppColor.blackborder,
