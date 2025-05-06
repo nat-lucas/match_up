@@ -67,9 +67,9 @@ class SubscriptionController extends GetxController {
             snackPosition: SnackPosition.BOTTOM);
       }
     } catch (e) {
-      debugPrint("Error updating user data: $e");
-      Get.snackbar("Error", e.toString(), snackPosition: SnackPosition.BOTTOM);
+      debugPrint("=======>>>Error updating user data: $e");
     } finally {
+      await sportController.getFirestoreSelection();
       debugPrint("Update user data process completed.");
     }
   }

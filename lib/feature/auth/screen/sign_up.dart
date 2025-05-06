@@ -121,7 +121,7 @@ class SignUp extends StatelessWidget {
                               text: "Sign up",
                               ontap: () {
                                 if (fromkey.currentState!.validate()) {
-                                  authcontroller.signUpWithEmailAndPassword();
+                                  authcontroller.verifyEmail();
                                 }
                               },
                             ))

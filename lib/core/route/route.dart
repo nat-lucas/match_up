@@ -1,4 +1,5 @@
 import 'package:get/route_manager.dart';
+import 'package:match_up/feature/auth/screen/email_verify.dart';
 import 'package:match_up/feature/auth/screen/forgot_password.dart';
 import 'package:match_up/feature/auth/screen/login.dart';
 import 'package:match_up/feature/auth/screen/sign_up.dart';
@@ -19,6 +20,7 @@ import 'package:match_up/feature/subcription/screen/subcription2.dart';
 class Approute {
   static const String splash = "/splash";
   static const String login = "/login";
+  static const String verifyOtp = "/verifyOtp";
   static const String onboarding = "/onboarding";
   static const String singup = "/signup";
   static const String forgot = '/forgot';
@@ -49,6 +51,7 @@ class Approute {
     GetPage(name: chose, page: () => ChooseSport()),
     GetPage(name: livescore, page: () => LiveSport()),
     GetPage(name: subcribtion2, page: () => Subcription2()),
-    GetPage(name: editTeam, page: () => EditTeam())
+    GetPage(name: editTeam, page: () => EditTeam()),
+    GetPage(name: verifyOtp, page: () => EmailVerify()),
   ];
 }
