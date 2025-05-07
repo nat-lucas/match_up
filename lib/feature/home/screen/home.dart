@@ -118,7 +118,7 @@ class Home extends StatelessWidget {
                                 data.dateEventLocal!.isNotEmpty) {
                               try {
                                 DateTime eventDate = DateFormat('yyyy-MM-dd')
-                                    .parse(data.dateEvent!);
+                                    .parse(data.dateEvent);
                                 DateTime today = DateTime.now();
                                 isTodayMatch = eventDate.year == today.year &&
                                     eventDate.month == today.month &&
@@ -136,15 +136,18 @@ class Home extends StatelessWidget {
                                     'teamId': sportController.teamId.value,
                                   });
                                 }
+
+                                debugPrint(
+                                    "====date======>>>${data.dateEventLocal}${data.dateEvent}");
                               },
                               child: MatchCardToday(
-                                evenTime: data.strTime ?? "",
-                                eventDate: data.dateEventLocal ?? "",
-                                date: data.dateEventLocal ?? "",
-                                team1: data.strHomeTeam ?? "",
-                                team2: data.strAwayTeam ?? "",
-                                team1logo: data.strHomeTeamBadge ?? "",
-                                teamlogo2: data.strAwayTeamBadge ?? "",
+                                evenTime: data.strTime,
+                                eventDate:
+                                    data.dateEventLocal ?? data.dateEvent,
+                                team1: data.strHomeTeam,
+                                team2: data.strAwayTeam,
+                                team1logo: data.strHomeTeamBadge,
+                                teamlogo2: data.strAwayTeamBadge,
                                 time: data.strTimeLocal ?? "",
                               ),
                             );

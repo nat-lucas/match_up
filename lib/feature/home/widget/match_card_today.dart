@@ -8,7 +8,7 @@ import 'package:match_up/core/utils/image.dart';
 import 'package:intl/intl.dart';
 
 class MatchCardToday extends StatelessWidget {
-  final String date;
+
   final String eventDate;
   final String evenTime;
   final String team1;
@@ -19,7 +19,7 @@ class MatchCardToday extends StatelessWidget {
 
   const MatchCardToday(
       {super.key,
-      required this.date,
+   
       required this.team1,
       required this.team2,
       required this.team1logo,
@@ -29,6 +29,7 @@ class MatchCardToday extends StatelessWidget {
       required this.evenTime});
 
   String checkMatchDate(String dateStr) {
+    debugPrint('+++++++++++++++$dateStr');
     try {
       if (dateStr.isEmpty) {
         return eventDate;
@@ -66,17 +67,17 @@ class MatchCardToday extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String formatTimeTo12Hour(String time24) {
+      try {
+        DateTime dateTime = DateFormat("HH:mm").parse(time24);
+        String formatted = DateFormat("h:mm a").format(dateTime);
+        return formatted;
+      } catch (e) {
+        return "Invalid time";
+      }
+    }
 
-String formatTimeTo12Hour(String time24) {
-  try {
-    DateTime dateTime = DateFormat("HH:mm").parse(time24);
-    String formatted = DateFormat("h:mm a").format(dateTime);
-    return formatted;
-  } catch (e) {
-    return "Invalid time";
-  }
-}
-    String matchDateText = checkMatchDate(date);
+    String matchDateText = checkMatchDate(eventDate);
     String displayTime = time.isNotEmpty ? time : evenTime;
     String teamName = formatTeamName(team1);
     String teamName2 = formatTeamName(team2);
