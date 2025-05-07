@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:match_up/core/route/route.dart';
+import 'package:match_up/core/routes/route.dart';
 import 'package:match_up/core/utils/image.dart';
 import 'package:match_up/feature/select_sport/model/score_model.dart';
 import '../../../core/network_caller/service/service.dart';
@@ -102,8 +102,12 @@ class SportController extends GetxController {
         selectedTeams.removeWhere((item) => item['name'] == teamName);
       } else {
         if (selectedTeams.isEmpty) {
+          selectedTeamIndices.clear();
+          selectedTeams.clear();
           selectedTeamIndices.add(index);
           selectedTeams.add({'name': teamName, 'logo': teamLogo, 'id': teamid});
+          update();
+          refresh();
         } else {
           Get.snackbar(
             "Selection Limit",
@@ -114,6 +118,7 @@ class SportController extends GetxController {
           );
         }
       }
+      debugPrint("==Team ===Leanth==${selectedTeams.length}");
     }
 
     updateFirestoreSelection();
@@ -121,10 +126,14 @@ class SportController extends GetxController {
   }
 
   void updateFirestoreSelection() async {
-    User? user = _auth.currentUser;
-    firestore.collection('user').doc(user?.uid).update({
-      "selectedTeam": selectedTeams,
-    });
+    try {
+      User? user = _auth.currentUser;
+      firestore.collection('user').doc(user?.uid).update({
+        "selectedTeam": selectedTeams,
+      });
+    } catch (e) {
+      debugPrint("====hunter======$e");
+    }
   }
 
   Future<void> getFirestoreSelection() async {
@@ -142,6 +151,7 @@ class SportController extends GetxController {
         List<Map<String, String>> getUserTeam = rawTeams.map((e) {
           return Map<String, String>.from(e as Map);
         }).toList();
+        selectedTeams.clear();
 
         selectedTeams.addAll(getUserTeam);
 
@@ -287,7 +297,6 @@ class SportController extends GetxController {
       final response = await NetworkCaller().getRequest(url, token: "472735");
 
       if (response.isSuccess) {
-      
         debugPrint("===============Response: ${response.responseData}");
 
         var jsonData = response.responseData;
@@ -311,7 +320,7 @@ class SportController extends GetxController {
           }
         }
       } else if (response.statusCode == 403) {
-         noMatch.value = false;
+        noMatch.value = false;
         Get.snackbar("Error", "This is not available at this moment",
             duration: Duration(seconds: 2),
             colorText: Colors.white,

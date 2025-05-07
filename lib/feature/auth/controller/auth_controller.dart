@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/helper/sharedprefarences.dart';
 import 'package:match_up/core/network_caller/service/service.dart';
-import 'package:match_up/core/route/route.dart';
+import 'package:match_up/core/routes/route.dart';
 import 'package:match_up/feature/nav_bar/controller/navcontroller.dart';
 import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
 
@@ -52,7 +52,6 @@ class AuthController extends GetxController {
         return;
       }
 
-    
       Map<String, dynamic> body = {
         "email": email,
       };
@@ -97,8 +96,6 @@ class AuthController extends GetxController {
     } catch (e) {
       isLoading.value = false;
       debugPrint("========>>>Error: $e");
-    } finally {
-      isLoading.value = false;
     }
   }
 

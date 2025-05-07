@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/global/custom_button.dart';
 import 'package:match_up/core/global/custom_dialog.dart';
-import 'package:match_up/core/route/route.dart';
+import 'package:match_up/core/routes/route.dart';
 import 'package:match_up/feature/auth/controller/auth_controller.dart';
 import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
 import 'package:match_up/feature/setting/widget/custom_list_tile.dart';
@@ -93,8 +93,8 @@ class Setting extends StatelessWidget {
                     trailing: false),
                 Obx(
                   () => CustomListTile(
-                    image: ImagePath.live,
-                    tittle: "Live Score",
+                    image: ImagePath.notification,
+                    tittle: "Notification",
                     isbool: true,
                     onSwitchChanged: (value) {
                       settingcontroller.toggleSwitch(value);

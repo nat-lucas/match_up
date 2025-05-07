@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
 import 'package:match_up/core/global/loading.dart';
-import 'package:match_up/core/route/route.dart';
+import 'package:match_up/core/routes/route.dart';
 import 'package:match_up/core/utils/color.dart';
 import 'package:match_up/feature/home/widget/match_card_today.dart';
 import 'package:match_up/feature/home/widget/team_card.dart';
@@ -64,6 +66,8 @@ class Home extends StatelessWidget {
                       var item = sportController.selectedTeams[index];
                       return GestureDetector(
                         onTap: () {
+                          debugPrint(
+                              "=======>>>>>>>><<<<<<=====${sportController.selectedTeams.length}");
                           sportController.teamId.value = item['id'] as String;
                           sportController.getNext5event(item['id'] as String);
                           debugPrint(
