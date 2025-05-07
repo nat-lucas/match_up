@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/global/custom_button.dart';
+import 'package:match_up/feature/nav_bar/controller/navcontroller.dart';
 import '../../../core/global/custom_text_poppins.dart';
-import '../../../core/route/route.dart';
+import '../../../core/routes/route.dart';
 import '../../../core/utils/color.dart';
 import '../controller/sport_controller.dart';
 
@@ -13,6 +14,7 @@ class SelectTeam extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sportController = Get.find<SportController>();
+    final navController = Get.find<NavController>();
     return Scaffold(
       backgroundColor: Color(0xffFAFAFA),
       appBar: AppBar(
@@ -34,6 +36,8 @@ class SelectTeam extends StatelessWidget {
               children: [
                 Image.asset(
                   sportController.selectedimage.value,
+                  height: 92.h,
+                  width: 92.w,
                   fit: BoxFit.cover,
                 ),
                 SizedBox(height: 10.h),
@@ -76,7 +80,7 @@ class SelectTeam extends StatelessWidget {
                             var data = sportController.teamList[index];
                             return ListTile(
                               title: CustomTextPopins(
-                                text: data.team?.displayName ?? "NRA",
+                                text: data.strTeam,
                                 size: 14.sp,
                                 color: AppColor.blackborder,
                               ),
@@ -112,6 +116,8 @@ class SelectTeam extends StatelessWidget {
         height: 60.h,
         child: CustomButton(
           ontap: () {
+            sportController.getFirestoreSelection();
+            navController.currentIndex.value = 0;
             Get.offAllNamed(Approute.navbar);
           },
           text: "Next",

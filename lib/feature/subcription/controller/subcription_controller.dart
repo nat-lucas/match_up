@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/global/dialog.dart';
+import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
 import 'package:match_up/feature/subcription/controller/key.dart';
 
 import '../../auth/controller/auth_controller.dart';
 
 class SubscriptionController extends GetxController {
   final authcontroller = Get.find<AuthController>();
+  final SportController sportController = Get.find<SportController>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   var selectedPlan = -1.obs;
@@ -33,13 +35,13 @@ class SubscriptionController extends GetxController {
       "name": "Free version",
       "sub": "You can pick a total of two teams in any sport to follow",
       "isvalue": true,
-      "isPrice" : false
+      "isPrice": false
     },
     {
       "name": "Premium version",
       "sub": "You can pick an unlimited amount of teams in any sport to follow",
       "isvalue": false,
-      "isPrice" : true
+      "isPrice": true
     },
   ].obs;
 
@@ -48,20 +50,26 @@ class SubscriptionController extends GetxController {
       final currentUser = _auth.currentUser;
 
       if (currentUser != null) {
+        final DateTime purchaseDate = DateTime.now();
+        final DateTime expireDate = purchaseDate.add(Duration(days: 30));
         await _firestore.collection('user').doc(currentUser.uid).update({
           "member": true,
+          "purchase-date": purchaseDate.toIso8601String(),
+          "expire-date": expireDate.toIso8601String(),
         });
+        await _firestore.collection('user').doc(currentUser.uid).update({});
 
         debugPrint("User data updated successfully.");
+        await sportController.getFirestoreSelection();
       } else {
         debugPrint("User is null, cannot update data.");
         Get.snackbar("Error", "User not found. Please log in again.",
             snackPosition: SnackPosition.BOTTOM);
       }
     } catch (e) {
-      debugPrint("Error updating user data: $e");
-      Get.snackbar("Error", e.toString(), snackPosition: SnackPosition.BOTTOM);
+      debugPrint("=======>>>Error updating user data: $e");
     } finally {
+      await sportController.getFirestoreSelection();
       debugPrint("Update user data process completed.");
     }
   }
@@ -93,6 +101,7 @@ class SubscriptionController extends GetxController {
       await Stripe.instance.presentPaymentSheet();
       debugPrint("Payment successful!");
       await updateUserData();
+
       showThanksDialog();
     } catch (e) {
       debugPrint("Error in payment processing: $e");
@@ -102,7 +111,6 @@ class SubscriptionController extends GetxController {
   Future<String?> _createPaymentIntent(double price, String currency) async {
     try {
       final Dio dio = Dio();
-
       int amountInCents = (price * 100).toInt();
 
       Map<String, dynamic> data = {
@@ -128,7 +136,8 @@ class SubscriptionController extends GetxController {
         debugPrint("===\\Response Data ========>>>: ${response.data}");
         return response.data['client_secret'];
       } else {
-        debugPrint("Failed to create Payment Intent: ${response.data}");
+        debugPrint(
+            "Failed to create Payment Intent: ${response.statusMessage}");
       }
     } catch (e) {
       debugPrint("===== CatchError in _createPaymentIntent ===== $e");

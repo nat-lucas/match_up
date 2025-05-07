@@ -30,5 +30,8 @@ class ImagePath {
   static const String help = "assets/images/help.png";
   static const String exit = "assets/icons/exit.png";
   static const String soccer = "assets/images/sokker.png";
+  static const String shape1 = "assets/images/shape1.png";
+  static const String done = "assets/icons/done.png";
+    static const String notification = "assets/icons/notification.png";
 
 }

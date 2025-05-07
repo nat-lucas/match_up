@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:match_up/feature/auth/controller/auth_controller.dart';
+import 'package:match_up/feature/highlight/controller/controller.dart';
 import 'package:match_up/feature/nav_bar/controller/navcontroller.dart';
+import 'package:match_up/feature/notification/controller/notification_controller.dart';
 import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
 import 'package:match_up/feature/setting/controller/edit_team_controller.dart';
 import 'package:match_up/feature/setting/controller/setting_controller.dart';
@@ -12,10 +14,12 @@ class Appbinding extends Bindings {
   void dependencies() {
     Get.put(SplashController());
     Get.put(AuthController());
-    Get.put(SubscriptionController());
     Get.put(SportController());
     Get.put(NavController());
     Get.put(EditTeamController());
+    Get.put(SubscriptionController());
+    Get.put(NotificationController());
     Get.put(SettingController());
+    Get.put(HighlightController());
   }
 }

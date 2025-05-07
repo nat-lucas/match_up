@@ -21,7 +21,7 @@ class PlanCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: ontap,
-      child: Container(
+      child:   Container(
         margin: EdgeInsets.symmetric(vertical: 10.r),
         padding: EdgeInsets.all(10.r),
         decoration: BoxDecoration(

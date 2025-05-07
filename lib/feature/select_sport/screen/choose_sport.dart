@@ -61,8 +61,8 @@ class ChooseSport extends StatelessWidget {
                       color: AppColor.primaryColor,
                     )
                   : CustomButton(
-                      ontap: () {
-                        sportController.callApiTeam();
+                      ontap: () async {
+                     await   sportController.callApiTeam();
                       },
                       text: "Next",
                     ),

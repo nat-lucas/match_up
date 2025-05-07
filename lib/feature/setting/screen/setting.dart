@@ -1,10 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/global/custom_button.dart';
 import 'package:match_up/core/global/custom_dialog.dart';
-import 'package:match_up/core/route/route.dart';
+import 'package:match_up/core/routes/route.dart';
 import 'package:match_up/feature/auth/controller/auth_controller.dart';
+import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
 import 'package:match_up/feature/setting/widget/custom_list_tile.dart';
 import '../../../core/global/custom_text_poppins.dart';
 import '../../../core/utils/color.dart';
@@ -17,6 +19,7 @@ class Setting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settingcontroller = Get.find<SettingController>();
+    final SportController sportController = Get.find<SportController>();
     final authcontroller = Get.find<AuthController>();
     return Scaffold(
       appBar: AppBar(
@@ -44,7 +47,9 @@ class Setting extends StatelessWidget {
                                     .selectedImage.value !=
                                 null
                             ? FileImage(settingcontroller.selectedImage.value!)
-                            : AssetImage(ImagePath.profile),
+                            : CachedNetworkImageProvider(
+                                settingcontroller.userData['imageUrl'] ??
+                                    "https://i.ibb.co.com/nrs3FjM/images.png"),
                         backgroundColor: AppColor.greyWhite,
                       ),
                       title: CustomTextPopins(
@@ -81,15 +86,15 @@ class Setting extends StatelessWidget {
                 ),
                 CustomListTile(
                     onTap: () {
-                      Get.toNamed(Approute.editTeam);
+                      Get.toNamed(Approute.chose);
                     },
                     image: ImagePath.team,
-                    tittle: "Edit Team",
+                    tittle: "Edit Teams",
                     trailing: false),
                 Obx(
                   () => CustomListTile(
-                    image: ImagePath.live,
-                    tittle: "Live Score",
+                    image: ImagePath.notification,
+                    tittle: "Notification",
                     isbool: true,
                     onSwitchChanged: (value) {
                       settingcontroller.toggleSwitch(value);
@@ -99,8 +104,9 @@ class Setting extends StatelessWidget {
                 ),
                 CustomListTile(
                     onTap: () {
-                      Get.toNamed(Approute.subcription,
-                          arguments: {"inUser": true});
+                      Get.toNamed(
+                        Approute.subcribtion2,
+                      );
                     },
                     image: ImagePath.payment,
                     tittle: "Subcription",
@@ -110,7 +116,7 @@ class Setting extends StatelessWidget {
                       Get.toNamed(Approute.policies);
                     },
                     image: ImagePath.polyci,
-                    tittle: "Legat & Policy",
+                    tittle: "Legal & Policy",
                     trailing: false),
                 CustomListTile(
                     onTap: () {
@@ -126,6 +132,7 @@ class Setting extends StatelessWidget {
                         message: "Are Your Sure ?",
                         onYes: () {
                           settingcontroller.logout();
+                          sportController.allowMultipleSelection.value = false;
                           Get.back();
                           Get.offAllNamed(Approute.onboarding);
                         },
@@ -133,7 +140,7 @@ class Setting extends StatelessWidget {
                     },
                     image: ImagePath.exit,
                     iscolor: true,
-                    tittle: "Sing Out",
+                    tittle: "Sign Out",
                     trailing: false),
                 SizedBox(
                   height: 20.h,

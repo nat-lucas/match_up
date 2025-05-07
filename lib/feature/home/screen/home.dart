@@ -1,15 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
+import 'package:match_up/core/global/loading.dart';
+import 'package:match_up/core/routes/route.dart';
 import 'package:match_up/core/utils/color.dart';
-import 'package:match_up/core/utils/image.dart';
 import 'package:match_up/feature/home/widget/match_card_today.dart';
-import 'package:match_up/feature/home/widget/match_card_tomorrow.dart';
 import 'package:match_up/feature/home/widget/team_card.dart';
 import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
-
-import '../../../core/route/route.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -23,27 +24,27 @@ class Home extends StatelessWidget {
         centerTitle: false,
         scrolledUnderElevation: 0,
         title: CustomTextPopins(
-          text: 'Matches',
+          text: 'Your Teams',
           fontWeight: FontWeight.w600,
           size: 24.sp,
           color: AppColor.blackborder,
         ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.r),
-            child: GestureDetector(
-              onTap: () {
-                Get.toNamed(Approute.livescore);
-              },
-              child: Image.asset(
-                ImagePath.scoor,
-                fit: BoxFit.contain,
-                height: 32.h,
-                width: 109.w,
-              ),
-            ),
-          )
-        ],
+        // actions: [
+        //   Padding(
+        //     padding: EdgeInsets.symmetric(horizontal: 10.r),
+        //     child: GestureDetector(
+        //       onTap: () {
+        //         Get.toNamed(Approute.livescore);
+        //       },
+        //       child: Image.asset(
+        //         ImagePath.scoor,
+        //         fit: BoxFit.contain,
+        //         height: 32.h,
+        //         width: 109.w,
+        //       ),
+        //     ),
+        //   )
+        // ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -52,8 +53,8 @@ class Home extends StatelessWidget {
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                  height: 150.h,
+              Obx(() => SizedBox(
+                  height: sportController.height.value,
                   width: double.infinity,
                   child: ListView.separated(
                     separatorBuilder: (context, index) {
@@ -63,14 +64,24 @@ class Home extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       var item = sportController.selectedTeams[index];
-                      return TeramCard(
-                        image: item['logo'] ?? "",
-                        text: item['name'] ?? "",
+                      return GestureDetector(
+                        onTap: () {
+                          debugPrint(
+                              "=======>>>>>>>><<<<<<=====${sportController.selectedTeams.length}");
+                          sportController.teamId.value = item['id'] as String;
+                          sportController.getNext5event(item['id'] as String);
+                          debugPrint(
+                              "Team ID: ${item['id']} ${sportController.teamId.value}");
+                        },
+                        child: TeramCard(
+                          image: item['logo'] ?? "",
+                          text: item['name'] ?? "",
+                        ),
                       );
                     },
-                  )),
+                  ))),
               CustomTextPopins(
-                text: 'Upcoming Matches',
+                text: 'Upcoming Games',
                 fontWeight: FontWeight.w600,
                 size: 16.sp,
                 color: AppColor.blackborder,
@@ -81,12 +92,74 @@ class Home extends StatelessWidget {
                 height: 1.h,
                 thickness: 1.h,
               ),
-              SizedBox(height: 10.h),
-              MatchCardToday(),
-              SizedBox(height: 10.h),
-              MatchCardTomorrow(),
-              SizedBox(height: 10.h),
-              MatchCardTomorrow(),
+              SizedBox(
+                height: 15.h,
+              ),
+              Obx(() => sportController.isLoading.value
+                  ? Center(
+                      child: LoadingWidget(
+                        color: AppColor.primaryColor,
+                      ),
+                    )
+                  : sportController.noMatch.value
+                      ? Center(
+                          child: CustomTextPopins(
+                            text: "No Match Found This Team!",
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                            size: 18.sp,
+                          ),
+                        )
+                      : ListView.separated(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: sportController.scheduleList.length,
+                          itemBuilder: (context, index) {
+                            var data = sportController.scheduleList[index];
+
+                            bool isTodayMatch = false;
+                            if (data.dateEventLocal != null &&
+                                data.dateEventLocal!.isNotEmpty) {
+                              try {
+                                DateTime eventDate = DateFormat('yyyy-MM-dd')
+                                    .parse(data.dateEvent);
+                                DateTime today = DateTime.now();
+                                isTodayMatch = eventDate.year == today.year &&
+                                    eventDate.month == today.month &&
+                                    eventDate.day == today.day;
+                              } catch (e) {
+                                isTodayMatch = false;
+                              }
+                            }
+
+                            return GestureDetector(
+                              onTap: () {
+                                debugPrint("=====Today---====$isTodayMatch");
+                                if (isTodayMatch) {
+                                  Get.toNamed(Approute.livescore, arguments: {
+                                    'teamId': sportController.teamId.value,
+                                  });
+                                }
+
+                                debugPrint(
+                                    "====date======>>>${data.dateEventLocal}${data.dateEvent}");
+                              },
+                              child: MatchCardToday(
+                                evenTime: data.strTime,
+                                eventDate:
+                                    data.dateEventLocal ?? data.dateEvent,
+                                team1: data.strHomeTeam,
+                                team2: data.strAwayTeam,
+                                team1logo: data.strHomeTeamBadge,
+                                teamlogo2: data.strAwayTeamBadge,
+                                time: data.strTimeLocal ?? "",
+                              ),
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return SizedBox(height: 15.h);
+                          },
+                        ))
             ],
           )),
         ),

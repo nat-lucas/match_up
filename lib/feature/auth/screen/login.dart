@@ -7,7 +7,7 @@ import 'package:match_up/core/global/custom_button.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
 import 'package:match_up/core/global/custom_textfeild.dart';
 import 'package:match_up/core/global/loading.dart';
-import 'package:match_up/core/route/route.dart';
+import 'package:match_up/core/routes/route.dart';
 import 'package:match_up/core/utils/color.dart';
 import 'package:match_up/core/validator/validator.dart';
 import 'package:match_up/feature/auth/controller/auth_controller.dart';
@@ -119,6 +119,7 @@ class Login extends StatelessWidget {
                   ),
                   SizedBox(),
                   SizedBox(),
+                  
                   SizedBox(),
                   Align(
                     alignment: Alignment.center,
@@ -132,7 +133,7 @@ class Login extends StatelessWidget {
                             color: AppColor.blackborder),
                       ),
                       TextSpan(
-                        text: "Sing Up ",
+                        text: "Sign Up ",
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                             fontSize: 16.sp,

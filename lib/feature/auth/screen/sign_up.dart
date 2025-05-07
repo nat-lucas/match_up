@@ -7,7 +7,7 @@ import 'package:match_up/core/global/custom_button.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
 import 'package:match_up/core/global/custom_textfeild.dart';
 import 'package:match_up/core/global/loading.dart';
-import 'package:match_up/core/route/route.dart';
+import 'package:match_up/core/routes/route.dart';
 import 'package:match_up/core/utils/color.dart';
 import 'package:match_up/core/validator/validator.dart';
 import '../controller/auth_controller.dart';
@@ -45,8 +45,7 @@ class SignUp extends StatelessWidget {
                         height: 5.h,
                       ),
                       CustomTextPopins(
-                        text:
-                            "Fill out your information below",
+                        text: "Fill out your information below",
                         fontWeight: FontWeight.w400,
                         size: 14.sp,
                         color: AppColor.blackborder,
@@ -119,10 +118,10 @@ class SignUp extends StatelessWidget {
                               color: AppColor.primaryColor,
                             )
                           : CustomButton(
-                              text: "Sign Up",
+                              text: "Sign up",
                               ontap: () {
                                 if (fromkey.currentState!.validate()) {
-                                  authcontroller.signUpWithEmailAndPassword();
+                                  authcontroller.sendOtpMail();
                                 }
                               },
                             ))
@@ -143,7 +142,7 @@ class SignUp extends StatelessWidget {
                             color: AppColor.blackborder),
                       ),
                       TextSpan(
-                        text: "Sing in",
+                        text: "Sign in",
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                             fontSize: 16.sp,

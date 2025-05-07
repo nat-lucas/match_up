@@ -29,7 +29,7 @@ class ContactUs extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              CustomTextFeild(hint: "phorent", tittle: "Name"),
+      
               SizedBox(
                 height: 30.h,
               ),

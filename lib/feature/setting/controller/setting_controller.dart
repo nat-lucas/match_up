@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,6 +24,10 @@ class SettingController extends GetxController {
   }
 
   Future<void> logout() async {
+    final currentUser = _auth.currentUser;
+    await _firestore.collection('user').doc(currentUser!.uid).update({
+      "fcm_token": "",
+    });
     await _auth.signOut();
   }
 
@@ -91,7 +96,11 @@ class SettingController extends GetxController {
       final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         selectedImage.value = File(image.path);
+
         debugPrint("Image picked for Android: ${image.path}");
+        String downloadUrl = await uploadImageToFirebase(selectedImage.value!);
+
+        await saveImageUrlToFirestore(downloadUrl);
       } else {
         debugPrint("No image selected.");
       }
@@ -100,17 +109,66 @@ class SettingController extends GetxController {
     }
   }
 
+  // Future<void> pickImageForIOS() async {
+  //   try {
+  //     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+  //     if (image != null) {
+  //       selectedImage.value = File(image.path);
+  //       debugPrint("Image picked for iOS: ${image.path}");
+  //     } else {
+  //       debugPrint("No image selected.");
+  //     }
+  //   } catch (e) {
+  //     debugPrint("Error picking image for iOS: $e");
+  //   }
+  // }
+
   Future<void> pickImageForIOS() async {
     try {
       final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         selectedImage.value = File(image.path);
         debugPrint("Image picked for iOS: ${image.path}");
+
+        String downloadUrl = await uploadImageToFirebase(selectedImage.value!);
+
+        await saveImageUrlToFirestore(downloadUrl);
+        debugPrint("Image uploaded and URL saved: $downloadUrl");
       } else {
         debugPrint("No image selected.");
       }
     } catch (e) {
       debugPrint("Error picking image for iOS: $e");
+    }
+  }
+
+  Future<String> uploadImageToFirebase(File imageFile) async {
+    try {
+      String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+      Reference storageRef =
+          FirebaseStorage.instance.ref().child("uploads/$fileName.jpg");
+      UploadTask uploadTask = storageRef.putFile(imageFile);
+      TaskSnapshot snapshot = await uploadTask;
+      String downloadUrl = await snapshot.ref.getDownloadURL();
+      return downloadUrl;
+    } catch (e) {
+      debugPrint("Error uploading image: $e");
+      rethrow;
+    }
+  }
+
+  Future<void> saveImageUrlToFirestore(String imageUrl) async {
+    final User? currentUser = _auth.currentUser;
+    try {
+      await FirebaseFirestore.instance
+          .collection("user")
+          .doc(currentUser?.uid)
+          .update(
+        {"imageUrl": imageUrl},
+      );
+      await fetchUserData();
+    } catch (e) {
+      debugPrint("Error saving image URL to Firestore: $e");
     }
   }
 
