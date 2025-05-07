@@ -8,25 +8,27 @@ import 'package:match_up/core/utils/image.dart';
 import 'package:intl/intl.dart';
 
 class MatchCard2 extends StatelessWidget {
-
   final String eventDate;
   final String evenTime;
   final String team1;
   final String team2;
+  final String team1Scoor;
+  final String team2sScoor;
   final String team1logo;
   final String teamlogo2;
   final String time;
 
   const MatchCard2(
       {super.key,
-   
       required this.team1,
       required this.team2,
       required this.team1logo,
       required this.teamlogo2,
       required this.time,
       required this.eventDate,
-      required this.evenTime});
+      required this.evenTime,
+      required this.team1Scoor,
+      required this.team2sScoor});
 
   String checkMatchDate(String dateStr) {
     debugPrint('+++++++++++++++$dateStr');
@@ -106,72 +108,84 @@ class MatchCard2 extends StatelessWidget {
               color: AppColor.greyWhite,
               image: DecorationImage(
                   image: AssetImage(ImagePath.shape1), fit: BoxFit.contain)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
             children: [
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: CustomTextPopins(
-                        textOverflow: TextOverflow.ellipsis,
-                        text: teamName,
-                        fontWeight: FontWeight.w600,
-                        size: 12.sp,
-                        color: AppColor.blackborder,
-                      ),
-                    ),
-                    CachedNetworkImage(
-                      imageUrl: team1logo,
-                      height: 44.h,
-                      width: 44.w,
-                      placeholder: (context, url) => LoadingWidget(
-                        color: AppColor.primaryColor,
-                      ),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                    ),
-                  ],
-                ),
+              CustomTextPopins(
+                text: "$team1Scoor-$team2sScoor",
+                fontWeight: FontWeight.w600,
+                size: 20.spMin,
+                color: AppColor.primaryColor,
               ),
-              SizedBox(
-                width: 10.w,
-              ),
-              Image.asset(
-                ImagePath.vs,
-                height: 16.h,
-                width: 16.w,
-              ),
-              SizedBox(
-                width: 10.w,
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CachedNetworkImage(
-                      imageUrl: teamlogo2,
-                      height: 44.h,
-                      width: 44.w,
-                      placeholder: (context, url) => LoadingWidget(
-                        color: AppColor.primaryColor,
-                      ),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: CustomTextPopins(
+                            textOverflow: TextOverflow.ellipsis,
+                            text: teamName,
+                            fontWeight: FontWeight.w600,
+                            size: 12.sp,
+                            color: AppColor.blackborder,
+                          ),
+                        ),
+                        CachedNetworkImage(
+                          imageUrl: team1logo,
+                          height: 44.h,
+                          width: 44.w,
+                          placeholder: (context, url) => LoadingWidget(
+                            color: AppColor.primaryColor,
+                          ),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      width: 10.w,
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Image.asset(
+                    ImagePath.vs,
+                    height: 16.h,
+                    width: 16.w,
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CachedNetworkImage(
+                          imageUrl: teamlogo2,
+                          height: 44.h,
+                          width: 44.w,
+                          placeholder: (context, url) => LoadingWidget(
+                            color: AppColor.primaryColor,
+                          ),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        ),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Expanded(
+                          child: CustomTextPopins(
+                            textOverflow: TextOverflow.ellipsis,
+                            text: teamName2,
+                            fontWeight: FontWeight.w600,
+                            size: 12.sp,
+                            color: AppColor.blackborder,
+                          ),
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      child: CustomTextPopins(
-                        textOverflow: TextOverflow.ellipsis,
-                        text: teamName2,
-                        fontWeight: FontWeight.w600,
-                        size: 12.sp,
-                        color: AppColor.blackborder,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),

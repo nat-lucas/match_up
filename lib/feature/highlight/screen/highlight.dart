@@ -39,44 +39,42 @@ class Highlight extends StatelessWidget {
           child: Column(
             spacing: 20.h,
             children: [
-       
-                    Obx(() => highlightController.isLoading.value
+              Obx(() => highlightController.isLoading.value
                   ? Center(
                       child: LoadingWidget(
                         color: AppColor.primaryColor,
                       ),
                     )
-                  
-                      : ListView.separated(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: highlightController.highlight.length,
-                          itemBuilder: (context, index) {
-                            var data = highlightController.highlight[index];
+                  : ListView.separated(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: highlightController.highlight.length,
+                      itemBuilder: (context, index) {
+                        var data = highlightController.highlight[index];
 
-                            bool isTodayMatch = false;
-                           
+                        bool isTodayMatch = false;
 
-                            return GestureDetector(
-                              onTap: () {
-                                debugPrint("=====Today---====$isTodayMatch");
-                            
-                              },
-                              child: MatchCard2(
-                              evenTime: data.strTime ?? "",
-                              eventDate: data.dateEvent ?? "",
-                              team1: data.strHomeTeam ?? "",
-                              team1logo: data.strHomeTeamBadge ?? "",
-                              team2:data.strAwayTeam ?? "",
-                              teamlogo2:data.strAwayTeamBadge ?? "",
-                              time: "",
-                              ),
-                            );
+                        return GestureDetector(
+                          onTap: () {
+                            debugPrint("=====Today---====$isTodayMatch");
                           },
-                          separatorBuilder: (context, index) {
-                            return SizedBox(height: 15.h);
-                          },
-                        ))
+                          child: MatchCard2(
+                            evenTime: data.strTime ?? "",
+                            eventDate: data.dateEvent ?? "",
+                            team1: data.strHomeTeam ?? "",
+                            team1logo: data.strHomeTeamBadge ?? "",
+                            team2: data.strAwayTeam ?? "",
+                            teamlogo2: data.strAwayTeamBadge ?? "",
+                            time: "",
+                            team1Scoor: data.intAwayScore ?? "0",
+                            team2sScoor: data.intHomeScore ?? "",
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return SizedBox(height: 15.h);
+                      },
+                    ))
             ],
           ),
         ),
