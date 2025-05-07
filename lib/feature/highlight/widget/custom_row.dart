@@ -31,8 +31,22 @@ class CustomRow extends StatelessWidget {
               height: 50.h,
               width: 50.w,
             ),
+               CustomTextPopins(
+              text: "vs",
+              fontWeight: FontWeight.w500,
+              size: 11.sp,
+              color: AppColor.blackborder,
+            ),
+               Image.asset(
+              imagePath,
+              height: 50.h,
+              width: 50.w,
+            ),
+            SizedBox(
+              height: 5.w,
+            ),
             CustomTextPopins(
-              text: teamScore,
+              text: "",
               fontWeight: FontWeight.w500,
               size: 11.sp,
               color: AppColor.blackborder,
