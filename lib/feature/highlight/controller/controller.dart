@@ -15,32 +15,31 @@ class HighlightController extends GetxController {
     String userId = _auth.currentUser?.uid ?? '';
 
     if (userId.isEmpty) {
-      debugPrint("No user is signed in.");
+      debugPrint("=========No user is signed in.");
       isLoading.value = false;
-      return;
-    }
+    } else {
+      try {
+        final response = await NetworkCaller().getRequest(
+          "https://api.sportscard.us/api/v1/sports/highlights/$userId",
+        );
 
-    try {
-      final response = await NetworkCaller().getRequest(
-        "https://api.sportscard.us/api/v1/sports/highlights/$userId",
-      );
+        if (response.isSuccess) {
+          debugPrint('==== Raw data: ======== ${response.responseData}');
 
-      if (response.isSuccess) {
-        debugPrint('==== Raw data: ======== ${response.responseData}');
+          final MatchResponse matchResponse =
+              MatchResponse.fromJson(response.responseData);
 
-        final MatchResponse matchResponse =
-            MatchResponse.fromJson(response.responseData);
-        
-        highlight.value = matchResponse.result ?? [];
+          highlight.value = matchResponse.result ?? [];
 
-        debugPrint('Loaded ${highlight.length} highlight(s).');
-      } else {
-        debugPrint('Error fetching data: ${response.responseData}');
+          debugPrint('Loaded ${highlight.length} highlight(s).');
+        } else {
+          debugPrint('Error fetching data: ${response.responseData}');
+        }
+      } catch (e) {
+        debugPrint("Exception occurred: $e");
+      } finally {
+        isLoading.value = false;
       }
-    } catch (e) {
-      debugPrint("Exception occurred: $e");
-    } finally {
-      isLoading.value = false;
     }
   }
 }
