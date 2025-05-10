@@ -251,7 +251,7 @@ class LiveSport extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(20.r),
+          padding: EdgeInsets.all(15.r),
           child: Obx(() {
             if (liveScoreController.isLoading.value) {
               return Center(
@@ -282,7 +282,7 @@ class LiveSport extends StatelessWidget {
                     : (liveData.first.strProgress ?? "");
 
             return Container(
-              padding: EdgeInsets.all(15.r),
+              padding: EdgeInsets.all(10.r),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.r),
                 border: Border.all(
@@ -329,7 +329,7 @@ class LiveSport extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 10.h),
                 ],
               ),
             );
