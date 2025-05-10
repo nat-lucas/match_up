@@ -38,6 +38,8 @@ class SplashController extends GetxController {
           'No Internet',
           'Please check your connection.',
           snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
           duration: const Duration(seconds: 3),
         );
       }
