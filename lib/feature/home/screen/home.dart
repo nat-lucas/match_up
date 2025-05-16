@@ -1,10 +1,11 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
 import 'package:match_up/core/global/loading.dart';
-import 'package:match_up/core/route/route.dart';
+import 'package:match_up/core/routes/route.dart';
 import 'package:match_up/core/utils/color.dart';
 import 'package:match_up/feature/home/widget/match_card_today.dart';
 import 'package:match_up/feature/home/widget/team_card.dart';
@@ -64,6 +65,8 @@ class Home extends StatelessWidget {
                       var item = sportController.selectedTeams[index];
                       return GestureDetector(
                         onTap: () {
+                          debugPrint(
+                              "=======>>>>>>>><<<<<<=====${sportController.selectedTeams.length}");
                           sportController.teamId.value = item['id'] as String;
                           sportController.getNext5event(item['id'] as String);
                           debugPrint(
@@ -118,7 +121,7 @@ class Home extends StatelessWidget {
                                 data.dateEventLocal!.isNotEmpty) {
                               try {
                                 DateTime eventDate = DateFormat('yyyy-MM-dd')
-                                    .parse(data.dateEvent!);
+                                    .parse(data.dateEvent);
                                 DateTime today = DateTime.now();
                                 isTodayMatch = eventDate.year == today.year &&
                                     eventDate.month == today.month &&
@@ -136,15 +139,18 @@ class Home extends StatelessWidget {
                                     'teamId': sportController.teamId.value,
                                   });
                                 }
+
+                                debugPrint(
+                                    "====date======>>>${data.dateEventLocal}${data.dateEvent}");
                               },
                               child: MatchCardToday(
-                                evenTime: data.strTime ?? "",
-                                eventDate: data.dateEventLocal ?? "",
-                                date: data.dateEventLocal ?? "",
-                                team1: data.strHomeTeam ?? "",
-                                team2: data.strAwayTeam ?? "",
-                                team1logo: data.strHomeTeamBadge ?? "",
-                                teamlogo2: data.strAwayTeamBadge ?? "",
+                                evenTime: data.strTime,
+                                eventDate:
+                                    data.dateEventLocal ?? data.dateEvent,
+                                team1: data.strHomeTeam,
+                                team2: data.strAwayTeam,
+                                team1logo: data.strHomeTeamBadge,
+                                teamlogo2: data.strAwayTeamBadge,
                                 time: data.strTimeLocal ?? "",
                               ),
                             );

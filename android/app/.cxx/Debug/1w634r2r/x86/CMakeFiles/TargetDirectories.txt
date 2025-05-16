@@ -1,0 +1,2 @@
+/Users/smt/flutter_projects/projects/MatchUp/match_up/android/app/.cxx/Debug/1w634r2r/x86/CMakeFiles/edit_cache.dir
+/Users/smt/flutter_projects/projects/MatchUp/match_up/android/app/.cxx/Debug/1w634r2r/x86/CMakeFiles/rebuild_cache.dir

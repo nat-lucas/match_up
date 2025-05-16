@@ -7,7 +7,7 @@ import 'package:match_up/core/global/custom_button.dart';
 import 'package:match_up/core/global/custom_text_poppins.dart';
 import 'package:match_up/core/global/custom_textfeild.dart';
 import 'package:match_up/core/global/loading.dart';
-import 'package:match_up/core/route/route.dart';
+import 'package:match_up/core/routes/route.dart';
 import 'package:match_up/core/utils/color.dart';
 import 'package:match_up/core/validator/validator.dart';
 import 'package:match_up/feature/auth/controller/auth_controller.dart';
@@ -28,7 +28,7 @@ class Login extends StatelessWidget {
             width: MediaQuery.sizeOf(context).width * 1,
             child: Padding(
               padding: EdgeInsets.only(
-                  top: 60.r, right: 20.r, left: 20.r, bottom: 20.r),
+                  top: 60.r, right: 20.r, left: 20.r, bottom: 40.r),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -145,6 +145,8 @@ class Login extends StatelessWidget {
                       )
                     ])),
                   ),
+               
+                  
                 ],
               ),
             ),

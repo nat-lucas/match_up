@@ -6,7 +6,7 @@ import 'package:match_up/core/utils/image.dart';
 import 'package:match_up/feature/home/screen/home.dart';
 import 'package:match_up/feature/nav_bar/controller/navcontroller.dart';
 import 'package:match_up/feature/setting/screen/setting.dart';
-import 'package:match_up/feature/spread/screen/spread.dart';
+import 'package:match_up/feature/highlight/screen/highlight.dart';
 
 class NavBar extends StatelessWidget {
   NavBar({super.key});
@@ -21,7 +21,7 @@ class NavBar extends StatelessWidget {
           case 0:
             return Home();
           case 1:
-            return Spread();
+            return Highlight();
           case 2:
             return Setting();
           default:
@@ -56,7 +56,7 @@ class NavBar extends StatelessWidget {
                   color: navController.currentIndex.value == 1
                       ? AppColor.primaryColor
                       : null),
-              label: "Spread",
+              label: "Highlights",
             ),
             BottomNavigationBarItem(
               icon: Image.asset(ImagePath.setting,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:match_up/core/binding/binding.dart';
-import 'package:match_up/core/route/route.dart';
+import 'package:match_up/core/routes/route.dart';
 import 'package:match_up/core/utils/color.dart';
 
 class MyApp extends StatelessWidget {
@@ -19,12 +19,9 @@ class MyApp extends StatelessWidget {
             title: 'Match Up',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
-              useMaterial3: true,
-              scaffoldBackgroundColor: AppColor.white,
-              appBarTheme: AppBarTheme(
-                backgroundColor: Colors.white
-              )
-            ),
+                useMaterial3: true,
+                scaffoldBackgroundColor: AppColor.white,
+                appBarTheme: AppBarTheme(backgroundColor: Colors.white)),
             initialRoute: Approute.splash,
             getPages: Approute.page,
             initialBinding: Appbinding(),

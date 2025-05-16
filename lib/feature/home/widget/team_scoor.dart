@@ -5,16 +5,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/global/custom_text_poppins.dart';
 import '../../../core/utils/color.dart';
 
-
 class TeamScoor extends StatelessWidget {
   final String title;
   final String image;
 
-  const TeamScoor(
-      {super.key,
-      required this.title,
-      required this.image,
-     });
+  const TeamScoor({
+    super.key,
+    required this.title,
+    required this.image,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +21,13 @@ class TeamScoor extends StatelessWidget {
       children: [
         SizedBox(
           height: 90.h,
-          width: 90.w,
+          width: 100.w,
         ),
-        CachedNetworkImage( height: 65.h, width: 65.w, imageUrl: image,),
+        CachedNetworkImage(
+          height: 65.h,
+          width: 65.w,
+          imageUrl: image,
+        ),
         // Positioned(
         //     bottom: 30,
         //     right: 10,
@@ -34,8 +37,7 @@ class TeamScoor extends StatelessWidget {
         //       width: 13.w,
         //     )),
         Positioned(
-          bottom: -5,
-          
+          bottom: 0,
           child: CustomTextPopins(
             text: title,
             color: AppColor.blackborder,
