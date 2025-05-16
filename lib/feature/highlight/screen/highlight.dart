@@ -68,6 +68,7 @@ class Highlight extends StatelessWidget {
                                 debugPrint("=====Today---====$isTodayMatch");
                               },
                               child: MatchCard2(
+                                videoUrl: data.strVideo ?? "",
                                 evenTime: data.strTime ?? "",
                                 eventDate: data.dateEvent ?? "",
                                 team1: data.strHomeTeam ?? "",

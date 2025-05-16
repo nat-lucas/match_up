@@ -13,6 +13,7 @@ class Highlight {
   final String? intHomeScore;
   final String? intAwayScore;
   final String? strLeagueBadge;
+  final String? strVideo;
 
   Highlight({
     this.strEvent,
@@ -29,24 +30,26 @@ class Highlight {
     this.intHomeScore,
     this.intAwayScore,
     this.strLeagueBadge,
+    this.strVideo,
   });
 
   factory Highlight.fromJson(Map<String, dynamic> json) {
     return Highlight(
-      strEvent: json['strEvent'],
-      dateEvent: json['dateEvent'],
-      strTime: json['strTime'],
-      strSport: json['strSport'],
-      strCountry: json['strCountry'],
-      idHomeTeam: json['idHomeTeam'],
-      idAwayTeam: json['idAwayTeam'],
-      strHomeTeamBadge: json['strHomeTeamBadge'],
-      strAwayTeamBadge: json['strAwayTeamBadge'],
-      strHomeTeam: json['strHomeTeam'],
-      strAwayTeam: json['strAwayTeam'],
-      intHomeScore: json['intHomeScore'],
-      intAwayScore: json['intAwayScore'],
-      strLeagueBadge: json['strLeagueBadge'],
+      strEvent: json['strEvent'] as String?,
+      dateEvent: json['dateEvent'] as String?,
+      strTime: json['strTime'] as String?,
+      strSport: json['strSport'] as String?,
+      strCountry: json['strCountry'] as String?,
+      idHomeTeam: json['idHomeTeam'] as String?,
+      idAwayTeam: json['idAwayTeam'] as String?,
+      strHomeTeamBadge: json['strHomeTeamBadge'] as String?,
+      strAwayTeamBadge: json['strAwayTeamBadge'] as String?,
+      strHomeTeam: json['strHomeTeam'] as String?,
+      strAwayTeam: json['strAwayTeam'] as String?,
+      intHomeScore: json['intHomeScore'] as String?,
+      intAwayScore: json['intAwayScore'] as String?,
+      strLeagueBadge: json['strLeagueBadge'] as String?,
+      strVideo: json['strVideo'] as String?,
     );
   }
 
@@ -66,10 +69,10 @@ class Highlight {
       'intHomeScore': intHomeScore,
       'intAwayScore': intAwayScore,
       'strLeagueBadge': strLeagueBadge,
+      'strVideo': strVideo,
     };
   }
 }
-
 
 class MatchResponse {
   final List<Highlight>? result;
