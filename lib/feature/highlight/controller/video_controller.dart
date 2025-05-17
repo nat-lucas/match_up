@@ -1,4 +1,4 @@
-// 
+//
 
 import 'package:get/get.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -21,8 +21,10 @@ class MatchVideoController extends GetxController {
     youtubeController = YoutubePlayerController(
       initialVideoId: videoId,
       flags: const YoutubePlayerFlags(
+        disableDragSeek: true,
         autoPlay: true,
         mute: false,
+        hideControls: false,
       ),
     );
   }
