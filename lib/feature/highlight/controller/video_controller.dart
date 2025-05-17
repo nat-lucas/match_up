@@ -21,6 +21,7 @@ class MatchVideoController extends GetxController {
     youtubeController = YoutubePlayerController(
       initialVideoId: videoId,
       flags: const YoutubePlayerFlags(
+        useHybridComposition: true,
         autoPlay: true,
         mute: false,
       ),

@@ -117,6 +117,7 @@ class MatchCard2 extends StatelessWidget {
               } else {
                 if (videoController.youtubeController != null) {
                   return YoutubePlayer(
+                    
                     controller: videoController.youtubeController!,
                     showVideoProgressIndicator: true,
                     progressColors: const ProgressBarColors(
