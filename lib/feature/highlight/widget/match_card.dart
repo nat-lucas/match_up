@@ -57,7 +57,8 @@ class MatchCard2 extends StatelessWidget {
 
   String formatTeamName(String name) {
     int space = name.indexOf(' ');
-    if (space != -1) return '${name.substring(0, space)}\n${name.substring(space + 1)}';
+    if (space != -1)
+      return '${name.substring(0, space)}\n${name.substring(space + 1)}';
     return name;
   }
 
@@ -92,7 +93,11 @@ class MatchCard2 extends StatelessWidget {
           Container(
             width: double.infinity,
             height: 200.h,
-            color: Colors.black,
+            decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(4.r),
+                    topRight: Radius.circular(4.r))),
             child: Obx(() {
               if (!videoController.isCurrentVideo(videoUrl)) {
                 return Stack(
@@ -103,11 +108,15 @@ class MatchCard2 extends StatelessWidget {
                         imageUrl: 'https://img.youtube.com/vi/$videoId/0.jpg',
                         fit: BoxFit.cover,
                         width: double.infinity,
-                        placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
+                        placeholder: (_, __) => const Center(
+                            child: CircularProgressIndicator(
+                          color: AppColor.primaryColor,
+                        )),
                         errorWidget: (_, __, ___) => const Icon(Icons.error),
                       ),
                     IconButton(
-                      icon: const Icon(Icons.play_circle_fill, size: 64, color: Colors.white),
+                      icon: const Icon(Icons.play_circle_fill,
+                          size: 64, color: Colors.white),
                       onPressed: () {
                         videoController.initialize(videoUrl);
                       },
@@ -126,7 +135,10 @@ class MatchCard2 extends StatelessWidget {
                     ),
                   );
                 } else {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(
+                      child: CircularProgressIndicator(
+                    color: AppColor.primaryColor,
+                  ));
                 }
               }
             }),
@@ -137,8 +149,8 @@ class MatchCard2 extends StatelessWidget {
             padding: EdgeInsets.all(10.r),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(4.r),
-                topRight: Radius.circular(4.r),
+                bottomLeft: Radius.circular(4.r),
+                bottomRight: Radius.circular(4.r),
               ),
               color: AppColor.greyWhite,
               image: DecorationImage(
@@ -164,7 +176,7 @@ class MatchCard2 extends StatelessWidget {
                         children: [
                           Expanded(
                             child: CustomTextPopins(
-                              text: teamName1,
+                              text: teamName2,
                               textOverflow: TextOverflow.ellipsis,
                               fontWeight: FontWeight.w600,
                               size: 12.sp,
@@ -173,11 +185,13 @@ class MatchCard2 extends StatelessWidget {
                           ),
                           SizedBox(width: 8.w),
                           CachedNetworkImage(
-                            imageUrl: team1logo,
+                            imageUrl: teamlogo2,
                             height: 44.h,
                             width: 44.w,
-                            placeholder: (_, __) => LoadingWidget(color: AppColor.primaryColor),
-                            errorWidget: (_, __, ___) => const Icon(Icons.error),
+                            placeholder: (_, __) =>
+                                LoadingWidget(color: AppColor.primaryColor),
+                            errorWidget: (_, __, ___) =>
+                                const Icon(Icons.error),
                           ),
                         ],
                       ),
@@ -198,16 +212,18 @@ class MatchCard2 extends StatelessWidget {
                       child: Row(
                         children: [
                           CachedNetworkImage(
-                            imageUrl: teamlogo2,
+                            imageUrl: team1logo,
                             height: 44.h,
                             width: 44.w,
-                            placeholder: (_, __) => LoadingWidget(color: AppColor.primaryColor),
-                            errorWidget: (_, __, ___) => const Icon(Icons.error),
+                            placeholder: (_, __) =>
+                                LoadingWidget(color: AppColor.primaryColor),
+                            errorWidget: (_, __, ___) =>
+                                const Icon(Icons.error),
                           ),
                           SizedBox(width: 8.w),
                           Expanded(
                             child: CustomTextPopins(
-                              text: teamName2,
+                              text: teamName1,
                               textOverflow: TextOverflow.ellipsis,
                               fontWeight: FontWeight.w600,
                               size: 12.sp,

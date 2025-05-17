@@ -13,6 +13,7 @@ class ChooseSport extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sportController = Get.find<SportController>();
+
     return Scaffold(
       backgroundColor: Color(0xffFAFAFA),
       appBar: AppBar(
@@ -62,7 +63,7 @@ class ChooseSport extends StatelessWidget {
                     )
                   : CustomButton(
                       ontap: () async {
-                     await   sportController.callApiTeam();
+                        await sportController.callApiTeam();
                       },
                       text: "Next",
                     ),

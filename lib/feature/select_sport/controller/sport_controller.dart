@@ -92,20 +92,28 @@ class SportController extends GetxController {
       if (selectedTeamIndices.contains(index)) {
         selectedTeamIndices.remove(index);
         selectedTeams.removeWhere((item) => item['name'] == teamName);
+
+        // ✅ NEW: remove from Firestore
+        removeTeamFromFirestore({'id': teamid, 'name': teamName});
       } else {
         selectedTeamIndices.add(index);
         selectedTeams.add({'name': teamName, 'logo': teamLogo, 'id': teamid});
+        updateFirestoreSelection();
       }
     } else {
       if (selectedTeamIndices.contains(index)) {
         selectedTeamIndices.remove(index);
         selectedTeams.removeWhere((item) => item['name'] == teamName);
+
+        // ✅ NEW: remove from Firestore
+        removeTeamFromFirestore({'id': teamid, 'name': teamName});
       } else {
         if (selectedTeams.isEmpty) {
           selectedTeamIndices.clear();
           selectedTeams.clear();
           selectedTeamIndices.add(index);
           selectedTeams.add({'name': teamName, 'logo': teamLogo, 'id': teamid});
+          updateFirestoreSelection();
           update();
           refresh();
         } else {
@@ -121,18 +129,78 @@ class SportController extends GetxController {
       debugPrint("==Team ===Leanth==${selectedTeams.length}");
     }
 
-    updateFirestoreSelection();
     debugPrint("Selected Teams: $selectedTeams");
   }
 
   void updateFirestoreSelection() async {
     try {
       User? user = _auth.currentUser;
-      firestore.collection('user').doc(user?.uid).update({
-        "selectedTeam": selectedTeams,
-      });
+      if (user == null) return;
+
+      final docRef = firestore.collection('user').doc(user.uid);
+      final docSnapshot = await docRef.get();
+
+      List<Map<String, String>> existingTeams = [];
+
+      if (docSnapshot.exists) {
+        final data = docSnapshot.data() as Map<String, dynamic>;
+        final storedTeams = data["selectedTeam"] ?? [];
+
+        existingTeams = List<Map<String, String>>.from(
+          storedTeams.map((e) => Map<String, String>.from(e)),
+        );
+      }
+
+      final allTeams = {...existingTeams, ...selectedTeams}.toList();
+
+      final mergedTeams = <Map<String, String>>[];
+
+      final seenIds = <String>{};
+      for (var team in allTeams) {
+        if (team['id'] != null && !seenIds.contains(team['id'])) {
+          seenIds.add(team['id']!);
+          mergedTeams.add(team);
+        }
+      }
+
+      await docRef.set({
+        "selectedTeam": mergedTeams,
+      }, SetOptions(merge: true));
+
+      debugPrint("✅ Firestore updated with teams: $mergedTeams");
     } catch (e) {
-      debugPrint("====hunter======$e");
+      debugPrint("🔥 Firestore update failed: $e");
+    }
+  }
+
+  Future<void> removeTeamFromFirestore(Map<String, String> teamToRemove) async {
+    try {
+      User? user = _auth.currentUser;
+      if (user == null) return;
+
+      final docRef = firestore.collection('user').doc(user.uid);
+      final docSnapshot = await docRef.get();
+
+      if (docSnapshot.exists) {
+        final data = docSnapshot.data() as Map<String, dynamic>;
+        final storedTeams = data["selectedTeam"] ?? [];
+
+        List<Map<String, String>> existingTeams =
+            List<Map<String, String>>.from(
+          storedTeams.map((e) => Map<String, String>.from(e)),
+        );
+
+        // Remove the team by id
+        existingTeams.removeWhere((team) => team['id'] == teamToRemove['id']);
+
+        await docRef.set({
+          "selectedTeam": existingTeams,
+        }, SetOptions(merge: true));
+
+        debugPrint("✅ Team removed from Firestore: ${teamToRemove['name']}");
+      }
+    } catch (e) {
+      debugPrint("🔥 Failed to remove team: $e");
     }
   }
 
@@ -252,43 +320,6 @@ class SportController extends GetxController {
     }
   }
 
-  // Future<void> getNext5event(String id) async {
-  //   scheduleList.clear();
-  //   var url = "https://www.thesportsdb.com/api/v2/json/schedule/next/team/$id";
-  //   try {
-  //     isLoading.value = true;
-  //     final response = await NetworkCaller().getRequest(url, token: "472735");
-  //     if (response.isSuccess) {
-  //       debugPrint("===============Response: ${response.responseData}");
-
-  //       var jsonData = response.responseData;
-
-  //       if (jsonData != null && jsonData['schedule'] != null) {
-  //         scheduleList.value = (jsonData['schedule'] as List)
-  //             .map((item) => Schedule.fromJson(item))
-  //             .toList();
-  //         debugPrint("==========list======${scheduleList.length}");
-  //         for (var schedule in scheduleList) {
-  //           debugPrint(
-  //               "Event: ${schedule.strEvent}, Date: ${schedule.dateEvent}, Team: ${schedule.strHomeTeam} vs ${schedule.strAwayTeam}");
-  //         }
-  //       }
-  //     } else if (response.statusCode == 403) {
-  //       Get.snackbar("Error", "This Not Availabe This moment",
-  //           duration: Duration(seconds: 2),
-  //           colorText: Colors.white,
-  //           backgroundColor: Colors.red);
-  //       debugPrint('==========${response.responseData}');
-  //     }else{
-  //       debugPrint("============Match Not Found");
-  //     }
-  //   } catch (e) {
-  //     debugPrint("Error fetching competitions: $e");
-  //   } finally {
-  //     isLoading.value = false;
-  //   }
-  // }
-
   Future<void> getNext5event(String id) async {
     scheduleList.clear();
     var url = "https://www.thesportsdb.com/api/v2/json/schedule/next/team/$id";
@@ -335,26 +366,4 @@ class SportController extends GetxController {
       isLoading.value = false;
     }
   }
-
-  // Future<void> livescoor() async {
-  //   var url = "https://www.thesportsdb.com/api/v2/json/livescore/4380";
-  //   try {
-  //     isLoading.value = true;
-  //     final response = await NetworkCaller().getRequest(url, token: "472735");
-  //     if (response.isSuccess) {
-  //       debugPrint("=============###${scheduleList.first.idLeague}");
-  //       debugPrint("=============<><>${response.responseData}");
-  //     } else if (response.statusCode == 403) {
-  //       Get.snackbar("Error", "This Not Availabe This moment",
-  //           duration: Duration(seconds: 2),
-  //           colorText: Colors.white,
-  //           backgroundColor: Colors.red);
-  //       debugPrint('==========${response.responseData}');
-  //     }
-  //   } catch (e) {
-  //     debugPrint("Error fetching competitions: $e");
-  //   } finally {
-  //     isLoading.value = false;
-  //   }
-  // }
 }

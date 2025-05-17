@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:match_up/feature/highlight/controller/controller.dart';
@@ -20,16 +21,11 @@ class Highlight extends StatelessWidget {
         centerTitle: false,
         title: GestureDetector(
           onTap: () {},
-          child: GestureDetector(
-            onTap: () {
-              highlightController.highlightMatch();
-            },
-            child: CustomTextPopins(
-              text: "Highlights",
-              fontWeight: FontWeight.w600,
-              size: 24.sp,
-              color: AppColor.blackborder,
-            ),
+          child: CustomTextPopins(
+            text: "Highlights",
+            fontWeight: FontWeight.w600,
+            size: 24.sp,
+            color: AppColor.blackborder,
           ),
         ),
       ),

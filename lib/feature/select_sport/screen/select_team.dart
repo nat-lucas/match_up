@@ -6,6 +6,7 @@ import 'package:match_up/feature/nav_bar/controller/navcontroller.dart';
 import '../../../core/global/custom_text_poppins.dart';
 import '../../../core/routes/route.dart';
 import '../../../core/utils/color.dart';
+import '../../highlight/controller/controller.dart';
 import '../controller/sport_controller.dart';
 
 class SelectTeam extends StatelessWidget {
@@ -15,6 +16,8 @@ class SelectTeam extends StatelessWidget {
   Widget build(BuildContext context) {
     final sportController = Get.find<SportController>();
     final navController = Get.find<NavController>();
+    final highLightController = Get.find<HighlightController>();
+
     return Scaffold(
       backgroundColor: Color(0xffFAFAFA),
       appBar: AppBar(
@@ -118,6 +121,7 @@ class SelectTeam extends StatelessWidget {
           ontap: () {
             sportController.getFirestoreSelection();
             navController.currentIndex.value = 0;
+            highLightController.highlight.clear();
             Get.offAllNamed(Approute.navbar);
           },
           text: "Next",

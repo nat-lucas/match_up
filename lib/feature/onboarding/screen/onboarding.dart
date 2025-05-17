@@ -33,6 +33,7 @@ class Onboarding extends StatelessWidget {
               CustomButton(
                 text: "Sign in",
                 ontap: () {
+                  debugPrint("========>>cliked");
                   Get.offNamed(Approute.login);
                 },
               ),
@@ -41,6 +42,7 @@ class Onboarding extends StatelessWidget {
               ),
               CustomButton(
                 ontap: () {
+                  debugPrint("========>>cliked");
                   Get.offNamed(Approute.singup);
                 },
                 text: "Sign Up",

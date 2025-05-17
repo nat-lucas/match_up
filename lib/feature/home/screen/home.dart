@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -10,6 +9,8 @@ import 'package:match_up/core/utils/color.dart';
 import 'package:match_up/feature/home/widget/match_card_today.dart';
 import 'package:match_up/feature/home/widget/team_card.dart';
 import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
+
+import '../../../core/global/custom_dialog.dart' show CustomDialog;
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -64,6 +65,22 @@ class Home extends StatelessWidget {
                     itemBuilder: (context, index) {
                       var item = sportController.selectedTeams[index];
                       return GestureDetector(
+                        onLongPress: () {
+                          CustomDialog.show(
+                            title: "Delete Team",
+                            message: "Are Your Sure ?",
+                            onNo: () {
+                              Get.back();
+                            },
+                            onYes: () async {
+                              await sportController.removeTeamFromFirestore({
+                                'id': item['id'] as String,
+                                'name': item['name'] as String
+                              });
+                              await sportController.getFirestoreSelection();
+                            },
+                          );
+                        },
                         onTap: () {
                           debugPrint(
                               "=======>>>>>>>><<<<<<=====${sportController.selectedTeams.length}");
