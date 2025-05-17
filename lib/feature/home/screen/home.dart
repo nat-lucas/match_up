@@ -69,11 +69,15 @@ class Home extends StatelessWidget {
                           CustomDialog.show(
                             title: "Delete Team",
                             message: "Are Your Sure ?",
-                            onYes: () {
-                              sportController.removeTeamFromFirestore({
+                            onNo: () {
+                              Get.back();
+                            },
+                            onYes: () async {
+                              await sportController.removeTeamFromFirestore({
                                 'id': item['id'] as String,
                                 'name': item['name'] as String
                               });
+                              await sportController.getFirestoreSelection();
                             },
                           );
                         },
