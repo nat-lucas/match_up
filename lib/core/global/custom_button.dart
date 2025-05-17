@@ -5,7 +5,7 @@ import 'package:match_up/core/utils/color.dart';
 
 class CustomButton extends StatefulWidget {
   final String text;
-  final void Function()? onTap;
+  final void Function()? ontap;
   final bool isBorder;
   final Duration duration;
   final double scaleFactor;
@@ -13,10 +13,10 @@ class CustomButton extends StatefulWidget {
   const CustomButton({
     super.key,
     required this.text,
-    this.onTap,
+    this.ontap,
     this.isBorder = false,
     this.duration = const Duration(milliseconds: 100),
-    this.scaleFactor = 0.95, required void Function() ontap,
+    this.scaleFactor = 0.95,
   });
 
   @override
@@ -50,7 +50,7 @@ class _CustomButtonState extends State<CustomButton>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onTap,
+      onTap: widget.ontap,
       onTapDown: _onTapDown,
       onTapUp: _onTapUp,
       onTapCancel: _onTapCancel,
