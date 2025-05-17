@@ -29,7 +29,6 @@ class ContactUs extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-      
               SizedBox(
                 height: 30.h,
               ),
