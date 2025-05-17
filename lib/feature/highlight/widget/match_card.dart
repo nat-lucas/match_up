@@ -163,7 +163,7 @@ class MatchCard2 extends StatelessWidget {
                         children: [
                           Expanded(
                             child: CustomTextPopins(
-                              text: teamName1,
+                              text: teamName2,
                               textOverflow: TextOverflow.ellipsis,
                               fontWeight: FontWeight.w600,
                               size: 12.sp,
@@ -172,7 +172,7 @@ class MatchCard2 extends StatelessWidget {
                           ),
                           SizedBox(width: 8.w),
                           CachedNetworkImage(
-                            imageUrl: team1logo,
+                            imageUrl: teamlogo2,
                             height: 44.h,
                             width: 44.w,
                             placeholder: (_, __) => LoadingWidget(color: AppColor.primaryColor),
@@ -197,7 +197,7 @@ class MatchCard2 extends StatelessWidget {
                       child: Row(
                         children: [
                           CachedNetworkImage(
-                            imageUrl: teamlogo2,
+                            imageUrl: team1logo,
                             height: 44.h,
                             width: 44.w,
                             placeholder: (_, __) => LoadingWidget(color: AppColor.primaryColor),
@@ -206,7 +206,7 @@ class MatchCard2 extends StatelessWidget {
                           SizedBox(width: 8.w),
                           Expanded(
                             child: CustomTextPopins(
-                              text: teamName2,
+                              text: teamName1,
                               textOverflow: TextOverflow.ellipsis,
                               fontWeight: FontWeight.w600,
                               size: 12.sp,
