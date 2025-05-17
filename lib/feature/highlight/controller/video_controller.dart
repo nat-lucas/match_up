@@ -24,7 +24,9 @@ class MatchVideoController extends GetxController {
         disableDragSeek: true,
         autoPlay: true,
         mute: false,
+        forceHD: true,
         hideControls: false,
+        controlsVisibleAtStart: false,
       ),
     );
   }
