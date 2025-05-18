@@ -33,7 +33,7 @@ class SubscriptionController extends GetxController {
   final RxList plan = [
     {
       "name": "Free version",
-      "sub": "You can pick a total of two teams in any sport to follow",
+      "sub": "You can pick a total of one teams in any sport to follow",
       "isvalue": true,
       "isPrice": false
     },

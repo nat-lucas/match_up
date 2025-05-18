@@ -27,7 +27,7 @@ class SignUp extends StatelessWidget {
             width: MediaQuery.sizeOf(context).width * 1,
             child: Padding(
               padding: EdgeInsets.only(
-                  top: 60.r, right: 20.r, left: 20.r, bottom: 20.r),
+                  top: 60.r, right: 20.r, left: 20.r, bottom: 60.r),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

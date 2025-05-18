@@ -6,22 +6,56 @@ import 'package:match_up/core/routes/route.dart';
 import 'package:match_up/core/utils/image.dart';
 import 'package:match_up/feature/highlight/controller/controller.dart';
 import 'package:match_up/feature/select_sport/controller/sport_controller.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 class SplashController extends GetxController {
   final SportController sportController = Get.put(SportController());
   final HighlightController highlightController =
       Get.put(HighlightController());
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final Connectivity _connectivity = Connectivity();
+  final Rx<ConnectivityResult> connectivityStatus = ConnectivityResult.none.obs;
 
   @override
   void onInit() {
     super.onInit();
+
     Timer(
       Duration(seconds: 3),
       () {
         checkUser();
       },
     );
+    _connectivity.onConnectivityChanged.listen((
+      List<ConnectivityResult> results,
+    ) {
+      final result =
+          results.isNotEmpty ? results.first : ConnectivityResult.none;
+      connectivityStatus.value = result;
+
+      if (result == ConnectivityResult.none) {
+        Get.snackbar(
+          'No Internet',
+          'Please check your connection.',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          duration: const Duration(seconds: 3),
+        );
+      }
+    });
+  }
+
+  void showSnackBar(String message) {
+    if (Get.context != null) {
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 3),
+        ),
+      );
+    }
   }
 
   logout() async {

@@ -20,16 +20,11 @@ class Highlight extends StatelessWidget {
         centerTitle: false,
         title: GestureDetector(
           onTap: () {},
-          child: GestureDetector(
-            onTap: () {
-              highlightController.highlightMatch();
-            },
-            child: CustomTextPopins(
-              text: "Highlights",
-              fontWeight: FontWeight.w600,
-              size: 24.sp,
-              color: AppColor.blackborder,
-            ),
+          child: CustomTextPopins(
+            text: "Highlights",
+            fontWeight: FontWeight.w600,
+            size: 24.spMin,
+            color: AppColor.blackborder,
           ),
         ),
       ),
@@ -61,23 +56,17 @@ class Highlight extends StatelessWidget {
                           itemBuilder: (context, index) {
                             var data = highlightController.highlight[index];
 
-                            bool isTodayMatch = false;
-
-                            return GestureDetector(
-                              onTap: () {
-                                debugPrint("=====Today---====$isTodayMatch");
-                              },
-                              child: MatchCard2(
-                                evenTime: data.strTime ?? "",
-                                eventDate: data.dateEvent ?? "",
-                                team1: data.strHomeTeam ?? "",
-                                team1logo: data.strHomeTeamBadge ?? "",
-                                team2: data.strAwayTeam ?? "",
-                                teamlogo2: data.strAwayTeamBadge ?? "",
-                                time: "",
-                                team1Scoor: data.intAwayScore ?? "0",
-                                team2sScoor: data.intHomeScore ?? "",
-                              ),
+                            return MatchCard2(
+                              videoUrl: data.strVideo ?? "",
+                              evenTime: data.strTime ?? "",
+                              eventDate: data.dateEvent ?? "",
+                              team1: data.strHomeTeam ?? "",
+                              team1logo: data.strHomeTeamBadge ?? "",
+                              team2: data.strAwayTeam ?? "",
+                              teamlogo2: data.strAwayTeamBadge ?? "",
+                              time: "",
+                              team1Scoor: data.intAwayScore ?? "0",
+                              team2sScoor: data.intHomeScore ?? "",
                             );
                           },
                           separatorBuilder: (context, index) {
