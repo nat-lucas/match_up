@@ -32,17 +32,17 @@ class NavBar extends StatelessWidget {
         return BottomNavigationBar(
           backgroundColor: AppColor.white,
           currentIndex: navController.currentIndex.value,
-          selectedFontSize: 12.sp,
+          selectedFontSize: 12.spMin,
           type: BottomNavigationBarType.fixed,
           selectedItemColor: AppColor.primaryColor,
-          unselectedFontSize: 12.sp,
+          unselectedFontSize: 12.spMin,
           onTap: (index) {
             navController.updateIndex(index);
           },
           items: [
             BottomNavigationBarItem(
               icon: Image.asset(ImagePath.home,
-                  height: 24.w,
+                  height: 24.h,
                   width: 24.w,
                   color: navController.currentIndex.value == 0
                       ? AppColor.primaryColor
@@ -51,7 +51,7 @@ class NavBar extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Image.asset(ImagePath.sprend,
-                  height: 24.w,
+                  height: 24.h,
                   width: 24.w,
                   color: navController.currentIndex.value == 1
                       ? AppColor.primaryColor
@@ -60,7 +60,7 @@ class NavBar extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Image.asset(ImagePath.setting,
-                  height: 24.w,
+                  height: 24.h,
                   width: 24.w,
                   color: navController.currentIndex.value == 2
                       ? AppColor.primaryColor

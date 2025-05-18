@@ -57,8 +57,9 @@ class MatchCard2 extends StatelessWidget {
 
   String formatTeamName(String name) {
     int space = name.indexOf(' ');
-    if (space != -1)
+    if (space != -1) {
       return '${name.substring(0, space)}\n${name.substring(space + 1)}';
+    }
     return name;
   }
 
